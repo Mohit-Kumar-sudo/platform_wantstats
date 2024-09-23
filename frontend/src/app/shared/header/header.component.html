@@ -1,0 +1,21 @@
+<section id="topbar" class="d-flex align-items-center">
+  <div class="container align-items-center">
+    <div class="row">
+      <div class="col-xl-8 col-lg-7 col-md-6 d-flex align-items-center" (click)="handleClick()" style="cursor: pointer;">
+        <a class="navbar-brand" >
+          <img
+            width="150"
+            height="35"
+            src="../../../assets/images/w-logo-8f71163f5f0c6e1c376aac655260a7300e795c007125a87acd33c51de98dc8cb.png"
+            alt="W logo"
+          />
+        </a>
+      </div>
+      <div
+        class="col-xl-4 col-lg-5 col-md-6 d-md-flex align-items-center justify-content-end"
+      >
+        <app-profile-links *ngIf="isLoggedIn"></app-profile-links>
+      </div>
+    </div>
+  </div>
+</section>

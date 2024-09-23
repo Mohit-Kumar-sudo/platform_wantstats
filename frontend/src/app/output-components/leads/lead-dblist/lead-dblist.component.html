@@ -1,0 +1,484 @@
+<!-- section1 html started -->
+<section style="margin-top: 10px" *ngIf="LeadsDBList == true">
+  <div class="container details-section">
+    <div class="row">
+      <div class="col-xl-10 col-lg-10 col-md-12">
+        <div class="border-bottom mb-3">
+          <h2 class="sectionHeadline sectionHeadline--statistic">
+            Leads DB List
+          </h2>
+        </div>
+        <div class="row">
+          <div class="col-md-11">
+            <input
+              class="back-shadow form-control"
+              [(ngModel)]="contactSearch"
+              (keyup)="searchDBcontacts()"
+              id="search"
+              name="q"
+              placeholder="Search Company"
+              type="search"
+              autocomplete="off"
+            />
+          </div>
+          <div class="col-md-1 p-0" style="width: 40px">
+            <button
+              type="button"
+              class="btn btn-primary pl-1 pr-1 pt-1 pb-1"
+              data-toggle="modal"
+              data-target="#exampleModalCenter"
+            >
+              <mat-icon>filter_alt</mat-icon>
+            </button>
+          </div>
+        </div>
+        <div
+          class="filter_content well hidden-xs mar-top-10"
+          id="filter_content"
+          style="
+            background-color: #f9fbfb;
+            padding: 8px;
+            border: none !important;
+            margin-bottom: 0px;
+          "
+        >
+          <span><strong>Filters&nbsp;&nbsp;</strong></span>
+        </div>
+        <!-- <div *ngIf="pagedLeads.length === 0">
+            <p>No data found</p>
+          </div> -->
+        <div *ngIf="this.leads.length > 0">
+          <div
+            *ngFor="let contactList of pagedLeads; trackBy: trackByContactList"
+          >
+            <h2 class="sectionRooftitle" style="color: #000; margin-top: 22px">
+              {{ contactList.company }}
+            </h2>
+            <div
+              *ngFor="
+                let item of contactList.leads.slice(0, 10);
+                trackBy: trackByItem
+              "
+              class="card bg-white p-3 mb-2 shadow"
+              style="cursor: pointer"
+            >
+              <div
+                class="d-flex justify-content-between"
+                (click)="
+                  showLeadDBPage(item, contactList._id, contactList.company)
+                "
+              >
+                <div class="user-info">
+                  <div class="user-info__img">
+                    <img
+                      src="../../../../assets/contact/leadusers.jpg"
+                      alt="User Img"
+                    />
+                  </div>
+                  <div class="user-info__basic">
+                    <h5 class="mb-0">
+                      {{ item.first_name }} &nbsp;{{ item.last_name }}
+                    </h5>
+                    <p class="text-muted locationset mb-0">
+                      <i class="fa fa-envelope-o" aria-hidden="true"></i
+                      >&nbsp;&nbsp;{{ item.email }}
+                    </p>
+                    <p class="text-muted locationset mb-0">
+                      <i class="fa fa-graduation-cap" aria-hidden="true"></i
+                      >&nbsp;&nbsp;{{ item.designation }}
+                    </p>
+                  </div>
+                </div>
+
+                <div class="form-group m-0">
+                  <button type="submit" class="btn btn-primary class_btn">
+                    <a class="text-decoration-none" style="color: #fff">View</a>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="container details-section" *ngIf="searchResults.length > 0">
+          <div class="border-bottom mb-3">
+            <h2 class="sectionHeadline sectionHeadline--statistic">
+              Search Results
+            </h2>
+          </div>
+          <div
+            *ngFor="
+              let contactList1 of searchResults;
+              trackBy: trackByContactList
+            "
+          >
+            <h2
+              *ngIf="contactList1.leads.length > 0"
+              class="sectionRooftitle"
+              style="color: #000; margin-top: 22px"
+            >
+              {{ contactList1.company }}
+            </h2>
+            <div
+              *ngFor="
+                let item1 of contactList1.leads.slice(0, 10);
+                trackBy: trackByItem
+              "
+              class="card bg-white p-3 mb-2 shadow"
+              style="cursor: pointer"
+            >
+              <div
+                class="d-flex justify-content-between"
+                (click)="
+                  showLeadDBPage(item1, contactList1._id, contactList1.company)
+                "
+              >
+                <div class="user-info">
+                  <div class="user-info__img">
+                    <img
+                      src="../../../../assets/contact/leadusers.jpg"
+                      alt="User Img"
+                    />
+                  </div>
+                  <div class="user-info__basic">
+                    <h5 class="mb-0">
+                      {{ item1.first_name }} &nbsp;{{ item1.last_name }}
+                    </h5>
+                    <p class="text-muted locationset mb-0">
+                      <i class="fa fa-envelope-o" aria-hidden="true"></i
+                      >&nbsp;&nbsp;{{ item1.email }}
+                    </p>
+                    <p class="text-muted locationset mb-0">
+                      <i class="fa fa-graduation-cap" aria-hidden="true"></i
+                      >&nbsp;&nbsp;{{ item1.designation }}
+                    </p>
+                  </div>
+                </div>
+                <div class="form-group m-0">
+                  <button type="submit" class="btn btn-primary class_btn">
+                    <a class="text-decoration-none" style="color: #fff">View</a>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="pagination-container mt-4"
+          *ngIf="pagedLeads.length > 0 && this.leads.length > 0"
+        >
+          <ul class="pagination">
+            <li class="page-item" *ngIf="currentPage > 1">
+              <a
+                class="page-link"
+                (click)="setCurrentPage(currentPage - 1)"
+                aria-label="Previous"
+              >
+                <span aria-hidden="true">&laquo;&nbsp;&nbsp;Prev</span>
+              </a>
+            </li>
+            <li
+              class="page-item"
+              *ngFor="let page of pages"
+              [ngClass]="{ active: page === currentPage }"
+            >
+              <a class="page-link" (click)="setCurrentPage(page)">{{ page }}</a>
+            </li>
+            <li class="page-item" *ngIf="currentPage < totalPages">
+              <a
+                class="page-link"
+                (click)="setCurrentPage(currentPage + 1)"
+                aria-label="Next"
+              >
+                <span aria-hidden="true">Next&nbsp;&nbsp;&raquo;</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="details-section2" *ngIf="pagedLeads.length === 0"></div>
+      </div>
+    </div>
+  </div>
+  <div
+    style="top: 10%"
+    class="modal fade"
+    id="exampleModalCenter"
+    data-backdrop="false"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Advance Search</h5>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-6 col-sm-6 model-form mt-2">
+              <input
+                class="back-shadow form-control"
+                [(ngModel)]="FirstName"
+                id="search"
+                name="firstName"
+                placeholder="First Name"
+                type="search"
+                autocomplete="off"
+              />
+            </div>
+            <div class="col-md-6 col-sm-6 model-form mt-2">
+              <input
+                class="back-shadow form-control"
+                [(ngModel)]="LastName"
+                id="search"
+                name="lastName"
+                placeholder="Last Name"
+                type="search"
+                autocomplete="off"
+              />
+            </div>
+            <div class="col-md-12 col-sm-12 model-form mt-2">
+              <input
+                class="back-shadow form-control"
+                [(ngModel)]="fullName"
+                name="fullname"
+                id="search"
+                placeholder="Full Name"
+                type="search"
+                autocomplete="off"
+              />
+            </div>
+            <div class="col-md-12 col-sm-12 model-form mt-2">
+              <input
+                class="back-shadow form-control"
+                [(ngModel)]="email"
+                id="search"
+                name="email"
+                placeholder="Email"
+                type="search"
+                autocomplete="off"
+              />
+            </div>
+            <div class="col-md-12 col-sm-12 model-form mt-2">
+              <input
+                class="back-shadow form-control"
+                [(ngModel)]="designation"
+                id="search"
+                name="designation"
+                placeholder="Designation"
+                type="search"
+                autocomplete="off"
+              />
+            </div>
+            <div class="col-md-12 col-sm-12 model-form mt-2">
+              <input
+                class="back-shadow form-control"
+                [(ngModel)]="country"
+                id="search"
+                name="country"
+                placeholder="Country"
+                type="search"
+                autocomplete="off"
+              />
+            </div>
+            <div class="col-md-12 col-sm-12 mt-4 d-flex justify-content-around">
+              <button
+                type="button"
+                data-backdrop="false"
+                class="btn btn-secondary"
+                data-dismiss="modal"
+              >
+                Close
+              </button>
+              <button
+                type="submit"
+                class="btn btn-primary"
+                data-dismiss="modal"
+                (click)="searchByName()"
+              >
+                Search
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- section1 html end -->
+
+<!-- section2 section start -->
+<section class="" *ngIf="LeadDBPage == true">
+  <div class="rd-layer">
+    <div class="container-fluid"></div>
+  </div>
+
+  <div class="container" style="margin-top: -10px">
+    <div class="main-pricing-container" *ngIf="employeeData">
+      <div class="col-xl-12 col-lg-12 col-md-12">
+        <div
+          class="card text-left position-relative"
+          style="border: none; box-shadow: 0 3rem 6rem rgba(0, 0, 0, 0.12)"
+        >
+          <div id="topbar" style="padding: 15px">
+            <div class="row">
+              <div class="col-xl-10 col-lg-12 col-md-12">
+                <div class="single-report-card-wrap">
+                  <div class="imgcenter">
+                    <img
+                      class="margin-right-15 imgset"
+                      src="../../../../assets/contact/singlelead.jpg"
+                      alt=""
+                    />
+                  </div>
+                  <div class="headline-text">
+                    <h1>
+                      <a target="_self" data-ceid="profile_headline-name">
+                        <span
+                          >{{ employeeData.FirstName }} &nbsp;{{
+                            employeeData.LastName
+                          }}</span
+                        >
+                      </a>
+                    </h1>
+                    <h3>{{ employeeData.companyName }}</h3>
+                    <h3>{{ employeeData.designation }}</h3>
+                    <div class="row">
+                      <div class="col-xl-7 col-lg-7 col-md-12 form-group m-0">
+                        <button
+                          type="submit "
+                          class="btn btn-primary btn-block call-to-action"
+                          style="padding: 5px; width: auto"
+                        >
+                          {{ employeeData.Email }}
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="col-xl-2 col-lg-2 col-md-12"
+                style="border-left: 1px solid rgba(255, 255, 255, 0.28)"
+              >
+                <div class="iconset2">
+                  <i class="fa fa-linkedin-square fa-2x" aria-hidden="true"></i
+                  >&nbsp;&nbsp;&nbsp;
+                  <button
+                    (click)="goBack()"
+                    class="btn btn-primary btn-block call-to-action"
+                    style="padding: 4px; width: 82px; cursor: pointer"
+                  >
+                    Go Back
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row" style="padding: 0px 15px">
+            <div
+              class="col-xl-8 col-lg-8 col-md-12"
+              id="services"
+              style="margin-top: 15px"
+            >
+              <div class="info-box mb-4">
+                <h3>
+                  <i class="fa fa-map-marker" aria-hidden="true "></i
+                  >&nbsp;&nbsp;LOCATION
+                </h3>
+                <p>{{ employeeData.country }}</p>
+              </div>
+              <div class="info-box mb-4 service-item">
+                <h3>
+                  <i class="fa fa-suitcase" aria-hidden="true "></i
+                  >&nbsp;&nbsp;WORK
+                </h3>
+                <p class="m-0">{{ employeeData.designation }}&nbsp;</p>
+              </div>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-12 mainset">
+              <div class="" style="margin-top: 15px">
+                <h3>Email Address :</h3>
+                <p>{{ employeeData.Email }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- section 2 design start -->
+    <div
+      class="card pt-lg-3"
+      *ngIf="employessList"
+      style="
+        box-shadow: 0 0 40px rgb(51 51 51 / 10%);
+        border-radius: 1rem 1rem 0 0;
+        margin-top: -200px;
+      "
+    >
+      <div class="caption">
+        <div class="border-bottom">
+          <h5 class="text-center rr-heading-tile" style="padding: 10px">
+            Top <strong>{{ employeeData.companyName }}</strong> Employees
+          </h5>
+        </div>
+
+        <div
+          class="card-header"
+          *ngFor="let item of employessList; trackBy: trackByEmployee"
+        >
+          <div class="linkset align-items-center">
+            <div class="text-decoration-none">
+              <div class="person-details d-flex justify-content-between">
+                <div class="user-info">
+                  <div class="user-info__img">
+                    <img
+                      src="../../../../assets/contact/singlelead.jpg"
+                      alt="User Img"
+                    />
+                  </div>
+                  <div class="user-info__basic">
+                    <h5 class="mb-0">
+                      {{ item.first_name }} &nbsp; {{ item.last_name }}
+                    </h5>
+                    <p class="secondhead mb-0">{{ item.designation }}</p>
+                    <p class="text-muted locationset">
+                      <i class="fa fa-map-marker" aria-hidden="true "></i
+                      >&nbsp;&nbsp;{{ item.country }}
+                    </p>
+                  </div>
+                </div>
+                <div class="form-group m-0">
+                  <button
+                    type="submit "
+                    class="btn btn-primary"
+                    (click)="showLeadDBPage(item, '' ,employeeData.companyName)"
+                  >
+                    View
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="contact-details-summary">
+              <div class="emails">
+                <i class="fa fa-envelope"></i>&nbsp;
+                <ul class="teaser-list text-muted">
+                  <li>{{ item.email }}</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

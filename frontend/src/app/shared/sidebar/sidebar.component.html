@@ -1,0 +1,142 @@
+<mat-sidenav-container id="sidenavContainer">
+  <mat-sidenav
+    style="position: relative !important"
+    #sidenav
+    id="sidenav"
+    mode="side"
+    class="sidenav"
+    opened
+  >
+    <div *ngIf="getCurrentReport()">
+      <div *ngIf="!isChartResults" class="left-menu-container">
+        <div class="accordion" id="accordionExample">
+          <a
+            class="list-group-item parent-menu left-menu-item float-l-width text-center border-0"
+          >
+            Index</a
+          >
+          <div *ngFor="let menu of appItems; let i = index">
+            <div *ngIf="menu.link && menu.link.includes('other-module')">
+              <a
+                class="list-group-item parent-menu left-menu-item float-l-width"
+                [ngClass]="
+                  currentUrl.includes(menu.link + '?sid=' + menu.sectionId)
+                    ? 'menu-active'
+                    : ''
+                "
+                [queryParams]="{
+                  sid: menu.sectionId,
+                  msid: menu.mainSectionId
+                }"
+                [routerLink]="menu.link"
+                >{{ menu?.label }}</a
+              >
+            </div>
+            <a
+              *ngIf="
+                !menu.segmentItems &&
+                menu.link &&
+                  !menu.link.includes('output-company') &&
+                  !menu.link.includes('other-module') &&
+                (!menu.items || !menu.items.length)
+              "
+              class="list-group-item parent-menu left-menu-item float-l-width"
+              [ngClass]="currentUrl == menu.link ? 'menu-active' : ''"
+              [routerLink]="menu.link"
+              >{{ menu?.label }}</a
+            >
+            <div *ngIf="menu.segmentItems && menu.segmentItems.length">
+              <a
+                *ngIf="menu.link"
+                (click)="navigate(menu.link, menu)"
+                class="list-group-item left-menu-item float-l-width"
+                data-toggle="collapse"
+                href="#collapse-{{ i }}"
+              >
+                <span class="parent-menu-name">{{ menu?.label }}</span>
+                <i class="fa fa-caret-down float-r"></i>
+              </a>
+              <div
+                id="collapse-{{ i }}"
+                data-parent="#accordionExample"
+                class="panel-collapse collapse float-l-width"
+              >
+                <ul class="list-group">
+                  <div *ngFor="let msi of menu.segmentItems">
+                    <a
+                      [ngClass]="
+                        currentUrl.includes(menu.link + '?segmentId=' + msi.id)
+                          ? 'menu-active'
+                          : ''
+                      "
+                      [queryParams]="{ segmentId: msi.id }"
+                      class="list-group-item sub-menu left-menu-item"
+                      [routerLink]="menu.link"
+                      >{{ msi.name ? msi.name : msi.region }}</a
+                    >
+                  </div>
+                </ul>
+              </div>
+            </div>
+
+            <div *ngIf="menu.items && menu.items.length">
+              <a
+                *ngIf="menu.link"
+                (click)="navigate(menu.link)"
+                class="list-group-item left-menu-item float-l-width"
+                data-toggle="collapse"
+                data-parent="#accordionExample"
+                href="#collapse-{{ i }}"
+              >
+                <span class="parent-menu-name">{{ menu?.label }}</span>
+                <i class="fa fa-caret-down float-r"></i>
+              </a>
+              <a
+                *ngIf="!menu.link"
+                class="list-group-item left-menu-item float-l-width"
+                data-toggle="collapse"
+                data-parent="#accordionExample"
+                href="#collapse-{{ i }}"
+              >
+                <span class="parent-menu-name">{{ menu?.label }}</span>
+                <i class="fa fa-caret-down float-r"></i>
+              </a>
+              <div
+                *ngIf="menu.items && menu.items.length"
+                data-parent="#accordionExample"
+                id="collapse-{{ i }}"
+                class="panel-collapse collapse float-l-width"
+              >
+                <ul class="list-group">
+                  <div *ngFor="let mi of menu.items">
+                    <div *ngIf="mi.link.includes('droctcontainer')">
+                      <a
+                        [ngClass]="
+                          currentUrl.includes(mi.link + '?type=' + mi.label)
+                            ? 'menu-active'
+                            : ''
+                        "
+                        [queryParams]="{ type: mi.label }"
+                        class="list-group-item sub-menu left-menu-item"
+                        [routerLink]="mi.link"
+                        >{{ mi.label }}</a
+                      >
+                    </div>
+                    <div *ngIf="!mi.link.includes('droctcontainer')">
+                      <a
+                        [ngClass]="currentUrl == mi.link ? 'menu-active' : ''"
+                        class="list-group-item sub-menu left-menu-item"
+                        [routerLink]="mi.link"
+                        >{{ mi.label }}</a
+                      >
+                    </div>
+                  </div>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-sidenav>
+</mat-sidenav-container>

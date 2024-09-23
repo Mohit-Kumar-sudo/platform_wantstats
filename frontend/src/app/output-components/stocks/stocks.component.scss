@@ -1,0 +1,135 @@
+@import "./stock-filter/stock-filter.component.scss";
+
+.error{
+  font-weight: bold;
+  position: absolute;
+  top: 50;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 480px;
+  height: 100px;
+}
+.stock-container {
+  width: 100%;
+  mat-card {
+    padding: 10px;
+  }
+  .search-outer-container {
+    display: flex;
+    padding: 10px 10px;
+    align-items: center;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    .search-bar-container {
+      margin-left: 10px;
+      top: 12px;
+      display: inline-flex;
+      align-items: center;
+      // border: 1px solid #ced4da;
+      padding: 0 15px;
+      width: 70%;
+      .search-bar {
+        width: 100%;
+        border: 0;
+        padding: 0;
+        display: block;
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #495057;
+        outline: none;
+        margin-left: 0;
+        background-color: transparent;
+      }
+      .search-btn {
+        cursor: pointer;
+        &:focus {
+          opacity: 0.7;
+        }
+      }
+    }
+  }
+  .indutry-vertical {
+    padding: 5px;
+    color: #000;
+    ::ng-deep .mat-select-value {
+      color: #000 !important;
+    }
+    ::ng-deep .mat-select-arrow {
+      color: #495057;
+    }
+    ::ng-deep .mat-form-field-infix {
+      font-size: 12px;
+    }
+  }
+  .news-filter {
+    display: flex;
+    padding: 0;
+    .col-6 {
+      padding: 0;
+    }
+  }
+}
+.stock-content {
+  padding: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  ::ng-deep .mat-tab-label {
+    height: 25px !important;
+  }
+  .stock-name {
+    font-family: BWHaasGrotesk-75Bold-Web;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1;
+    .dateSymbol {
+      display: flex;
+      justify-content: space-between;
+      .dates {
+        font: 400 14px "";
+      }
+    }
+  }
+  .stock-index {
+    display: flex;
+    align-items: center;
+    .stock-price {
+      font-size: 30px;
+      font-weight: 600;
+      margin-right: 30px;
+    }
+    .stock-change {
+      font-size: 18px;
+      margin-right: 20px;
+    }
+    .stock-percent {
+      font-size: 18px;
+      display: flex;
+      margin-right: 10px;
+      align-items: center;
+      .cyan-bg {
+        margin-left: 5px;
+        color: aqua;
+      }
+      .red-bg {
+        margin-left: 5px;
+        color: red;
+      }
+    }
+  }
+
+  .stock-summary {
+    display: flex;
+    justify-content: space-between;
+    .s-head {
+      font-size: 10px;
+      font-weight: 500;
+      color: #444;
+    }
+    .s-values {
+      line-height: 2;
+      font-size: 14px;
+    }
+  }
+}

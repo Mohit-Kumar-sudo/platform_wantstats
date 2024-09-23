@@ -1,0 +1,56 @@
+// @import "../../market-factor-analysis/porters-5-forces/porters-forces-output.component.scss";
+// @import "../../output-company-profile/output-swot-analysis/output-swot-analysis.component.scss";
+.dashboard-container {
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
+  //padding: 15px;
+  // .chart-block {
+  //   max-height: 50vh;
+  //   overflow-y: scroll;
+  // }
+  .dashboard-close-button {
+    padding: 5px;
+    border-radius: 3px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 4;
+    cursor: pointer;
+
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+}
+
+.controls-container {
+  font-size: 10px;
+  span {
+    font-weight: bold;
+    margin-left: 5px;
+  }
+}
+
+.padding-0 {
+  padding: 5px;
+}
+.dia-porters-26 {
+  width: 26%;
+  margin: auto;
+}
+.dia-middle {
+  width: 55%;
+  margin: auto;
+}
+.dia-block-v {
+  height: 11vh;
+}
+.p-supply {
+  height: 30vh;
+  display: flex;
+  align-items: center;
+}
+.border-light {
+  border: 1px solid rgba(0, 0, 0, 0.2) !important;
+}

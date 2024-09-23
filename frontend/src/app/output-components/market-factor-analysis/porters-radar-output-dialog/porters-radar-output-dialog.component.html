@@ -1,0 +1,40 @@
+<div class="row col header-background">
+  <div class="col-2">
+      <a role="button" (click)="analyze()">Analyze</a>
+  </div>
+  <div class="col-2">
+
+  </div>
+  <div class="col-2">
+
+  </div>
+  <div class="col-4"></div>
+  <div class="col-2 zero-padding">
+    <div class="float-right">
+      <i class="btn-icon fa fa-download" (click)="generateImage()" title="Download Chart"></i>
+      <i (click)="doClose()" class="btn-icon fa fa-times"></i>
+    </div>
+  </div>
+</div>
+<mat-card-content class="padding20 outer-year-conatiner" #screen>
+  <div class="center">
+      <p class="mat-caption" style="text-align: center"><span class="font-weight-bold">Title
+          :</span>Porter's 5 Forces, {{reportName}} [{{startYear}} - {{endYear}}]</p>
+    <div class="year-container">
+    </div>
+  </div>
+  <div class="row">
+      <div #container1 class="container"></div>
+      <p class="mat-caption"><span class="font-weight-bold">Source
+          :</span>Wantstats
+      </p>
+  </div>
+</mat-card-content>
+
+
+<div style="display: none" id="download">
+<img #canvas>
+<a #downloadLink></a>
+</div>
+
+

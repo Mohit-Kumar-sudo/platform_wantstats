@@ -1,0 +1,32 @@
+<div class="row col header-background">
+  <div class="col-2">
+      <a role="button" (click)="analyze()">Analyze</a>
+  </div>
+  <div class="col-2">
+
+  </div>
+  <div class="col-2">
+
+  </div>
+  <div class="col-4"></div>
+  <div class="col-2 zero-padding">
+    <div class="float-right">
+      <i class="btn-icon fa fa-download"
+         (click)="generateImage()" title="Download"></i>
+      <i class="btn-icon fa fa-close"
+         (click)="doClose()" title="Close"></i>
+    </div>
+  </div>
+</div>
+<div class="main-swot" #screen>
+    <mat-card-subtitle style="margin: 10px">{{proData.company_name}}, Product/Service offering
+    </mat-card-subtitle>
+    <div style="width: 100%;margin-top: 10px;" class="org-container">
+      <div id="chart-container1"></div>
+    </div>
+    <mat-card-subtitle style="width: 100%;padding: 10px;">Source: Wantstats</mat-card-subtitle>
+  </div>
+  <div style="display: none" id="download">
+    <img #canvas>
+    <a #downloadLink></a>
+  </div>

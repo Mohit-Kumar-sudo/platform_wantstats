@@ -1,0 +1,119 @@
+<div class="container-fluid" id="scroll" style="padding: 50px;">
+    <div>
+      <div class="row">
+        <div class="col-9 m8">
+          <div class="stock-container">
+            <div class="search-outer-container">
+              <div>Stocks Search</div>
+              <div class="search-bar-container">
+                <mat-form-field style="width: 70%;">
+                  <input (keyup)="searchStock($event)" type="text" class="search-bar" placeholder="Search for stocks"
+                    [matAutocomplete]="auto" matInput [(ngModel)]="searchText" />
+                  <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                    <mat-option (onSelectionChange)="onStockSelect(option)" *ngFor="let option of searchStockData"
+                      [value]="option['1. symbol']">
+                      <div style="display: flex; justify-content: space-between;">
+                        <div>{{option['1. symbol']}}</div>
+                        <div>{{option['2. name']}}</div>
+                      </div>
+                    </mat-option>
+                  </mat-autocomplete>
+                </mat-form-field>
+                <i class="fa fa-search search-btn"></i>
+              </div>
+            </div>
+            <div class="indutry-vertical width-100" *ngIf="!symbolName">
+              <mat-form-field>
+                <mat-label>Stock List</mat-label>
+                <mat-select [(ngModel)]="selectStockList" (selectionChange)="industrialVertical($event.value)">
+                  <mat-option *ngFor="let f of contentList;" [value]="f.ticker">
+                    {{f.name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <mat-card *ngIf="symbolName">
+              <div class="stock-content">
+                <div class="stock-name">
+                  <div class="dateSymbol">
+                    <span>
+                      {{newStocks[0]?.symbol}}
+                    </span>
+                    <span class="dates">
+                      {{newStocks[6]?.latesttradingday | date}}
+                    </span>
+                  </div>
+                  <div>
+                    {{shortName}} Index
+                  </div>
+                </div>
+                <div class="stock-index">
+                  <div class="stock-price">
+                    {{newStocks[4]?.price | number}}
+                  </div>
+                  <div class="stock-change">
+                    <span *ngIf="newStocks[8]?.change > 0">+</span>{{newStocks[8]?.change | number}}
+                  </div>
+                  <div class="stock-percent">
+                    <span *ngIf="newStocks[9]?.changepercent > 0">+</span>{{newStocks[9]?.changepercent}}<span
+                      [ngClass]="newStocks[8]?.change > 0 ? 'fa fa-caret-up fa-2x cyan-bg': 'fa fa-caret-down fa-2x red-bg'"></span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="stock-content" style="margin-top: 10px;">
+                <div class="stock-summary">
+                  <div>
+                    <div class="s-head">OPEN</div>
+                    <div class="s-values">{{newStocks[1]?.open | number}}</div>
+                  </div>
+                  <div>
+                    <div class="s-head">HIGH</div>
+                    <div class="s-values">{{newStocks[2]?.high | number}}</div>
+                  </div>
+                  <div>
+                    <div class="s-head">LOW</div>
+                    <div class="s-values">{{newStocks[3]?.low | number}}</div>
+                  </div>
+                  <div>
+                    <div class="s-head">PREVIOUS CLOSE</div>
+                    <div class="s-values">{{newStocks[7]?.previousclose | number}}</div>
+                  </div>
+
+                </div>
+              </div>
+              <div class="stock-content" style="margin-top: 10px;">
+                <mat-tab-group (selectedTabChange)="tabClick($event)">
+                  <mat-tab label="1D">
+                    <div style="margin-top: 10px;">
+                      <canvas id="myChart" width="400" height="150"></canvas>
+                    </div>
+                    <div *ngIf="errorMessage" class="error">
+                      {{errorMessage}}
+                   </div>
+                  </mat-tab>
+                  <mat-tab label="1M">
+                    <div style="margin-top: 10px;">
+                      <canvas id="myChart1" width="400" height="150"></canvas>
+                    </div>
+                  </mat-tab>
+                  <mat-tab label="1Y">
+                    <div style="margin-top: 10px;">
+                      <canvas id="myChart2" width="400" height="150"></canvas>
+                    </div>
+                  </mat-tab>
+                </mat-tab-group>
+              </div>
+            </mat-card>
+
+            <div class="col-12" *ngIf="!symbolName">
+            </div>
+          </div>
+        </div>
+        <div class="col-3">
+          <app-hardcodes-suggestion [suggestion]="{orderType: 'covid'}"></app-hardcodes-suggestion>
+        </div>
+      </div>
+    </div>
+  </div>

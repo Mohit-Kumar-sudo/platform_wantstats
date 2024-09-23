@@ -1,0 +1,150 @@
+<div *ngFor="let dataElement of outputData" class="seprator-div" id="min-div">
+  <ng-container class="component-element-renderer" [ngSwitch]="dataElement?.type">
+    <!-- TEXT -->
+    <div *ngSwitchCase="'TEXT'" class="content-p">
+      <div [innerHTML]="dataElement?.data"></div>
+    </div>
+
+    <!-- TABLE -->
+    <div *ngSwitchCase="'TABLE'">
+      <p class="mat-caption" style="text-align: center;"><span
+        class="font-weight-bold">Title&nbsp;:&nbsp;</span>{{dataElement.data.metaDataValue.title}}
+      </p>
+      <table mat-table [dataSource]="dataElement.data.dataStore" class="conponent-table">
+        <ng-container *ngFor="let colMetadata of dataElement.data.cols"
+                      matColumnDef="{{colMetadata}}">
+          <th mat-header-cell *matHeaderCellDef> {{colMetadata}} </th>
+          <td style="margin: 5px 8px !important;" id="min-div" mat-cell *matCellDef="let element">
+            {{element[colMetadata]}}
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="dataElement.data.cols"></tr>
+        <tr mat-row *matRowDef="let row; columns: dataElement.data.cols;"></tr>
+      </table>
+      <p class="mat-caption"><span class="font-weight-bold">Source :</span>
+        {{dataElement.data.metaDataValue.source}}
+      </p>
+    </div>
+
+    <!-- IMAGE -->
+    <div *ngSwitchCase="'IMAGE'">
+      <div class="row col header-background">
+        <div class="col-2">
+
+        </div>
+        <div class="col-2">
+
+        </div>
+        <div class="col-2">
+
+        </div>
+        <div class="col-4"></div>
+        <div class="col-2 zero-padding">
+          <div class="float-right">
+            <i class="btn-icon fa fa-download"
+               (click)="generateImage(dataElement.type)" title="Download"></i>
+            <i class="btn-icon fa fa-file-excel-o" style="cursor: not-allowed"></i>
+            <i class="btn-icon fa fa-expand"
+               (click)="openDialog(dataElement)" title="Full Screen"></i>
+          </div>
+        </div>
+      </div>
+
+      <div style="border:1px solid #00000033" #screenImg class="container-fluid">
+        <p class="mat-caption" style="text-align: center;"><span
+          class="font-weight-bold">Title&nbsp;:&nbsp;</span>{{dataElement.data.metaDataValue.title}}
+        </p>
+        <div style="display: flex;justify-content:center">
+          <img [src]="dataElement.data.imageUrl" class="responsiveImg"
+               *ngIf="dataElement.data.imageUrl">
+        </div>
+        <p class="mat-caption"><span class="font-weight-bold">Source:</span>{{dataElement.data.metaDataValue.source}}
+        </p>
+      </div>
+    </div>
+
+    <!-- PIE -->
+    <div *ngSwitchCase="'PIE'">
+      <div class="row col header-background">
+        <div class="col-2">
+
+        </div>
+        <div class="col-2">
+
+        </div>
+        <div class="col-2">
+
+        </div>
+        <div class="col-4"></div>
+        <div class="col-2 zero-padding">
+          <div class="float-right">
+            <i class="btn-icon fa fa-download"
+               (click)="generateImage(dataElement.type)" title="Download"></i>
+            <i class="btn-icon fa fa-file-excel-o" style="cursor: not-allowed"></i>
+            <i class="btn-icon fa fa-expand"
+               (click)="openDialog(dataElement)" title="Full Screen"></i>
+          </div>
+        </div>
+      </div>
+      <div style="border:1px solid #00000033" #screenPie class="container-fluid">
+        <p class="mat-caption" style="text-align: center"><span
+          class="font-weight-bold">Title&nbsp;:&nbsp;</span>{{dataElement.data.metaDataValue.title}}
+        </p>
+        <canvas height="75" baseChart [data]="dataElement.data.chartData"
+                [labels]="dataElement.data.chartLabels" [chartType]="pieChartType"
+                [options]="pieChartOptions" [plugins]="pieChartPlugins"
+                [colors]="pieChartColors" [legend]="pieChartLegend">
+        </canvas>
+        <p class="mat-caption"><span class="font-weight-bold">Source&nbsp;:&nbsp;</span>{{dataElement.data.metaDataValue.source}}
+        </p>
+      </div>
+    </div>
+
+    <!-- BAR -->
+    <div *ngSwitchCase="'BAR'">
+      <div class="row col header-background">
+        <div class="col-2">
+
+        </div>
+        <div class="col-2">
+
+        </div>
+        <div class="col-2">
+
+        </div>
+        <div class="col-4"></div>
+        <div class="col-2 zero-padding">
+          <div class="float-right">
+            <i class="btn-icon fa fa-download"
+               (click)="generateImage(dataElement.type)" title="Download"></i>
+            <i class="btn-icon fa fa-file-excel-o" style="cursor: not-allowed"></i>
+            <i class="btn-icon fa fa-expand"
+               (click)="openDialog(dataElement)" title="Full Screen"></i>
+          </div>
+        </div>
+      </div>
+      <div style="border:1px solid rgba(0,0,0,0.2)" #screenBar class="container-fluid">
+        <p class="mat-caption" style="text-align: center"><span
+          class="font-weight-bold">Title&nbsp;:&nbsp;</span>{{dataElement.data.metaDataValue.title}}
+        </p>
+        <div style="display: flex;align-items:center;width: 98%;">
+          <p class="mat-caption" style="text-align: left;">
+            {{dataElement.data.metaDataValue.labelY}}</p>
+          <canvas height="75" baseChart [datasets]="dataElement.data.chartData"
+                  [labels]="dataElement.data.chartLabels" [options]="barChartOptions"
+                  [plugins]="barChartPlugins" [legend]="barChartLegend"
+                  [chartType]="barChartType">
+          </canvas>
+        </div>
+        <p class="mat-caption" style="text-align: center;">
+          {{dataElement.data.metaDataValue.labelX}}</p>
+        <p class="mat-caption"><span class="font-weight-bold">Source&nbsp;:&nbsp;</span>{{dataElement.data.metaDataValue.source}}
+        </p>
+      </div>
+    </div>
+  </ng-container>
+</div>
+<div style="display: none" id="download">
+  <img #canvas>
+  <a #downloadLink></a>
+</div>

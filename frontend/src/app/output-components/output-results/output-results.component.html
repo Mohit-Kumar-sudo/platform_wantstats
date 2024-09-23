@@ -1,0 +1,109 @@
+<section style="margin-top: 40px">
+  <div class="container">
+    <div class="" style="margin-bottom: 25px">
+      <form class="search" html='{:class=>"form-horizontal", :id=>"search_form"}' action="reports"
+        accept-charset="UTF-8" method="get">
+        <input name="utf8" class="" type="hidden" value="✓" />
+        <input class="typeahead back-shadow form-control" id="search" name="q" placeholder="Search for reports"
+          type="search" (change)="search()" matInput [formControl]="searchTerm" />
+        <button class="searchbutton" type="submit">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search"
+            viewBox="0 0 16 16">
+            <path
+              d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z">
+            </path>
+          </svg>
+        </button>
+      </form>
+    </div>
+    <div class="card mainsection">
+      <div class="reports">
+        <div class="reports-item clearfix">
+          <div class="mainset">
+            <h5 class="card-title">Charts</h5>
+          </div>
+          <li class="content widget-container widget_nav_menu col-md-12 col-xs-12 col-sm-12 scrollBox statTabs__scroller statTabs__scroller--normal">
+            <ul>
+              <li *ngFor="let charts of chartsList | slice : 0 : 10">
+                <div class="reportsmain_1">
+
+                  <div>
+                    <img class="margin-right-8"
+                      src="../../../assets/images/charts/chart.png"
+                      alt="" />&nbsp;
+                    <a *ngIf="charts?.key" (click)="navigateToChartsAndStatistics(charts)"
+                      class="report-list-single-card-title text-decoration-none">
+                      {{charts?.title}}
+                    </a>
+                  </div>
+                </div>
+              </li>
+              <li class="no-record-found" *ngIf="!chartsList?.length">
+                No records found
+              </li>
+            </ul>
+          </li>
+        </div>
+        <div class="reports-item clearfix">
+          <div class="mainset">
+            <h5 class="card-title">Reports</h5>
+          </div>
+          <li class="content widget-container widget_nav_menu col-md-12 col-xs-12 col-sm-12 scrollBox statTabs__scroller statTabs__scroller--normal">
+            <ul>
+              <li>
+                <div class="reportsmain my-1" *ngFor="let report of reportsData | slice : 0 : 10">
+                  <div routerLink="/premium-reports/{{ report.id }}" *ngIf="report._id || report.id">
+                    <img class="margin-right-8"
+                      src="https://www.wantstats.com/assets/report-list-icon-18e1627466b06c818966d9b9d193bd31817454ca9a6f8591ec04b1b153b00bbb.png"
+                      alt="" />&nbsp;
+                    <a class="report-list-single-card-title" (click)="visitRoute(report)">
+                      {{ report.title }}
+                    </a>
+                    <div class="iconset">
+                      <a *ngIf="report?.isPdf && permissions?.pdfOpen" style="margin-left: 15px" title="PDF"
+                        class="report-icon font-size-21" routerLink="/view-pdf/{{ report?._id }}"><i
+                          class="fa fa-file-pdf-o"></i></a>&nbsp;
+                      <a *ngIf="report?.isDoc && isSubscribed" href="{{ report?.docLink }}" title="Doc File"
+                        class="report-icon font-size-21"><i class="fa fa-file-word-o"></i></a>&nbsp;
+                      <a *ngIf="report?.isAnalytics" title="Analytics" routerLink="/market-estimation"
+                        [queryParams]="{ reportId: report._id }" class="report-icon font-size-21"><i
+                          class="fa fa-bar-chart"></i></a>
+                          <span class="premium-reports" *ngIf="report.id">
+                            <a class="text-white"
+                               routerLink="/premium-reports/{{ report.id }}"> Premium Report
+                            </a>
+                          </span>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li class="no-record-found" *ngIf="!reportsData.length">
+                No records found
+              </li>
+              <li></li>
+            </ul>
+          </li>
+        </div>
+        <div class="reports-item clearfix">
+          <div class="mainset">
+            <h5 class="card-title">Videos</h5>
+          </div>
+          <li class="content_1 widget-container widget_nav_menu col-md-12 col-xs-12 col-sm-12 scrollBox statTabs__scroller statTabs__scroller--normal">
+            <ul>
+              <li *ngFor="let news of videosData | slice : 0 : 10" class="reportsmain_2">
+                <a class="video-title" role="button" target="_blank" class="report-list-single-card-title_1"
+                  [routerLink]="['/output-chart/youtube']" [queryParams]="{
+                    url: news?.id.videoId,
+                    searchQuery: searchTerm.value
+                  }">{{ news?.snippet?.title }}</a>
+              </li>
+              <li class="no-record-found" *ngIf="!videosData.length">
+                No records found
+              </li>
+            </ul>
+          </li>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

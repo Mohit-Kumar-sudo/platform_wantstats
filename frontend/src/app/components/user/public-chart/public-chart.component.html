@@ -1,0 +1,40 @@
+<nav class="navbar navbar-expand-sm bg-light justify-content-start fixed-top">
+  <a class="navbar-brand logo-image" routerLink="">
+    <img src="../../../assets/images/wantstats_logo.png" class="logo-inner"/>
+  </a>
+</nav>
+
+<mat-sidenav-container id="sidenavContainer" fullscreen>
+  <mat-sidenav-content class="mat-sidenav-content width-100" id="scrollToTop">
+    <div class="fixed-header">
+      <app-public-output-marquee></app-public-output-marquee>
+    </div>
+    <div id="outletContainer" class="outlet-container">
+      <div class="outlet-container row margin-0">
+        <div class="col-sm-9">
+          <div class="modal-background">
+            <h6 class="chart-title-header">{{chartTitle}}</h6>
+            <img src="./assets/images/charts/blurred%20chart.png" class="float-l-width">
+            <div class="buttons-container">
+              <h5>For using this feature and access to all the modules </h5>
+              <button class="btn btn-success modal-btn">Buy platform ($4999) </button>
+              <button class="btn btn-default modal-btn-sc">Schedule Demo</button>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3 mt-2">
+          <h6>Suggested charts & statastics</h6>
+          <div *ngFor="let chart of charts" class="row chart">
+            <div class="col-sm-6 img-container">
+              <img src="assets/images/charts/icon%20for%20suggested%20charts.png">
+            </div>
+            <div class="col-sm-6">
+              <div class="chart-title">{{chart?.title}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+

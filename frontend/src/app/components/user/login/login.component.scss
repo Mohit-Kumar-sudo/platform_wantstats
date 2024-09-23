@@ -1,0 +1,137 @@
+label{
+  padding: 2px 0px 10px 0px;
+}
+
+.my-login-page {
+  background-color: #e6e6e6;
+  font-size: 14px;
+}
+
+.btn-primary {
+  background: linear-gradient(
+    179deg,
+    #1b64b6,
+    10%,
+    #1d5393,
+    #20497a
+  ) !important;
+  border: 1px solid #20497a;
+  color: white;
+}
+
+.h-100 {
+  margin-top: 40px;
+}
+
+.my-login-page .brand {
+  width: 90px;
+  height: 90px;
+  overflow: hidden;
+  border-radius: 50%;
+  margin: 40px auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  position: relative;
+  z-index: 1;
+}
+.form-control{
+  text-indent: 5px;
+}
+
+.my-login-page .brand img {
+  width: 100%;
+}
+
+.my-login-page .card-wrapper {
+  width: 400px;
+}
+
+.my-login-page .card {
+  border-color: transparent;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+.my-login-page .card.fat {
+  padding: 10px;
+}
+
+.my-login-page .card .card-title {
+  margin-bottom: 30px;
+}
+
+.my-login-page .form-control {
+  border-width: 2.3px;
+}
+
+.my-login-page .form-group label {
+  width: 100%;
+}
+
+.my-login-page .btn.btn-block {
+  padding: 12px 10px;
+}
+
+@media screen and (max-width: 425px) {
+  .my-login-page .card-wrapper {
+    width: 90%;
+    margin: 0 auto;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .my-login-page .card.fat {
+    padding: 0;
+  }
+
+  .my-login-page .card.fat .card-body {
+    padding: 15px;
+  }
+}
+
+.card {
+  padding: 0px 15px;
+  border-radius: 20px;
+}
+
+form {
+  margin-top: 40px;
+}
+
+.modalLogin__benefitBox {
+  display: block;
+  height: 270px;
+  border-radius: 4px;
+  color: #fff;
+  margin-bottom: 15px;
+  padding: 15px 30px 20px;
+  background: linear-gradient(14deg, #65258a 10%, #791a70, #e80566) !important;
+}
+
+.modalLogin__logoWrapper {
+  line-height: 0;
+  margin: 25px 0 30px;
+  text-align: center;
+  width: 100%;
+}
+
+.margin-bottom-15 {
+  margin-bottom: 15px !important;
+}
+
+.modalLogin__benefitBox .list--checkCircle li {
+  margin-bottom: 10px;
+  margin-left: -23px;
+}
+
+@media only screen and (min-width: 2000px) {
+  .h-100 {
+    margin-top: 250px;
+    margin-bottom: 250px;
+  }
+}
+
+@media only screen and (min-width: 1600px) {
+  .h-100 {
+    margin-top: 250px;
+    margin-bottom: 250px;
+  }
+}

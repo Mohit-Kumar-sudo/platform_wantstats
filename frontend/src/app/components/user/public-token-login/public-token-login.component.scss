@@ -1,0 +1,34 @@
+@import "../../../shared/inner-navbar/inner-navbar.component.scss";
+
+.modal-background {
+  position: relative;
+  text-align: center;
+  color: white;
+
+  .buttons-container {
+    position: absolute;
+    padding: 20px;
+    background-color: #2f5597;
+    top: 180px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    .modal-btn {
+      margin-right: 20px;
+      border: 2px solid white;
+    }
+  }
+}
+.img-container {
+  margin-bottom: 20px;
+}
+.chart-title-header {
+  text-align: left;
+  color: black;
+}
+.chart-title {
+  font-size: 12px;
+}
+
+.modal-btn-sc {
+  background-color: #fff;
+}

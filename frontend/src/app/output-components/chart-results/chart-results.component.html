@@ -1,0 +1,109 @@
+<div class="row results-container">
+    <div class="col-sm-9 padding-0">
+      <div class="row margin-0">
+        <div class="col-sm-2 padding-0 left-menu-div">
+          <ng-container *ngFor="let menu of leftMenuData; let i = index">
+            <ng-container *ngIf="!menu.items">
+              <a class="list-group-item parent-menu left-menu-item float-l-width" routerLink="/chart-results"
+                [ngClass]="(currentUrl.includes(menu.key)) ? 'menu-active' : ''"
+                [queryParams]="{companyId: companyId, key: menu.key, menu: menu.label}">{{menu?.label}}</a>
+            </ng-container>
+            <ng-container *ngIf="menu.items">
+              <a class="list-group-item left-menu-item float-l-width" data-toggle="collapse" href="#collapse-{{i}}">
+                <span class="parent-menu-name">{{menu?.label}}</span>
+                <i class="fa fa-caret-down float-r"></i>
+              </a>
+              <div id="collapse-{{i}}" class="panel-collapse collapse float-l-width">
+                <ul class="list-group">
+                  <ng-container *ngFor="let mi of menu.items">
+                    <a class="list-group-item sub-menu left-menu-item"
+                      [ngClass]="(currentUrl.includes(mi._id) && currentUrl.includes(menu.key)) ? 'menu-active' : ''"
+                      routerLink="/chart-results"
+                      [queryParams]="{companyId: companyId, menu: menu.label, id: mi._id, key: menu.key}">{{mi?.title}}</a>
+                  </ng-container>
+                </ul>
+              </div>
+            </ng-container>
+          </ng-container>
+        </div>
+        <div class="col-sm-10 padding-0 right-content-div">
+          <h4 class="text-center company-name">
+            {{currentCompanyData?.company_name | titlecase}}, {{currentTab.value}}
+            <ng-container
+              *ngIf="currentTab.key == 'product_offering' || currentTab.key == 'financial_overview'; else elseBlock">
+              {{currentTab.id ? (', by ' + currentTab.id) : ''}}<span *ngIf="currentTab.id == 'SBU'"> / Company
+                revenue</span>
+            </ng-container>
+            <ng-template #elseBlock>
+              , {{currentTab?.report?.title}} Market
+            </ng-template>
+          </h4>
+          <div id="company-content">
+            <ng-container *ngIf="currentTab.key == 'product_offering'">
+              <app-shared-output-product-offering [inputData]="finalData"></app-shared-output-product-offering>
+            </ng-container>
+            <ng-container *ngIf="currentTab.key == 'financial_overview' && finalData?.chartData"
+              style="border: 1px solid blue;">
+              <div class="fo-container">
+                <div class="ribin-header">
+                  <div class="ribin-logo">
+                    <img src="../../../assets/images/wantstats_logo_white.png">
+                  </div>
+                  <div class="float-right">
+                    <a class="btn-icon ppt-btn" (click)="sendChartToWhatsApp()">Send <i class="fa fa-whatsapp"></i></a>
+                    <a class="btn-icon ppt-btn" (click)="addSlideToPPT(currentCompanyData?.company_name , currentTab )">PPT <i class="fa fa-plus"></i></a>
+                    <i class="btn-icon fa fa-download" (click)="generateImage(finalData)" title="Download"></i>
+                    <i class="btn-icon fa  fa-file-powerpoint-o" (click)="downloadPpt(finalData)"
+                      title="Download PPT"></i>
+
+                    <i class="ribin-btn fa fa-file-excel-o" (click)="downLoadCSV()"></i>
+                    <i class="ribin-btn fa fa-expand" (click)="openDialog()" title="Full Screen"></i>
+                  </div>
+                </div>
+                <div #screen>
+                  <canvas baseChart [datasets]="finalData?.chartData" [labels]="finalData?.chartLabels"
+                    [chartType]="chartType" [options]="chartOptions" [plugins]="chartPlugins" [legend]="chartLegend">
+                  </canvas>
+                </div>
+                <hr>
+                <div *ngIf="finalData?.data?.dataStore">
+                  <ng-container *ngFor="let data of finalData?.data?.dataStore">
+                    <h6>{{data?.rowHeader}}</h6>
+                    <p *ngIf="data?.content">{{data?.content}}</p>
+                    <hr>
+                  </ng-container>
+                </div>
+              </div>
+              <div *ngIf="currentTab.key == 'financial_overview' && !finalData?.chartData && showMessage" style="text-align:center;">
+                <p>Data not available</p>
+              </div>
+            </ng-container>
+            <div *ngIf="currentTab.key == 'financial_overview' && errorMessage && showMessage" style="text-align:center;padding-top: 10px;">
+              {{ errorMessage }}
+            </div>
+            <ng-container *ngIf="currentTab.key == 'swot_analysis'">
+              <app-shared-output-swot-analysis *ngIf="finalData?.length"
+                [inputData]="finalData"></app-shared-output-swot-analysis>
+              <div *ngIf="!finalData?.length && showMessage" style="text-align:center;">
+                <p>Data not available</p>
+              </div>
+            </ng-container>
+            <ng-container
+              *ngIf="currentTab.key == 'company_overview' || currentTab.key == 'key_development' || currentTab.key == 'strategy'">
+              <app-shared-secondary-data *ngIf="finalData?.length" [inputData]="finalData"></app-shared-secondary-data>
+              <div *ngIf="showMessage && !finalData?.length" style="text-align:center;">
+                <p>Data not available</p>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-3">
+      <app-hardcode-suggestion [suggestion]="{orderType: 'covid'}"></app-hardcode-suggestion>
+    </div>
+  </div>
+  <div style="display: none" id="download">
+    <img #canvas>
+    <a #downloadLink></a>
+  </div>

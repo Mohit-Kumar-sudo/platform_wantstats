@@ -1,0 +1,28 @@
+.main-panel {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.col-2 {
+  min-width: 12%;
+  max-width: 12%;
+}
+
+.hardcode {
+  max-width: 20%;
+  min-width: 20%;
+}
+
+.router-outlet {
+  flex: 1; /* This ensures that router-outlet takes up remaining space */
+}
+
+.app-footer {
+  margin-top: auto; /* Pushes the footer to the bottom */
+  position: sticky;
+  bottom: 0;
+  background-color: #f8f9fa; /* Adjust background color as needed */
+  padding: 20px; /* Adjust padding as needed */
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1); /* Add shadow for better visibility */
+}

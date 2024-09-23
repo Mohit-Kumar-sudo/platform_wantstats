@@ -1,0 +1,115 @@
+<div class="main-container" id="scroll">
+  <div class="mt-4">
+    <div class="row margin-0">
+      <div class="col-9 m8">
+        <div class="">
+          <div class="down-header container-fluid">Market Estimation, {{reportName}} Market [{{startYear}} -
+            {{endYear}}] By {{selectedSegment | replaceUnderscoreWithSpace}}</div>
+          <div class="">
+            <div *ngFor="let report of reportDataArray; let i = index">
+              <div *ngIf="i > 0" class="down-header container-fluid">{{chart_title[i]}}</div>
+              <div *ngFor="let dataElement of report" class="seprator-div">
+                <ng-container class="component-element-renderer" [ngSwitch]="dataElement?.type">
+
+
+                  <!-- TABLE -->
+                  <div class="container-fluid float-l-width over-flow" *ngSwitchCase="'TABLE'">
+                    <p class="mat-caption" style="text-align: center;margin-top: 15px;font-size: 14px;font-weight: 500;"><span class="font-weight-bold">Title&nbsp;:&nbsp;</span>{{dataElement?.data?.metaDataValue?.title}}
+                    </p>
+                    <table mat-table [dataSource]="dataElement?.data?.dataStore" class="conponent-table">
+                      <ng-container *ngFor="let colMetadata of dataElement.data.cols" matColumnDef="{{colMetadata}}">
+                        <th mat-header-cell *matHeaderCellDef> {{colMetadata | removeParent | giveSegmentName : segments | changeTableCAGRYear : base_year}} </th>
+                        <td mat-cell *matCellDef="let element">
+                          {{element[colMetadata] | giveSegmentName : segments}}
+                        </td>
+                      </ng-container>
+                      <tr mat-header-row *matHeaderRowDef="dataElement.data.cols"></tr>
+                      <tr mat-row *matRowDef="let row; columns: dataElement.data.cols;"></tr>
+                    </table>
+                    <p class="table-caption" style="font-size: 13px !important;margin-top: 10px;"><span class="font-weight-bold">Source&nbsp;:&nbsp;</span>
+                      {{dataElement?.data?.metaDataValue?.source}}
+                    </p>
+                  </div>
+
+                  <!-- PIE -->
+                  <div *ngSwitchCase="'PIE'" class="container-fluid">
+                    <div class="float-l-width header-background">
+                        <div class="float-right">
+                          <a class="btn-icon ppt-btn" (click)="sendChartToWhatsApp()">Send <i class="fa fa-whatsapp"></i></a>
+                          <a class="btn-icon ppt-btn" (click)="addSlideToPPT(dataElement)">PPT <i class="fa fa-plus"></i></a>
+                          <i class="btn-icon fa fa-download" (click)="generateImage(dataElement)"
+                             title="Download"></i>
+                          <i class="btn-icon fa  fa-file-powerpoint-o" (click)="downloadPpt(dataElement)" title="Download PPT"></i>
+                          <i class="btn-icon fa fa-file-excel-o" (click)="downLoadTableData(i)"></i>
+                          <i *ngIf="!openD" class="btn-icon fa fa-expand" (click)="openDialog(dataElement,i)"
+                             title="Full Screen"></i>
+                      </div>
+                    </div>
+                    <div class="container-fluid float-l-width" style="border:1px solid #00000033" #screenPie>
+                      <p class="mat-caption" style="text-align: center;margin-top: 15px;font-size: 14px;font-weight: 500;"><span class="font-weight-bold">Title&nbsp;:&nbsp;</span>{{dataElement?.data?.metaDataValue?.title}}
+                      </p>
+                      <canvas  baseChart [data]="dataElement.data.chartData"
+                              [labels]="dataElement.data.chartLabels" [chartType]="pieChartType"
+                              [options]="pieChartOptions"
+                              [plugins]="pieChartPlugins" [legend]="pieChartLegend">
+                      </canvas>
+                      <p style="font-size: 13px !important;margin-top: 10px;" class="mat-caption"><span class="font-weight-bold">Source&nbsp;:&nbsp;</span>{{dataElement?.data?.metaDataValue?.source}}
+                      </p>
+                    </div>
+                  </div>
+
+                  <!-- BAR -->
+                  <div *ngSwitchCase="'BAR'" class="container-fluid">
+                    <div class="float-l-width header-background">
+                      <div class="float-l">
+                        <a role="button" class="btn-link" class="analyze" (click)="analyze(i)">Analyze</a>
+                      </div>
+                        <div class="float-right">
+                          <a class="btn-icon ppt-btn" (click)="sendChartToWhatsApp()">Send <i class="fa fa-whatsapp"></i></a>
+                          <a class="btn-icon ppt-btn" (click)="addSlideToPPT(dataElement)">PPT <i class="fa fa-plus"></i></a>
+                          <i class="btn-icon fa fa-download" (click)="generateImage(dataElement)"
+                             title="Download"></i>
+                          <i class="btn-icon fa  fa-file-powerpoint-o" (click)="downloadPpt(dataElement)" title="Download PPT"></i>
+                          <i class="btn-icon fa fa-file-excel-o" (click)="downLoadTableData(i)"></i>
+                          <i *ngIf="!openD" class="btn-icon fa fa-expand" (click)="openDialog(dataElement,i)"
+                             title="Full Screen"></i>
+                      </div>
+                    </div>
+                    <div class="container-fluid float-l-width" style="border:1px solid rgba(0,0,0,0.2)" #screenBar>
+                      <p class="mat-caption" style="text-align: center;margin-top: 15px;font-size: 14px;font-weight: 500;"><span class="font-weight-bold">Title&nbsp;:&nbsp;</span>{{dataElement?.data?.metaDataValue?.title}}
+                      </p>
+                      <div style="display: flex;align-items:center;width: 98%;">
+                        <p class="mat-caption" style="text-align: left;">
+                          {{dataElement?.data?.metaDataValue?.labelY}}</p>
+                        <canvas baseChart [datasets]="dataElement.data.chartData"
+                                [labels]="dataElement.data.chartLabels" [options]="chartOptions"
+                                [plugins]="chartPlugins"
+                                [legend]="chartLegend" [chartType]="chartType">
+                        </canvas>
+                      </div>
+                      <p class="mat-caption" style="text-align: center;">
+                        {{dataElement?.data?.metaDataValue?.labelX}}</p>
+                      <p class="mat-caption" style="font-size: 13px !important;margin-top: 10px;"><span class="font-weight-bold">Source&nbsp;:&nbsp;</span>{{dataElement?.data?.metaDataValue?.source}}
+                      </p>
+                    </div>
+                  </div>
+                  <!-- TEXT -->
+                  <p *ngSwitchCase="'TEXT'" class="content-p container-fluid" [innerHTML]="dataElement?.data"></p>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+        </div>
+      </div>
+      <div class="col-3">
+        <app-hardcoded-suggestions [suggestion]="{orderType: 'driver'}"></app-hardcoded-suggestions>
+      </div>
+    </div>
+  </div>
+</div>
+<div style="display: none" id="download">
+  <img #canvas>
+  <a #downloadLink></a>
+</div>

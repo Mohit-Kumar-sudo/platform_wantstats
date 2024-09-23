@@ -1,0 +1,73 @@
+<div class="container-fluid" id="scroll">
+  <div>
+    <div class="row">
+      <div class="col-9 m8">
+        <div class="stock-container">
+          <div class="search-outer-container">
+            <div>Industry Reports Search</div>
+            <div class="search-bar-container">
+              <mat-form-field style="width: 70%;">
+                <input (keyup.enter)="searchReports()" type="text" class="search-bar" placeholder="Search ...." matInput
+                  [(ngModel)]="searchText" />
+              </mat-form-field>
+              <i class="fa fa-search search-btn" (click)="searchReports()"></i>
+            </div>
+          </div>
+          <div class="mt-4" *ngIf="isSearched">
+            <ng-container *ngFor="let report of reports">
+              <div class="list-group-item text-left output-search-report-item">{{report?.title}}
+                <a *ngIf="report?.isPdf && permissions.pdfOpen" style="margin-left: 15px"  title="PDF"
+                  class="report-icon font-size-21" (click)="visitPdf(report._id,report.pdfLink)"><i
+                    class="fa fa-file-pdf-o"></i></a>&nbsp;
+                <a *ngIf="report?.isExcel && isSubscribed" style="margin-left: 15px" href="{{report?.excelLink}}"
+                   title="ME Data" class="report-icon font-size-21"><i
+                    class="fa fa-file-excel-o"></i></a>&nbsp;
+                <a *ngIf="report?.isDoc && isSubscribed" style="margin-left: 15px" href="{{report?.docLink}}"
+                  title="Doc File" class="report-icon font-size-21"><i class="fa fa-file-word-o"></i></a>&nbsp;
+
+                <a *ngIf="report?.isPdf && !permissions.pdfOpen" style="margin-left: 15px"
+                  title="{{subscriptionMessage}}" class="report-icon disabled-cursor font-size-21"><i
+                    class="fa fa-file-pdf-o"></i></a>&nbsp;
+                <a *ngIf="report?.isExcel && !isSubscribed" style="margin-left: 15px" title="{{subscriptionMessage}}"
+                  class="report-icon disabled-cursor font-size-21"><i class="fa fa-file-excel-o"></i></a>&nbsp;
+                <a *ngIf="report?.isDoc && !isSubscribed" style="margin-left: 15px" title="{{subscriptionMessage}}"
+                  class="report-icon disabled-cursor font-size-21"><i class="fa fa-file-word-o"></i></a>&nbsp;
+
+                <a *ngIf="report?.isAnalytics" title="Analytics"  routerLink="/market-estimation"
+                  [queryParams]="{reportId: report._id}" class="report-icon font-size-21"><i
+                    class="fa fa-bar-chart"></i></a>&nbsp;
+              </div>
+            </ng-container>
+            <li class="no-record-found list-group-item" *ngIf="!reports.length">
+              No records found
+            </li>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-4">
+      <ng-container *ngIf="!isSearched">
+        <div class="col-sm-4 group-panel" *ngFor="let category of categories">
+          <div class="card card-panel-border">
+            <div class="card-header">{{ category.value }}</div>
+            <div class="card-body group-content">
+              <div *ngFor="let report of reportGroups" class="report-container">
+                <div *ngIf="isReportInCategory(report, category.value)" class="alert alert-secondary report-name">
+                  {{ report.title }}
+                  <a *ngIf="report.pdfLink && permissions.pdfOpen" (click)="visitPdf(report._id,report.pdfLink)"  style="margin-left: 15px" title="PDF" class="report-icon"><i class="fa fa-file-pdf-o"></i></a>
+                  <a *ngIf="report.excelLink && isSubscribed" title="ME Data"  class="report-icon" [href]="report.excelLink"><i class="fa fa-file-excel-o"></i></a>
+                  <a *ngIf="report.docLink && isSubscribed" title="Doc File"  class="report-icon" [href]="report.docLink"><i class="fa fa-file-word-o"></i></a>
+                  <a *ngIf="report.pdfLink && !permissions.pdfOpen" title="This feature is not available with your current subscription" disabled class="report-icon disabled-cursor"><i class="fa fa-file-pdf-o"></i></a>
+                  <a *ngIf="report.excelLink && !isSubscribed" title="This feature is not available with your current subscription" disabled class="report-icon disabled-cursor"><i class="fa fa-file-excel-o"></i></a>
+                  <a *ngIf="report.docLink && !isSubscribed" title="This feature is not available with your current subscription" disabled class="report-icon disabled-cursor"><i class="fa fa-file-word-o"></i></a>
+                  <a *ngIf="report.isAnalytics" title="Analytics"  [routerLink]="['/market-estimation']" [queryParams]="{ reportId: report._id }" class="report-icon"><i class="fa fa-bar-chart"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>

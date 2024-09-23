@@ -1,0 +1,135 @@
+<div class="testbox">
+  <h1>Register</h1>
+
+  <mat-card class="mat-card">
+    <mat-card-content>
+      <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
+        <p *ngIf="error">
+          {{ error.message }}
+        </p>
+        <div class="form-group">
+          <label> First Name </label>
+          <div class="input-group input-group-merge">
+            <div class="input-icon">
+              <span class="fa fa-user color-primary"></span>
+            </div>
+            <mat-form-field class="btn-block">
+              <input
+                matInput
+                type="text"
+                name="firstName"
+                id="firstName"
+                formControlName="firstName"
+                required
+              />
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label> Last Name </label>
+          <div class="input-group input-group-merge">
+            <div class="input-icon">
+              <span class="fa fa-user color-primary"></span>
+            </div>
+            <mat-form-field class="btn-block">
+              <input
+                matInput
+                type="text"
+                name="lastName"
+                id="lastName"
+                formControlName="lastName"
+                required
+                class="centered-input"
+              />
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label> Email Address </label>
+          <div class="input-group input-group-merge">
+            <div class="input-icon">
+              <span class="fa fa-envelope color-primary"></span>
+            </div>
+            <mat-form-field class="btn-block">
+              <input
+                matInput
+                type="email"
+                name="email"
+                id="email"
+                formControlName="email"
+                required
+              />
+              <mat-error *ngIf="email.hasError('email')">
+                please enter a valid email address.
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label> Password </label>
+          <div class="input-group input-group-merge">
+            <div class="input-icon">
+              <span class="fa fa-lock color-primary"></span>
+            </div>
+            <mat-form-field class="btn-block">
+              <input
+                matInput
+                type="password"
+                name="password"
+                id="password"
+                formControlName="password"
+                required
+              />
+              <mat-error
+                *ngIf="
+                  password &&
+                  password.invalid &&
+                  password.errors &&
+                  password.errors['minlength'] &&
+                  (password.dirty || password.touched)
+                "
+              >
+                Password is required
+              </mat-error>
+              <mat-error
+                *ngIf="
+                  password &&
+                  password.invalid &&
+                  password.errors &&
+                  password.errors['minlength'] &&
+                  (password.dirty || password.touched)
+                "
+              >
+                Password must be at least 6 characters long
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="align-items-center">
+          <label
+            class="form-check-label"
+            style="font-size: 12px; margin-top: 10px"
+            >Password must include 1 capital letter, 1 small letter, 1 special
+            symbol and 1 number.</label
+          >
+        </div>
+
+        <button
+          class="reg-btn"
+          [disabled]="!registerForm.valid"
+          mat-raised-button
+          color="primary"
+        >
+          Register
+        </button>
+        <div class="text-center mt-3">
+          Already Registered!. <a [routerLink]="['/login']">click here</a>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

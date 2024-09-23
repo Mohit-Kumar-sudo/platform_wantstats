@@ -1,0 +1,11 @@
+<div class="dialog-youtube">
+  <mat-card-content class="outer-year-conatiner">
+      <a class="close_video" role="button" (click)="doClose()">Close</a>
+    <div class="center">
+          <div *ngIf="urlData">
+
+                  <iframe id="cartoonVideo" width="600" height="315" [src]="urlData" allow='autoplay' frameborder="0" allowfullscreen ></iframe>
+                  </div>
+    </div>
+  </mat-card-content>
+</div>

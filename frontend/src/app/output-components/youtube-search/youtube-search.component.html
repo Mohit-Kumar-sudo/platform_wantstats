@@ -1,0 +1,116 @@
+<!-- new html started -->
+
+<section style="margin-top:-10px;">
+    <div class="container">
+      <div class="row">
+        <div class="col-xl-8 col-lg-8 col-md-12">
+          <div class="section-title ">
+            <h2 class="sectionHeadline sectionHeadline--statistic">
+              Videos
+            </h2>
+          </div>
+          <div class="results-container" *ngIf="!iFrameUrl">
+            <div *ngIf="selectedAll && !isDirectSearch" class="slide-animated" style="outline-style: none">
+              <div class="sliders">
+                <ul class="video-ul">
+                  <li *ngFor="let news of articles2 | paginate : { itemsPerPage: limit, currentPage: page }; let i = index" class="single-report-card-wrap1">
+                    <div class="news-flex">
+                      <div class="list-post-media_1" *ngIf="news.snippet?.thumbnails?.default?.url">
+                        <a role="button" (click)="openDialog(news)">
+                          <div class="bg-wrap">
+                            <img class="img1" [src]="news.snippet?.thumbnails?.default?.url" alt="" width="260px" height="150px"
+                              border-radius="10px">
+                            <button class="btn"><i class="fa fa-play" aria-hidden="true"></i></button>
+                          </div>
+                        </a>
+                      </div>
+                      <div class="news-text">
+                        <div class="article-title1"><a role="button"
+                            (click)="openDialog(news)">{{news.snippet?.title}}</a></div>
+                        <span class="news_description">{{news.snippet?.description}}</span>
+                        <p class="news-source" *ngIf="news.snippet?.channelTitle"><span class="post-date"><strong>Source
+                              :</strong>
+                            {{news.snippet?.channelTitle}}/Youtube</span>
+                          <span class="post-date" *ngIf="news.snippet?.publishedAt"><strong> Published :</strong>
+                            {{news.snippet?.publishedAt | date:'fullDate'}}</span>
+                        </p>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+                <div class="pagination" *ngIf="articles2.length">
+                  <pagination-controls (pageChange)="page = $event"></pagination-controls>
+                </div>
+                <div class="errormsg" *ngIf="!articles2.length">
+                  No videos found
+                </div>
+              </div>
+            </div>
+            <div *ngIf="!selectedAll  || isDirectSearch" class="slide-animated" style="outline-style: none">
+              <h5 class="sectionRooftitle">{{selectedText}}</h5>
+              <div class="sliders">
+                <ul class="video-ul">
+                  <li *ngFor="let news of articles | paginate : { itemsPerPage: limit, currentPage: page }; let i = index" class="single-report-card-wrap1">
+                    <div class="news-flex">
+                      <div class="list-post-media_1" *ngIf="news?.snippet?.thumbnails.default.url">
+                        <a role="button" (click)="openDialog(news)">
+                          <div class="bg-wrap">
+                            <img [src]="news?.snippet?.thumbnails.default.url" alt="" width="260px" height="150px"
+                              border-radius="10px">
+                            <button class="btn"><i class="fa fa-play" aria-hidden="true"></i></button>
+                          </div>
+                        </a>
+                      </div>
+                      <div class="news-text">
+                        <div class="article-title1"><a
+                            style="cursor: pointer;font-size: large;font-weight:500;color:#000;" role="button"
+                            (click)="openDialog(news)">{{news?.snippet?.title}}</a></div>
+                        <span class="news_description">{{news?.snippet?.description}}</span>
+                        <p class="news-source" *ngIf="news?.snippet?.channelTitle"><span class="post-date"><strong>Source
+                              :</strong>
+                            {{news?.snippet?.channelTitle}}/Youtube</span>
+                          <span class="post-date" *ngIf="news?.snippet?.publishedAt"><strong> Published :</strong>
+                            {{news?.snippet?.publishedAt | date:'fullDate'}}</span>
+                        </p>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+                <div class="pagination" *ngIf="articles.length">
+                  <pagination-controls (pageChange)="page = $event"></pagination-controls>
+                </div>
+                <div class="errormsg" *ngIf="!articles.length">
+                  No videos found
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- section II start -->
+        <div class="col-xl-4 col-lg-4 col-md-12 p-lg-0">
+          <div class="sidebar-content fixed-bar fixbar-action" style="z-index: auto; position: relative; top: 0px;">
+            <div class="box-widget ">
+              <form html="{:class=>&quot;form-horizontal&quot;, :id=>&quot;search_form&quot;}" action="reports"
+                accept-charset="UTF-8" method="get" style="margin-bottom: 10px;"><input name="utf8" class="" type="hidden"
+                  value="✓">
+                <input  (keyup.enter)="directSearch()" [(ngModel)]="searchText" class="typeahead back-shadow form-control "
+                  id="search" name="q" placeholder="Search..." type="search" autocomplete="off">
+                <button name="button" type="submit" class="search-button" aria-label="Search"><i
+                    class="fa fa-search"></i></button>
+              </form>
+              <div class="widget-title">Categories</div>
+              <div class=" pb-lg-3 ">
+                <div class="caption">
+                  <div class="card-header" *ngFor="let item of categories">
+                    <a (click)="industrialVertical(item)"
+                      class="linkset d-flex align-items-center text-decoration-none">{{item}}</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  

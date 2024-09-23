@@ -1,0 +1,88 @@
+<section>
+    <div class="content" style="margin-top: 10px;">
+      <div class="container">
+        <div class="row justify-content-center ">
+          <div class="col-md-8 contact-wrap">
+            <div class="form h-120">
+              <form class="mb-3" method="post" id="contactForm" name="contactForm">
+                <div class="row">
+                  <div class="col-md-6 form-group mb-3">
+                    <label for="" class="col-form-label">Company Name *(Only US)</label>
+                    <input [(ngModel)]="selectedData.entityName" type="text" class="form-control" name="name" id="name"
+                      placeholder="Name">
+                  </div>
+                  <div class="col-md-6 form-group mb-3">
+                    <label for="" class="col-form-label">Search for text</label>
+                    <input [(ngModel)]="selectedData.q" type="text" class="form-control" name="name" id="text"
+                      placeholder="Search">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12 form-group mb-3">
+                    <label for="budget" class="col-form-label">Form Type</label>
+                    <select [(ngModel)]="selectedFormType" class="custom-select" id="budget" name="budget">
+                      <option *ngFor="let type of allFileTypes" value="{{type}}">{{type}}</option>
+                    </select>
+  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 form-group mb-3">
+                    <label for="" class="col-form-label">From date:</label>
+                    <input [(ngModel)]="selectedData.startdt" type="date" id="start" name="startdt" value="startdt" class="form-control">
+                  </div>
+                  <div class="col-md-6 form-group mb-3">
+                    <label for="" class="col-form-label">To date:</label>
+                    <input [(ngModel)]="selectedData.enddt" type="date" id="end" name="enddt" value="enddt" class="form-control">
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-primary " (click)="secSearch()"
+                  style="width: 30%;background-color: #65258a;border: none;box-shadow: none;">
+                  Search
+                </button>
+              </form>
+  
+  
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <section style="margin-top: 30px;">
+    <div class="container" *ngIf="allFillingData.length > 0">
+        <div class="table100 table-responsive" style="box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .08), 0 5px 26px 0 rgba(67, 94, 131, .15);">
+            <table style="width:100%">
+                <thead>
+                    <tr class="table100-head">
+                      <th>Form type</th>
+                      <th>Filed</th>
+                      <th>Reporting for</th>
+                      <th>Filling entity/person</th>
+                      <th>Located</th>
+                      <th>File number</th>
+                      <th>Film number</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr  class="tr-clickable" *ngFor="let file of allFillingData" (click)="openFilling(file)">
+                      <td>{{file._source.root_form}}</td>
+                      <td>{{file._source.file_date}}</td>
+                      <td>{{file._source.period_ending}}</td>
+                      <td><span *ngFor="let display_name of file._source.display_names">{{display_name}}</span></td>
+                      <td><span *ngFor="let biz_location of file._source.biz_locations">{{biz_location}}</span></td>
+                      <td><span *ngFor="let file_num of file._source.file_num">{{file_num}}</span></td>
+                      <td><span *ngFor="let film_num of file._source.film_num">{{film_num}}</span></td>
+                    </tr>
+  
+                </tbody>
+            </table>
+        </div>
+    </div>
+  </section>
+  
+  <div  *ngIf="error" class="no-results text-center">
+    <p>{{error}}</p>
+  </div>
+  
+  

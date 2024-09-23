@@ -1,0 +1,484 @@
+@import "../market-factor-analysis/porters-5-forces/porters-forces-output.component.scss";
+// @import "../output-company-profile/output-swot-analysis/output-swot-analysis.component.scss";
+.swot-container {
+  width: 80%;
+  height: 50vh;
+  background: white;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 10px 0;
+
+  .swot {
+    width: 50%;
+    height: 25vh;
+    border: 2px solid #fff;
+
+    p {
+      color: #fff;
+      text-align: center;
+      font-weight: 400;
+      padding: 5px;
+      margin: 0;
+    }
+
+    ul {
+      padding: 5px 20px 0 20px;
+      list-style: none;
+      margin: 0;
+
+      li {
+        color: #fff;
+        font-size: 12px;
+      }
+    }
+  }
+
+  .bg1 {
+    overflow-y: auto;
+    background: #bf77ab;
+    border-top-left-radius: 25px;
+  }
+
+  .bg2 {
+    overflow-y: auto;
+    background: #6cb78a;
+    border-top-right-radius: 25px;
+  }
+
+  .bg3 {
+    overflow-y: auto;
+    background: #6ba9b4;
+    border-bottom-left-radius: 25px;
+  }
+
+  .bg4 {
+    overflow-y: auto;
+    background: #86473f;
+    border-bottom-right-radius: 25px;
+  }
+
+  .bg5 {
+    width: 0;
+    height: 0;
+  }
+
+  .bg5:after {
+    content: "SWOT";
+    position: absolute;
+    width: 14%;
+    height: 7vh;
+    background: #2f5597;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #fff;
+    border-radius: 10px;
+    font-size: 20px;
+    display: none;
+  }
+}
+
+.header-background {
+  align-items: center;
+  background: #2f5597;
+  color: #fff;
+  padding: 5px;
+  margin: 0;
+}
+
+.btn-icon {
+  padding: 4px;
+  margin-right: 7px;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.7;
+  }
+}
+
+.main-swot {
+  display: flex;
+  justify-content: center;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  flex-wrap: wrap;
+}
+.down-header {
+  font-weight: bold;
+  margin: 0;
+  margin-bottom: 10px;
+  font-family: Montserrat, "Helvetica Neue", Arial, sans-serif;
+}
+.chart-headers {
+  font-size: 12px;
+  color: #000;
+  span {
+    font-weight: 600;
+    color: #000;
+  }
+}
+
+.upper-div-container {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+  padding-bottom: 8px;
+
+  .btn-right-margin {
+    margin-right: 5px;
+    font-size: 12px;
+  }
+}
+.dashboard-title {
+  float: left;
+  width: auto;
+  margin: 5px 8px;
+}
+
+.report-panel-name {
+  margin-top: 15px;
+  text-align: center;
+  width: 100%;
+}
+.report-option {
+  line-height: 14px;
+  font-size: 11px;
+  padding: 0 6px;
+  height: 30px !important;
+  white-space: unset;
+}
+
+.dashboard-button {
+  margin: 0 5px 5px 0;
+  line-height: 28px;
+  background-color: #2f5597;
+  color: white;
+  border: none;
+}
+
+.disabled-dashboard-button {
+  cursor: not-allowed;
+  color: #2f5597;
+  border: 1px solid currentColor;
+  background-color: transparent;
+}
+
+.card-header-dashboard {
+  padding: 3px 10px;
+  font-size: 13px;
+}
+
+.panel-card {
+  margin-top: 50px;
+}
+
+.panel-card-body {
+  padding: 0;
+  padding-top: 20px;
+}
+
+.card-body-dashboard {
+  padding: 8px;
+}
+
+.segment-buttons-container {
+  padding: 0 10px;
+}
+
+.panel-fullscreen-button {
+  padding: 5px;
+  border-radius: 3px;
+  position: absolute;
+  right: 79px;
+  top: 3px;
+  z-index: 4;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.7;
+  }
+}
+
+.panel-sheet-download-button {
+  padding: 5px;
+  border-radius: 3px;
+  position: absolute;
+  right: 53px;
+  top: 3px;
+  z-index: 4;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.7;
+  }
+}
+
+.panel-download-button {
+  padding: 5px;
+  border-radius: 3px;
+  position: absolute;
+  right: 26px;
+  top: 3px;
+  z-index: 4;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.7;
+  }
+}
+
+.panel-close-button {
+  padding: 5px;
+  border-radius: 3px;
+  position: absolute;
+  right: 0;
+  top: 3px;
+  z-index: 4;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.7;
+  }
+}
+
+.apply-button-container {
+  padding: 5px 0;
+}
+
+.outer-panel-container {
+  display: flex;
+  padding: 5px;
+
+  .dashboard-search-bar-container {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid #ced4da;
+    padding: 4px 15px;
+    margin-bottom: 10px;
+    border-radius: 15px;
+
+    .search-bar {
+      border: 0;
+      padding: 0;
+      display: block;
+      font-size: 13px;
+      font-weight: 400;
+      line-height: 1.5;
+      color: #495057;
+      outline: none;
+      margin-left: 0;
+      background-color: transparent;
+      width: 100%;
+    }
+
+    .search-btn {
+      cursor: pointer;
+
+      &:focus {
+        opacity: 0.7;
+      }
+    }
+  }
+
+  mat-form-field {
+    display: block;
+    font-size: 13px;
+  }
+
+  .padding-8 {
+    padding: 8px;
+  }
+
+  .left-column {
+    .controls-container {
+      overflow-y: scroll;
+      max-height: 58vh;
+      //border: 1px solid #AAA;
+      padding: 5px;
+
+      .chart-container {
+        min-height: 30vh;
+      }
+
+      mat-select {
+        font-size: 13px;
+        color: rgba(0, 0, 0, 0.54);
+        padding: 0 5px;
+
+       ::ng-deep .mat-select-value,
+       ::ng-deep .mat-select-arrow,
+       ::ng-deep .mat-select-placeholder {
+          color: rgba(0, 0, 0, 0.54) !important;
+        }
+      }
+    }
+  }
+}
+
+::ng-deep .fullscreen-dashboard {
+ ::ng-deep .mat-dialog-container {
+    padding: 5px !important;
+  }
+}
+
+.font-12-px {
+  font-size: 12px !important;
+  // height: 30px !important;
+}
+
+.panel-label {
+  width: 50%;
+  font-size: 12px;
+  padding-right: 9px;
+}
+
+.margin-0 {
+  margin: 0;
+}
+
+.padding-6 {
+  padding: 6px;
+}
+
+@media screen and (min-width: 600px) and (max-width: 1000px) {
+  .div-1 {
+    padding: 0px;
+    margin: -20px;
+  }
+  .padding-6 {
+    padding: 0px;
+    width: 104%;
+  }
+  .graph {
+    height: 450px !important;
+    width: 520px !important;
+    padding: -3px !important;
+    margin-top: 70px !important;
+  }
+
+  .outer-panel-container .left-column .controls-container {
+    overflow-y: scroll;
+    max-height: 58vh;
+    padding: 5px;
+    width: 115px;
+  }
+  .card {
+    border: none !important;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .outer-panel-container {
+    display: flex;
+    flex-direction: column;
+  }
+  .upper-div-container {
+    display: flex;
+  }
+  .report-panel-name {
+    margin-top: 35px;
+  }
+}
+
+.padding-5 {
+  padding: 5px;
+}
+
+.svg-width {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  height: 50vh;
+
+  svg {
+    max-width: 100% !important;
+    padding: 10px;
+  }
+}
+
+::ng-deep .company-tooltip {
+  position: absolute;
+  width: 270px;
+  padding: 5px;
+  left: 200px !important;
+  font-size: 0.8rem;
+  background: rgb(204, 204, 204);
+  border: 1px solid;
+  border-radius: 5px;
+  pointer-events: none;
+  color: #373a3c;
+}
+
+::ng-deep .company-tooltip h3 {
+  font-size: 0.7rem;
+  margin-bottom: 0.2rem;
+}
+
+::ng-deep .company-tooltip .overall {
+  font-style: italic;
+  margin-bottom: 0.5rem;
+}
+
+::ng-deep .company-tooltip .rating {
+  font-size: 0.7rem;
+}
+
+.top-btns {
+  ul {
+    list-style: none;
+    display: flex;
+    justify-content: flex-end;
+    padding: 0 10px;
+
+    li {
+      font-size: 12px;
+      padding: 0 5px;
+
+      &:hover {
+        cursor: pointer;
+        color: #373a3c;
+      }
+    }
+  }
+}
+
+::ng-deep .axis text.label {
+  font-size: 12px;
+  font-weight: bold;
+}
+
+::ng-deep .orgchart .node .leftEdge,
+::ng-deep .orgchart .node .rightEdge,
+::ng-deep .orgchart .node .topEdge {
+  display: none;
+}
+
+::ng-deep .orgchart {
+  background-image: none;
+  display: flex;
+  justify-content: center;
+}
+
+::ng-deep .orgchart .node .title {
+  background: #305497;
+}
+
+.report-option1 {
+  font-size: 12px;
+  height: 35px;
+}
+
+.example-full-width {
+  width: 500px !important;
+}
+
+.modal-header {
+  border-radius: 4px;
+  color: #fff;
+  margin-bottom: 15px;
+  padding: 15px 30px 20px;
+  background: linear-gradient(14deg, #65258a 10%, #791a70, #e80566) !important;
+}
+
+.modal-content {
+  margin-top: 170px !important;
+  margin-left: 10px !important;
+}

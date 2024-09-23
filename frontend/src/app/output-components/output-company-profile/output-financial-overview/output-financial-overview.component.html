@@ -1,0 +1,48 @@
+<ul class="listing">
+  <li *ngFor="let content of contentList;let i = index">
+    <div class="row">
+      <div class="col-6 desc">
+        <button mat-raised-button (click)="onElementSelect(content)" id="i" [ngClass]="content == selectData?'mat-raised-button clicked-btn':'mat-raised-button'">{{content}}<span *ngIf="content == 'By SBU'">/ Company revenue</span></button>
+      </div>
+    </div>
+  </li>
+</ul>
+<div class="header-background float-l-width">
+  <div class="float-l">
+    <a role="button" class="btn-link text-white" (click)="analyze()">Analyze</a>
+  </div>
+
+  <div class="float-right">
+    <i class="btn-icon fa fa-download" (click)="generateImage()" title="Download"></i>
+    <i class="btn-icon fa  fa-file-powerpoint-o" (click)="downloadPpt(chartData)" title="Download PPT"></i>
+
+    <i class="btn-icon fa fa-file-excel-o" (click)="downloadExcel()"></i>
+    <i class="btn-icon fa fa-expand" (click)="openDialog()" title="full screen"></i>
+  </div>
+</div>
+<div class="main-swot main-swot-bar float-l-width" #screen>
+  <mat-card-subtitle style="margin: 10px" class="chart-headers" *ngIf="currentCompany">
+    <span>Title&nbsp;:&nbsp;</span>{{currentCompany.company_name}},
+    Financial Overview , {{selectData}}<label *ngIf="selectData == 'By SBU'"> / Company revenue</label>
+  </mat-card-subtitle>
+  <div *ngIf="render" style="width: 100%;margin-top: 10px;">
+    <canvas height="88vh" baseChart [datasets]="chartData" [labels]="chartLabels" [options]="chartOptions"
+            [plugins]="chartPlugins" [legend]="chartLegend" [chartType]="chartType">
+    </canvas>
+  </div>
+  <mat-card-subtitle class="chart-headers" style="width: 100%;padding: 10px;"><span>Source&nbsp;:&nbsp;</span> Wantstats
+  </mat-card-subtitle>
+</div>
+
+<div style="margin-top: 20px">
+  <div *ngFor="let name of textData">
+    <div *ngIf="textData.length">
+      <div class="down-header" *ngIf="name.content">{{currentCompany.company_name}}, {{name.rowHeader}}</div>
+      <p [innerHTML]=name.content style="font-size: 14px;"></p>
+    </div>
+  </div>
+</div>
+<div style="display: none" id="download">
+  <img #canvas>
+  <a #downloadLink></a>
+</div>

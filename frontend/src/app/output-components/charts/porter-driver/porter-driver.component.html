@@ -1,0 +1,30 @@
+
+
+<div #driverContainer>
+  <div class="float-l-width header-background">
+    <div class="float-right">
+      <i class="btn-icon fa fa-download" (click)="generateImage()" title="Download Chart"></i>
+      <i class="btn-icon fa fa-expand" (click)="openDroctDialog()" title="Full Screen"></i>
+    </div>
+  </div>
+
+  <div class="outer-year-conatiner float-l-width" #screen>
+    <div class="center">
+      <p class="mat-caption" style="text-align: center"><span class="font-weight-bold">Title
+          :</span>{{treeArray[0].name}}, {{reportName}}
+        [{{startYear}} - {{endYear}}]</p>
+
+    </div>
+    <div>
+      <div id="{{ 'driver-container-' + chartId }}"></div>
+      <p class="mat-caption"><span class="font-weight-bold">Source
+          :</span>Wantstats
+      </p>
+    </div>
+  </div>
+
+  <div style="display: none" id="download">
+    <img #canvas>
+    <a #downloadLink></a>
+  </div>
+</div>

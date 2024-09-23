@@ -1,0 +1,793 @@
+<div>
+  <div class="main">
+    <section class="full-screen">
+      <div class="hero-section hero-bg-2 full-screen">
+        <div class="container">
+          <div class="row container1 align-items-center justify-content-center pt-lg-0 mar-top-50">
+            <div class="col-md-6 col-lg-6">
+              <div class="hero-content-left text-white" style="font-size: 0.9vw">
+                <h1 class="">Data That Drives Decisions</h1>
+                <h6>
+                  Setting the Standard as the World's First Data Sequencing
+                  Company, Driving Transformation and Insight.
+                </h6>
+                <div class="search">
+                  <input type="text" class="form-control"
+                    placeholder="Find Statistics and Report" (keyup.enter)="search()" matInput
+                    [formControl]="searchTerm" [matAutocomplete]="auto" style="position: static !important;"/>
+                  <button class="btn btn-primary" style="z-index: 999" (click)="search()">
+                    Search
+                  </button>
+                  <mat-autocomplete #auto="matAutocomplete">
+                    <mat-option *ngFor="let report of reportDataList | slice : 0 : 10" [value]="report.title">
+                      {{ report.title }}
+                    </mat-option>
+                  </mat-autocomplete>
+                </div>
+                <p>
+                  Wantstats is a premium platform that provides unparalleled
+                  data and statistics across 30000 markets and 100 countries in
+                  both B2B and B2C segments. Designed to fit the needs of
+                  industry stakeholders, associations, libraries, students and
+                  many more looking for statistics.
+                </p>
+                <h6 class="text-center" style="margin-top: 10px">
+                  As the name suggests, Want Stats?
+                </h6>
+                <div class="text-center">
+                  <button routerLink="/top-bar-charts" class="btn-primary button-1">
+                    We are the answer to it!
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- </section> -->
+
+      <!--search section end-->
+      <!-- companies section start -->
+
+      <!-- <section class="container-fluid pd-0"> -->
+      <div class="all-section">
+        <h6 class="text-center title-box">
+          Join 4000+ companies already growing
+        </h6>
+        <div class="customer-logos slider" style="margin: 15px">
+          <marquee onmouseover="this.stop();" onmouseout="this.start();" behavior="scroll" direction="left">
+            <img src="../../../assets/clientlogos/Arthur.png" />
+            <img src="../../../assets/clientlogos/ASELSAN.png" />
+            <img src="../../../assets/clientlogos/bosch.png" />
+            <img src="../../../assets/clientlogos/continental.png" />
+            <img src="../../../assets/clientlogos/decathlon.png" />
+            <img src="../../../assets/clientlogos/exxonmobile.png" />
+            <img src="../../../assets/clientlogos/ktm.png" />
+            <img src="../../../assets/clientlogos/lg-chem.png" />
+            <img src="../../../assets/clientlogos/sony.png" />
+            <img src="../../../assets/clientlogos/Thales.png" />
+          </marquee>
+        </div>
+      </div>
+      <!-- companies section end -->
+      <!-- new latest industry news section start -->
+
+      <div class="container-fluid mar-top-50 pd-0 slider-image">
+        <div class="title-box">
+          <h2 class="sectionRooftitle text-center">Our Latest Industry News</h2>
+          <p class="text-center">
+            In this section, We ara adding latest Industry News that are listed
+            on wantstats
+          </p>
+        </div>
+        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+          <div class="carousel-inner" style="height: 275px">
+            <div class="carousel-item active carousel-item-left">
+              <div class="cards-wrapper">
+                <div class="row">
+                  <a class="text-decoration-none col-md-4" style="color: #000"
+                    *ngFor="let item of googleSearch | slice : 0 : 3">
+                    <div class="card card-space" *ngIf="item.results.length">
+                      <img width="250" style="height: 135px !important" class="card-img-top" alt="Automobile"
+                        [src]="item.image" />
+                      <div class="card-body card-news-body" style="background-color: #ebebeb">
+                        <div>
+                          <h5 class="card-title">{{ item.name }}</h5>
+                        </div>
+                        <div>
+                          <a class="card-text mb-0" id="title1" href="{{ item.results[0].link }}" target="_blank"
+                            (click)="getLink(news)">
+                            {{ item.results[0].title }}
+                          </a>
+                        </div>
+                        <div id="see-right">
+                          <a class="pull-right text-decoration-none" href="{{ item.results[0].link }}" target="_blank"
+                            (click)="getLink(news)">See More</a>
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="carousel-item carousel-item-next carousel-item-left">
+              <div class="cards-wrapper">
+                <div class="row">
+                  <a class="text-decoration-none col-md-4" style="color: #000"
+                    *ngFor="let item of googleSearch | slice : 3 : 6">
+                    <div class="card card-space" *ngIf="item.results.length">
+                      <img width="250" style="height: 135px !important" class="card-img-top img-fluid" alt="Automobile"
+                        [src]="item.image" />
+                      <div class="card-body card-news-body" style="background-color: #ebebeb">
+                        <div class="news-title">
+                          <h5 class="card-title">{{ item.name }}</h5>
+                        </div>
+                        <div>
+                          <a class="card-text mb-0" id="title1" href="{{ item.results[0].link }}" target="_blank"
+                            (click)="getLink(news)">
+                            {{ item.results[0].title }}
+                          </a>
+                        </div>
+                        <div id="see-right">
+                          <a href="{{ item.results[0].link }}" target="_blank" (click)="getLink(news)"
+                            class="pull-right text-decoration-none">See More</a>
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <a class="carousel-control-prev prev" href="#carouselExampleControls" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next next" href="#carouselExampleControls" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+        <div class="tt-cursor text-center title-box">
+          <a routerLinkActive="btn-activated" routerLink="/output-chart/api-search"
+            [queryParams]="{ reportId: currentReport?._id }" class="btn red_btn btn-flat sample_button">
+            <span class="text">See All News</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- new latest industry news section end -->
+
+      <!-- new offering section start -->
+      <div class="container-fluid pd-0 mar-top-50">
+        <div class="row margin-aside justify-content-center">
+          <div class="col-lg-6 col-md-6 col-sm-6 col-xl-6">
+            <div class="box" style="height: 94%">
+              <div class="box__header">
+                <h5>What are we Offering?</h5>
+              </div>
+              <div class="box__body">
+                <p class="mb-0">
+                  <b>One-Stop </b>Shop for Data across functions and
+                  departments. Wantstats will help you monitor and track markets
+                  with over 2 million data points and counting.
+                </p>
+                <div class="justify-content-center d-flex">
+                  <ul class="list-item-points">
+                    <b>
+                      <li>Market Sizing</li>
+                      <li>Market Forecast</li>
+                      <li>Market Share Analysis</li>
+                    </b>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6 col-xl-6">
+            <div class="box" style="height: 94%">
+              <div class="box__header">
+                <h5>Where do we Stand in the Industry</h5>
+              </div>
+              <div class="box__body">
+                <p class="mb-0" style="line-height: 17px">
+                  We believe that
+                  <b>"We must use time as a tool, not as a couch"</b>. Wantstats
+                  provides the relief of not having to go through 200 pages of a
+                  report. We have built data that is easy to access and absorb
+                  through analytics, charts, and graphs. The coverage of
+                  Wantstats will keep you updated on market movements and
+                  dynamics as they shape up.
+                </p>
+                <p class="mb-0" style="margin-top: 5px; line-height: 17px">
+                  <b>Our analyst team</b> consists of highly experienced
+                  individuals who track markets throughout the year via expert
+                  interviews, data collection through paid and public domains,
+                  associations, and a consultant network spread globally. Our
+                  client servicing is just an email/call away to solve any
+                  queries within a window of 24 hours.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- new offering section end -->
+
+      <!-- new wantstats account section start -->
+      <div class="mar-top-50 pricing-section">
+        <div class="container">
+          <h2 class="sectionRooftitle title-box text-center"
+            style="margin-bottom: 20px !important; font-size: 27px !important">
+            Wantstats Accounts
+          </h2>
+          <div class="row">
+            <!-- Pricing Block -->
+            <div class="pricing-block col-lg-4 col-md-6 col-sm-12 wow fadeInUp">
+              <div class="inner-box">
+                <div class="icon-box" style="background-color: #ea79ba">
+                  <div class="icon-outer">
+                    <h4 class="text-center text-color">Starter Account</h4>
+                  </div>
+                </div>
+                <div class="price-content">
+                  <p class="text-center monthh p-1">
+                    <b>$49</b> USD/ <small style="font-size: 16px">Month</small>
+                  </p>
+                  <p class="text-center billed">* Billed Annually</p>
+                </div>
+                <ul class="features">
+                  <li>
+                    <img src="../../../assets/news and reports/double_tick.png" />
+                    Download XLS, PNG & PPT
+                  </li>
+                  <li class="true">
+                    <img src="../../../assets/news and reports/double_tick.png" />
+                    View Access to 1 Million Data
+                  </li>
+                  <li class="true">
+                    <img src="../../../assets/news and reports/double_tick.png" />
+                    View Access to Entire Platform
+                  </li>
+                </ul>
+              </div>
+              <div class="btn-box">
+                <a href="https://www.wantstats.com/subscribe?plan=49" class="theme-btn text-decoration-none">Subscribe</a>
+              </div>
+            </div>
+
+            <!-- Pricing Block -->
+            <div class="pricing-block col-lg-4 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="400ms">
+              <div class="inner-box">
+                <div class="icon-box" style="background-color: #aa7aeb">
+                  <div class="icon-outer">
+                    <h4 class="text-center text-color">Single User</h4>
+                  </div>
+                </div>
+                <div class="price-content">
+                  <p class="text-center monthh p-1">
+                    <b>$599</b> USD/
+                    <small style="font-size: 16px">Month</small>
+                  </p>
+                  <p class="text-center billed">* Billed Annually</p>
+                </div>
+                <ul class="features">
+                  <li>
+                    <img src="../../../assets/news and reports/double_tick.png" />
+                    Dedicated Client Service Manager
+                  </li>
+                  <li class="true">
+                    <img src="../../../assets/news and reports/double_tick.png" />
+                    Download XLS, PNG & PPT
+                  </li>
+                  <li class="true">
+                    <img src="../../../assets/news and reports/double_tick.png" />
+                    View access to 2 million data
+                  </li>
+                  <li class="false">
+                    <img src="../../../assets/news and reports/double_tick.png" />
+                    View Access to Entire Platform
+                  </li>
+                </ul>
+              </div>
+              <div class="btn-box">
+                <a href="https://www.wantstats.com/subscribe?plan=599" class="theme-btn text-decoration-none">Subscribe</a>
+              </div>
+            </div>
+
+            <!-- Pricing Block -->
+            <div class="pricing-block col-lg-4 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="800ms">
+              <div class="inner-box">
+                <div class="icon-box" style="background-color: #6dace7">
+                  <div class="icon-outer">
+                    <h4 class="text-center text-color">Business</h4>
+                  </div>
+                </div>
+                <div class="price-content">
+                  <p class="text-center monthh p-1">
+                    <b>$899</b> USD/
+                    <small style="font-size: 16px">Month</small>
+                  </p>
+                  <p class="text-center billed">* Billed Annually</p>
+                </div>
+                <ul class="features">
+                  <li class="list-features">
+                    <img src="../../../assets/news and reports/double_tick.png" />
+                    Dedicated Client Service Manager
+                  </li>
+                  <li class="list-features">
+                    <img src="../../../assets/news and reports/double_tick.png" />
+                    Dedicated Analyst Support
+                  </li>
+                  <li class="list-features">
+                    <img src="../../../assets/news and reports/double_tick.png" />
+                    Suggestive request box to accommodate new markets during
+                    subscription period
+                  </li>
+                  <li class="list-features">
+                    <img src="../../../assets/news and reports/double_tick.png" />
+                    Access to the entire data & statistics with download rights
+                    for up to 10000 Premium statistics per 12 months without
+                    publication rights
+                  </li>
+                  <li class="list-features">
+                    <img src="../../../assets/news and reports/double_tick.png" />
+                    View Access to Entire Platform
+                  </li>
+                </ul>
+              </div>
+              <div class="btn-box">
+                <a href="https://www.wantstats.com/subscribe?plan=899" class="theme-btn text-decoration-none">Subscribe</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- new wantstats account section end -->
+
+      <!-- new charts And Statastics section start -->
+      <div class="container-fluid pd-0 mar-top-50">
+        <h2 class="sectionRooftitle title-box text-center"
+          style="margin-bottom: 10px !important; font-size: 27px !important">
+          Charts &amp; Statistics
+        </h2>
+        <div class="row margin-aside">
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xl-4">
+            <div class="box">
+              <div class="box__header" style="padding: 8px">
+                <h5 style="font-size: 18px">How Do They Help</h5>
+              </div>
+              <div class="box__body">
+                <p class="mb-0" style="line-height: 19px; font-size: 13px">
+                  <b>Market intelligence</b> charts &amp; statistics are
+                  essential for businesses of all sizes. They provide valuable
+                  insights into your target market, your competitors, and the
+                  overall industry landscape. This information can help you make
+                  better strategic decisions, develop more effective marketing
+                  campaigns, and improve your bottom line. With over 2 million
+                  charts &amp; stats and counting, the platform will certainly
+                  trim down the spend on market intelligence by a mile.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xl-4">
+            <div class="box">
+              <div class="box__header" style="padding: 8px">
+                <h5 style="font-size: 18px">New Age Research Tool</h5>
+              </div>
+              <div class="box__body">
+                <p style="line-height: 19px; font-size: 13px; margin-bottom: 5px">
+                  <b>We have built a platform</b> that will enable you to
+                  capture all types of market intelligence such as market
+                  numbers, sales revenue, competitive intelligence, news &amp;
+                  updates, and regulatory filings. The idea is to save time,
+                  money and effort for companies, functions and individuals who
+                  believe in smart work.
+                </p>
+
+                <p class="mb-0"><b>Value Proposition</b></p>
+                <ul style="font-size: 13px; list-style: none; padding: 0px">
+                  <li>Increased market knowledge</li>
+                  <li>Improved decision-making</li>
+                  <li>Reduced time to market</li>
+                  <li>Reduced time to market</li>
+                  <li>Enhanced competitive intelligence</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xl-4">
+            <div class="box">
+              <div class="box__header" style="padding: 8px">
+                <h5 style="font-size: 18px">What Do They Represent</h5>
+              </div>
+              <div class="box__body">
+                <p class="mb-0" style="line-height: 19px; font-size: 13px">
+                  <b>Data visualization</b> is becoming increasingly important
+                  as businesses rely more and more on data to make decisions.
+                  Wanstats present over 1 million data points in form of charts
+                  and statistics which are easy to absorb and interpret. With a
+                  quick search option and usage of AI based suggestion module,
+                  the platform will enable you to save time and capture market
+                  data in a capsule format.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- new charts And Statastics section end -->
+
+      <!-- daily counts section start -->
+      <div class="container-fluid pd-0">
+        <section class="content margin-bottom-lg" id="parallax_media">
+          <div class="row margin-aside">
+            <div class="col-sm-6 col-md-6 col-xs-12 padding-xs">
+              <h2 class="sectionRooftitle_1 pt-4" style="color: #000">
+                HOW WE ARE <br /><br />
+                <span class="text-main">MOVING AHEAD</span>
+              </h2>
+              <div class="index-heading2">
+                Our Knowledge Charts Database a tamed monster
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-6 col-sm-6 padding-xs">
+              <div id="demo" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                  <div class="carousel-item active">
+                    <div class="media" id="media_one">
+                      <a href="javascript:void(0);" style="display: flex; cursor: pointer" class="text-decoration-none">
+                        <div class="col-md-12 col-xs-12 col-sm-12 zero-padding">
+                          <div class="d-flex justify-content-center" style="padding-top: 5px">
+                            <div>
+                              <img class="img-media" src="../../../assets/contact/image_1.png" />
+                            </div>
+                            &nbsp;&nbsp;
+                            <div class="panelbodyfont">
+                              Industries &amp; Countries Covered
+                            </div>
+                            &nbsp;&nbsp;
+                            <div class="count-text">
+                              <p class="text-center mb-0">01/03</p>
+                            </div>
+                          </div>
+                        </div>
+                      </a>
+                    </div>
+                    <div class="text-center moving-section how-moving-section">
+                      <div class="count counter1">500</div>
+                      <hr class="text-center" style="margin: auto; width: 80px" />
+                      <br />
+                      <p style="color: #fff;font-size: 12px;margin-top: -5px;" id="media_text1">
+                        Brand awareness & health surveys conducted to validate
+                        our analysis
+                      </p>
+                    </div>
+                    <div class="text-center moving-section how-moving-section">
+                      <div class="count counter2">60</div>
+                      <hr class="text-center" style="margin: auto; width: 80px" />
+                      <br />
+                      <p style="color: #fff; font-size: 12px; margin-top: -5px" id="media_text2">
+                        In-depth analysis of survey with consumers & strategic
+                        consultants.
+                      </p>
+                    </div>
+                  </div>
+                  <div class="carousel-item">
+                    <div class="media" id="media_one">
+                      <a href="javascript:void(0);" style="display: flex; cursor: pointer" class="text-decoration-none">
+                        <div class="col-md-12 col-xs-12 col-sm-12 zero-padding">
+                          <div class="d-flex justify-content-center" style="padding-top: 5px">
+                            <div>
+                              <img class="img-media" src="../../../assets/contact/image_2.png" />
+                            </div>
+                            &nbsp;&nbsp;
+                            <div class="panelbodyfont">
+                              Daily Visitors &amp; Customer Base of the Group
+                            </div>
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <div class="count-text">
+                              <p class="text-center mb-0">02/03</p>
+                            </div>
+                          </div>
+                        </div>
+                      </a>
+                    </div>
+                    <div class="text-center moving-section how-moving-section">
+                      <div class="count counter1">400</div>
+                      <hr class="text-center" style="margin: auto; width: 80px" />
+                      <br />
+                      <p style="color: #fff; font-size: 12px; margin-top: -5px" id="media_text1">
+                        Brand awareness & health surveys conducted to validate
+                        our analysisData for all industries across major sectors
+                        including Consumer Retail, Defense, Energy, Financial
+                        Services, Healthcare, Industrial, Information
+                        Technology, Real Estate and Utilities
+                      </p>
+                    </div>
+                    <div class="text-center moving-section how-moving-section">
+                      <div class="count counter2">19,995</div>
+                      <hr class="text-center" style="margin: auto; width: 80px" />
+                      <br />
+                      <p style="color: #fff; font-size: 12px; margin-top: -5px" id="media_text2">
+                        Statistics available for all industry verticals across
+                        countries in North America, Europe, Asia Pacific,
+                        Central & South America, and Middle East & Africa
+                      </p>
+                    </div>
+                  </div>
+                  <div class="carousel-item">
+                    <div class="media" id="media_one">
+                      <a href="javascript:void(0);" style="display: flex; cursor: pointer" class="text-decoration-none">
+                        <div class="col-md-12 col-xs-12 col-sm-12 zero-padding">
+                          <div class="d-flex justify-content-center" style="padding-top: 5px">
+                            <div>
+                              <img class="img-media" src="../../../assets/contact/image_3.png" />
+                            </div>
+                            &nbsp;&nbsp;
+                            <div class="panelbodyfont">
+                              Consumer &amp; Brand Surveys Conducted
+                            </div>
+                            &nbsp;&nbsp;
+                            <div class="count-text">
+                              <p class="text-center mb-0">03/03</p>
+                            </div>
+                          </div>
+                        </div>
+                      </a>
+                    </div>
+                    <div class="text-center moving-section how-moving-section">
+                      <div class="count counter1">16,000</div>
+                      <hr class="text-center" style="margin: auto; width: 80px" />
+                      <br />
+                      <p style="color: #fff; font-size: 12px; margin-top: -5px" id="media_text1">
+                        We always welcome our visitors to our largest data bank.
+                      </p>
+                    </div>
+                    <div class="text-center moving-section how-moving-section">
+                      <div class="count counter2">2,499,726</div>
+                      <hr class="text-center" style="margin: auto; width: 80px" />
+                      <br />
+                      <p style="color: #fff; font-size: 12px; margin-top: -5px" id="media_text2">
+                        Pleased clientele is the best feather in our cap
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <a class="carousel-control-prev carousel-control-prev1" href="#demo" data-slide="prev"
+                  style="top: 13%; left: 15px">
+                  <span class="carousel-control-prev-icon"></span>
+                </a>
+                <a class="carousel-control-next carousel-control-next1" href="#demo" data-slide="next"
+                  style="top: 13%; right: 15px">
+                  <span class="carousel-control-next-icon"></span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+      <!-- daily counts section end -->
+
+      <!-- daily business story section start -->
+      <div class="container mob-infographics mar-top-50 pd-0">
+        <h2 class="sectionRooftitle title-box text-center"
+          style="margin-bottom: 20px !important; font-size: 27px !important">
+          Daily Business Stories
+        </h2>
+        <div id="carouselExampleControls_1" class="carousel slide" data-ride="carousel">
+          <div class="carousel-inner business-story" style="height: 275px">
+            <div class="carousel-item active carousel-item-left">
+              <div class="cards-wrapper">
+                <div *ngFor="let charts of titleData | slice : 0 : 3">
+                  <a class="text-decoration-none" style="color: #000">
+                    <div class="utf_post_overaly_style clearfix">
+                      <div class="utf_post_thumb">
+                        <a><img class="img-fluid" src="../../../assets/contact/5g_india.jpg" alt="" /></a>
+                      </div>
+                      <div class="utf_post_content">
+                        <h2 class="utf_post_title">
+                          <a style="z-index: 999; cursor: pointer" *ngIf="charts?.key"
+                            (click)="navigateToChartsAndStatistics(charts)">{{ charts.title }}</a>
+                        </h2>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="carousel-item carousel-item-next carousel-item-left">
+              <div class="cards-wrapper">
+                <div *ngFor="let charts of titleData | slice : 3 : 6">
+                  <a class="text-decoration-none" style="color: #000">
+                    <div class="utf_post_overaly_style clearfix">
+                      <div class="utf_post_thumb">
+                        <a>
+                          <img class="img-fluid" src="../../../assets/contact/5g_india.jpg" alt="" />
+                        </a>
+                      </div>
+                      <div class="utf_post_content">
+                        <h2 class="utf_post_title">
+                          <a style="cursor: pointer" *ngIf="charts?.key"
+                            (click)="navigateToChartsAndStatistics(charts)">{{ charts.title }}</a>
+                        </h2>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <a class="carousel-control-prev prev" href="#carouselExampleControls_1" role="button" style="top: 35%"
+            data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="false"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next next" href="#carouselExampleControls_1" role="button" style="top: 35%"
+            data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="false"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+        <div class="tt-cursor see-more text-center">
+          <a style="z-index: 999" routerLink="/top-bar-charts" class="btn red_btn btn-flat sample_button"
+            style="margin-top: -60px; position: absolute; margin-left: -60px">
+            <span class="text">See All Stories</span>
+          </a>
+        </div>
+      </div>
+      <!-- daily business story section end -->
+
+      <!-- faq section start -->
+      <div class="container pd-0">
+        <h2 class="sectionRooftitle title-box text-center"
+          style="margin-bottom: 20px !important; font-size: 27px !important">
+          FAQ'<span class="text-lowercase">s</span>
+        </h2>
+        <div class="row">
+          <div class="col-md-12">
+            <div>
+              <div class="faq-section d-flex justify-content-between">
+                <div>
+                  <p class="faq-text-number">01</p>
+                </div>
+                <div class="faq-content">
+                  <h5>How Can I Get Access To The Platform?</h5>
+                  <p>
+                    Clients will receive a login ID for access to the platform
+                    depending on the account type post receiving the payment. A
+                    demo video to fully utilize the platform along with
+                    dedicated account manager will be present to help with the
+                    onboarding case.
+                  </p>
+                </div>
+              </div>
+              <div class="faq-section d-flex justify-content-between">
+                <div>
+                  <p class="faq-text-number">02</p>
+                </div>
+                <div class="faq-content">
+                  <h5>How often is the data updated?</h5>
+                  <p>
+                    Our team of over 500 analysts works around the clock to
+                    monitor markets, collect information and publish reports &
+                    statistics to provide updated information. The monthly
+                    newsletter will also inform our subscribers on the recent
+                    and upcoming additions on the platform.
+                  </p>
+                </div>
+              </div>
+              <div class="faq-section d-flex justify-content-between">
+                <div>
+                  <p class="faq-text-number">03</p>
+                </div>
+                <div class="faq-content">
+                  <h5>What is the source of information?</h5>
+                  <p>
+                    Wantstats is the publishing entity of all the data &
+                    statistics present on the platform. The company has a
+                    repository built via publishing experience of last 7 years
+                    across the industries and verticals. Our in-house analyst
+                    team have developed the data with a robust research process
+                    and methodologies driven by a mix of primary (~80%) and
+                    secondary (~20%).
+                  </p>
+                </div>
+              </div>
+              <div class="faq-section d-flex">
+                <div>
+                  <p class="faq-text-number">04</p>
+                </div>
+                <div class="faq-content">
+                  <h5>What is validity of account subscriptions?</h5>
+                  <p>
+                    You can enjoy 12 months of access to both Basic and Premium
+                    accounts, and your subscription will be <br />renewed
+                    automatically.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="tt-cursor text-center">
+              <a routerLinkActive="btn-activated" routerLink="/top-bar-charts" rel="nofollow" role="" data-toggle=""
+                class="btn red_btn btn-flat sample_button" style="padding: 10px 0px">
+                <span>See More</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- faq section end -->
+
+      <!-- new contact section start -->
+      <div class="container pd-0  mar-top-20" style="padding: 2px !important">
+        <div class="card p-3">
+          <h2 class="sectionRooftitle text-center mar-top-10" style="margin-bottom: 10px">
+            <span>Contact Us</span>
+          </h2>
+          <div class="row contact_section" style="padding: 0 9%">
+            <div class="col-md-12">
+              <form #contactForm="ngForm" (ngSubmit)="submitLead(contactForm)">
+                <div class="form-row">
+                  <div class="form-group name_field col-md-6">
+                    <input type="text" ngModel name="FirstName" class="form-control" required />
+                    <label for="inputEmail4">First Name</label>
+                    <div class="line"></div>
+                  </div>
+                  <div class="form-group name_field col-md-6">
+                    <input type="text" ngModel name="LastName" class="form-control" required />
+                    <label for="inputPassword4">Last Name</label>
+                    <div class="line"></div>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group name_field col-md-6">
+                    <input type="email" ngModel name="Email" class="form-control" required />
+                    <label for="inputEmail4">Email</label>
+                    <div class="line"></div>
+                  </div>
+                  <div class="form-group name_field col-md-6">
+                    <input type="number" ngModel name="Number" class="form-control" required />
+                    <label for="inputPassword4">Phone Number</label>
+                    <div class="line"></div>
+                  </div>
+                </div>
+                <div class="inline-group select-subject">
+                  <h6>Select Subject?</h6>
+                  <label for="radio-one" class="label-set">
+                    <input type="radio" value="radio-one" ngModel name="enquiryType" id="radio-one" />
+                    <span class="radioBtn">General Inquiry</span>
+                  </label>
+                  <label for="radio-two" class="label-set">
+                    <input type="radio" value="radio-two" ngModel name="enquiryType" id="radio-two" />
+                    <span class="radioBtn">Purchase Inquiry</span>
+                  </label>
+                  <label for="radio-three" class="label-set">
+                    <input type="radio" value="radio-three" ngModel name="enquiryType" id="radio-three" />
+                    <span class="radioBtn">Detailed Inquiry</span>
+                  </label>
+                </div>
+                <div class="form-group col-md-12">
+                  <label for="w3review">Message<br /><span>Write your message?</span></label>
+                  <br />
+                  <textarea id="w3review" name="message" ngModel rows="4" cols="90"></textarea>
+                  <div class="line"></div>
+                </div>
+                <div class="text-center">
+                  <button class="btn btn-primary button-1 btn-block" style="padding: 10px">
+                    Send Meassage
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+          <!-- freshhh -->
+        </div>
+      </div>
+      <!-- new contact section end -->
+    </section>
+    <div></div>
+  </div>
+</div>
+<!-- new Design -->

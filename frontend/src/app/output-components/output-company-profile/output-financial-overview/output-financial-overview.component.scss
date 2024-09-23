@@ -1,0 +1,26 @@
+@import "../output-swot-analysis/output-swot-analysis.component.scss";
+
+// .main-swot-bar {
+//height: 50vh !important;
+// }
+
+.listing {
+  list-style: none;
+  display: flex;
+  padding: 0;
+  li {
+    margin: 0 5px;
+  }
+}
+.chart-headers {
+  font-size: 12px;
+  color: #000;
+  span {
+    font-weight: 600;
+    color: #000;
+  }
+}
+.clicked-btn {
+  background: #fff !important;
+  color: #305497 !important;
+}

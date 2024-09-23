@@ -1,0 +1,12 @@
+@import "../output-swot-analysis/output-swot-analysis.component.scss";
+
+::ng-deep .mat-dialog-container {
+  padding: 0 !important;
+}
+.swot-container{
+  width: 90%;
+  height: 60vh;
+  .swot{
+    height: 30vh;
+  }
+}

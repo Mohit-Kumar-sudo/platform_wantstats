@@ -1,0 +1,253 @@
+.mainsection {
+  border: 1px solid #ccc;
+  width: calc(100% - 30px);
+  background: #fff;
+  top: 106%;
+  padding: 10px;
+  box-shadow: 0 5px 5px 0 #ccc;
+  border-bottom: 2px solid #65258a;
+  left: 15px;
+}
+
+.reports-item {
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 15px;
+  padding-bottom: 25px;
+}
+
+.reports .mainset {
+  width: 100px;
+  float: left;
+  border-radius: 5px;
+}
+
+.reports h4 {
+  font-size: 15px;
+  margin-left: 95px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.card-title {
+  font-size: 25px;
+  font-weight: 700;
+  color: #340f49;
+  position: absolute;
+}
+
+.reports p {
+  font-size: 14px;
+  color: #777777;
+  margin-left: 95px;
+}
+
+li.widget-container.widget_nav_menu li {
+  list-style-type: none;
+  color: #898989;
+}
+
+.widget_nav_menu {
+  list-style-type: none;
+  color: #cccccc;
+  font-size: 14px;
+}
+
+.content ul .fa-circle {
+  position: absolute;
+  font-size: 5px;
+  left: 32px;
+  top: 8px;
+  color: #65258a;
+}
+
+.content ul li {
+  padding: 0 0 7px 70px;
+  position: relative;
+  color: #000;
+}
+.content_1 ul li {
+  padding: 0 0 7px 70px;
+  position: relative;
+  color: #000;
+}
+
+.content ul li a {
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 14px;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+.content ul li a:hover {
+  text-decoration: none;
+  font-size: 14px;
+  color: #fff !important;
+}
+
+// .content ul li a:hover{
+//   color:#fff !important;
+
+// }
+
+.tags-widget a {
+  float: left;
+  padding: 6px 14px;
+  color: #fff;
+  font-size: 10px;
+  text-transform: uppercase;
+  border-radius: 5px;
+  margin: 0 5px 15px 0;
+  font-weight: 600;
+  background: #e80566;
+  text-decoration: none;
+}
+
+.search {
+  position: relative;
+  box-shadow: 0 0 40px rgba(51, 51, 51, 0.1);
+}
+
+.search button {
+  position: absolute;
+  top: 1px;
+  right: 5px;
+  height: 35px;
+  background: transparent;
+  border: none;
+}
+
+.iconset {
+  float: right;
+}
+
+.reportsmain {
+  background: #eee;
+  padding: 6px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.reportsmain_1 {
+  background: #eee;
+  padding: 8px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.reportsmain_1:hover{
+  background-color: #2b5498;
+  color: white !important;
+}
+
+.reportsmain_2 {
+  background: #eee;
+  padding: 8px !important;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 5px;
+  margin-left: 71px;
+}
+
+.reportsmain_2:hover{
+  background-color: #2b5498;
+  color: white !important;
+}
+
+.video-title {
+  padding-bottom: 10px !important;
+}
+
+.video-title:hover {
+  background-color: #2b5498 !important;
+  color: white !important;
+}
+
+.reportsmain:hover {
+  background-color: #2b5498;
+  color: white !important;
+}
+
+.report-list-single-card-title:hover {
+  background-color: #2b5498 !important;
+  color: white !important;
+}
+
+.margin-right-8 {
+  margin-right: 8px !important;
+  width: 33px !important;
+}
+
+.single-report-card-wrap_1 {
+  box-sizing: border-box;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  background: #fff;
+  padding: 5px;
+  transition: all ease-in-out 0.4s;
+  display: flex;
+}
+
+.scrollBar-y,
+.scrollBox {
+  box-sizing: border-box;
+  overflow-y: auto;
+  position: relative;
+}
+
+@media only screen and (min-width: 1201px) {
+  .statTabs__scroller--normal {
+    max-height: 200px;
+  }
+}
+
+.scrollBar-y::-webkit-scrollbar,
+.scrollBox::-webkit-scrollbar {
+  height: 8px;
+  width: 8px;
+}
+
+.scrollBar-y::-webkit-scrollbar-thumb,
+.scrollBox::-webkit-scrollbar-thumb {
+  background: linear-gradient(14deg, #65258a 10%, #791a70, #e80566) !important;
+  border: 1px solid #65258a;
+  border-radius: 50px;
+}
+
+.scrollBar-y::-webkit-scrollbar-track,
+.scrollBox::-webkit-scrollbar-track {
+  background: #ecf0f3;
+  border: 0 solid #fff;
+  border-radius: 3px;
+}
+
+span.premium-reports {
+  display: inline-block;
+  position: relative;
+  margin-right: 25px;
+  color: #ffffff;
+  font-size: 10px;
+  line-height: 12px;
+  font-weight: 700;
+  padding: 4px 13px;
+  padding-right: 17px;
+  background: #65258a;
+  border-radius: 4px;
+  left: 7%;
+  margin-bottom: 9px;
+}
+
+span.premium-reports:after {
+  content: '';
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  background: #65258a;
+  border-radius: 2px;
+  transform: rotate(45deg);
+  top: 1px;
+  right: -7px;
+}

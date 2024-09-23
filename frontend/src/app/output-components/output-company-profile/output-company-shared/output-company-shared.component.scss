@@ -1,0 +1,41 @@
+@import "../../market-dynamics/drivers/drivers.component.scss";
+.BoldTextChar {
+  font-weight: bold !important;
+  font-size: 15px !important;
+}
+.seprator-div {
+  padding: 10px 0;
+  ::ng-deep th.mat-header-cell:first-of-type,
+  ::ng-deep td.mat-cell:first-of-type {
+    padding-left: 10px !important;
+  }
+  ::ng-deep th.mat-header-cell:last-of-type,
+  ::ng-deep td.mat-cell:last-of-type {
+    padding: 10px !important;
+  }
+  ::ng-deep th.mat-header-cell {
+    padding: 10px !important;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    text-transform: capitalize;
+    background: #305497;
+    color: #fff;
+  }
+  ::ng-deep td.mat-cell {
+    padding: 0 10px !important;
+    border: none;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+  }
+  p {
+    margin: 5px 8px !important;
+    font-size: 15px !important;
+  }
+  ::ng-deep tr.mat-header-row {
+    height: 20px !important;
+  }
+  ::ng-deep tr.mat-row {
+    height: 32px !important;
+  }
+  .TableHeader1{
+    padding: 5px !important;
+  }
+}

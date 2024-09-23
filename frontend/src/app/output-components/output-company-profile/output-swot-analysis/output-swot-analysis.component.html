@@ -1,0 +1,67 @@
+<div class="main-container" id="scroll">
+  <div>
+    <div class="row">
+      <div class="col-12 m8">
+        <div class="">
+          <div class="down-header">{{currentReport.title}} Market
+            [{{currentReport.me.start_year}} -
+            {{currentReport.me.end_year}}]
+          </div>
+          <div class="down-header">
+            {{outputData.company_name | titlecase}}, SWOT Analysis
+          </div>
+          <div class="float-l-width header-background">
+            <div class="float-l">
+                <a role="button" class="btn-link" (click)="analyze()">Analyze</a>
+            </div>
+              <div class="float-right">
+                <i class="btn-icon fa fa-download" (click)="generateImage()" title="Download"></i>
+                <i class="btn-icon fa fa-expand" (click)="openDialog()" title="Full Screen"></i>
+              </div>
+          </div>
+          <div class="main-swot float-l" #screen>
+            <mat-card-subtitle style="margin: 10px" class="chart-headers"><span>Title&nbsp;:&nbsp;</span>
+              {{currentReport.title}} Market
+              [{{currentReport.me.start_year}} -
+              {{currentReport.me.end_year}}], {{outputData.company_name | titlecase}}, SWOT Analysis
+            </mat-card-subtitle>
+            <div class="swot-container">
+              <div class="swot bg1">
+                <p>Strength</p>
+                <ul>
+                  <li *ngFor="let item of strength">{{item.name}}</li>
+                </ul>
+              </div>
+              <div class="swot bg2">
+                <p>Weakness</p>
+                <ul>
+                  <li *ngFor="let item of weakness">{{item.name}}</li>
+                </ul>
+              </div>
+              <div class="swot bg3">
+                <p>Opportunity</p>
+                <ul>
+                  <li *ngFor="let item of opportunity">{{item.name}}</li>
+                </ul>
+              </div>
+              <div class="bg5">
+              </div>
+              <div class="swot bg4">
+                <p>Threat</p>
+                <ul>
+                  <li *ngFor="let item of threat">{{item.name}}</li>
+                </ul>
+              </div>
+            </div>
+            <mat-card-subtitle style="width: 100%;padding: 10px;" class="chart-headers"><span>Source&nbsp;:&nbsp;</span> Wantstats
+            </mat-card-subtitle>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div style="display: none" id="download">
+  <img #canvas>
+  <a #downloadLink></a>
+</div>

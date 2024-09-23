@@ -1,0 +1,26 @@
+<div class="float-l-width header-background">
+  <div class="float-l">
+      <a role="button" class="btn-link" (click)="analyze()">Analyze</a>
+  </div>
+    <div class="float-right">
+      <i class="btn-icon fa fa-download" (click)="generateImage()" title="Download"></i>
+      <i class="btn-icon fa fa-file-excel-o" (click)="downloadExcel()"></i>
+      <i class="btn-icon fa fa-close" (click)="doClose()" title=Close></i>
+    </div>
+</div>
+<div class="main-swot float-l-width" #screen>
+  <mat-card-subtitle style="margin: 10px" class="chart-headers"><span>Title: </span>{{currentCompany | titlecase}},
+    Financial Overview, {{data?.type}}
+  </mat-card-subtitle>
+  <div *ngIf="render" style="width: 100%;margin-top: 10px;">
+    <canvas baseChart [datasets]="chartData" [labels]="chartLabels" [options]="chartOptions" [plugins]="chartPlugins"
+      [legend]="chartLegend" [chartType]="chartType">
+    </canvas>
+  </div>
+  <mat-card-subtitle class="chart-headers" style="width: 100%;padding: 10px;"><span>Source:</span> Wantstats
+  </mat-card-subtitle>
+</div>
+<div style="display: none" id="download">
+  <img #canvas>
+  <a #downloadLink></a>
+</div>

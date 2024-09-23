@@ -1,0 +1,123 @@
+<div class="container-fluid" id="scroll">
+  <div class="mt-4">
+    <div class="row">
+      <div class="col-9 m8">
+        <div class="down-header">
+          Porter's 5 Forces, {{reportName}} [{{startYear}} - {{endYear}}]
+        </div>
+        <div class="top-div">
+          <div>
+            <div class="float-l-width header-background">
+              <div class="float-l">
+                <a role="button" class="btn-link" (click)="analyze()">Analyze</a>
+              </div>
+              <div class="float-right">
+                <i class="btn-icon fa fa-download" (click)="generateImage()" title="Download"></i>
+                <i class="btn-icon fa fa-expand" (click)="openDroctDialog()" title="Full Screen"></i>
+              </div>
+            </div>
+            <div class="outer-year-conatiner float-l-width" #screen style="height: 370px; width: 468px;">
+              <div class="center">
+                <p class="mat-caption" style="text-align: center"><span class="font-weight-bold">Title&nbsp;:&nbsp;</span>Porter's 5 Forces, {{reportName}} [{{startYear}} - {{endYear}}]</p>
+              </div>
+              <div style="height: 350px">
+                <div #container class="container-fluid">
+                </div>
+                <p class="mat-caption"><span class="font-weight-bold">Source&nbsp;:&nbsp;</span>Wantstats
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="sec-div">
+            <div class="float-l-width header-background">
+              <div class="float-l">
+                <a role="button" class="btn-link" (click)="analyze()">Analyze</a>
+              </div>
+              <div class="float-right">
+                <i class="btn-icon fa fa-download" (click)="generatePortersImage()" title="Download"></i>
+                <i class="btn-icon fa fa-expand" (click)="openPortersDiagramDialog()" title="Full Screen"></i>
+              </div>
+            </div>
+            <div class="outer-year-conatiner float-l-width" #porters style="height: 370px">
+              <div class="center">
+                <p class="mat-caption" style="text-align: center"><span class="font-weight-bold">Title&nbsp;:&nbsp;</span>Porter's 5 Forces, {{reportName}} [{{startYear}} - {{endYear}}]</p>
+              </div>
+              <div class="porters porters-50">
+                <div class="flexer wrapper">
+                  <div class="block"
+                    [ngClass]="threats==='low'?'green':'' || threats==='medium' ? 'grey':'' || threats === 'high'?'red':''">
+                    <div class="h6">Threat of New Entrants ({{threats}})</div>
+                  </div>
+                  <div class="triangle-down"
+                    [ngClass]="threats==='low'?'t-down-green':'' || threats==='medium' ? 't-down-grey':'' || threats === 'high'?'t-down-red':''">
+                  </div>
+                </div>
+              </div>
+              <div class="porters middle">
+                <div class="flexer">
+                  <div class="block-v"
+                    [ngClass]="suppliers==='low'?'green':'' || suppliers==='medium' ? 'grey':'' || suppliers === 'high'?'red':''">
+                    <h6 class="h6">Bargaining Power of Suppliers ({{suppliers}})</h6>
+                  </div>
+                  <div class="triangle-left"
+                    [ngClass]="suppliers==='low'?'t-left-green':'' || suppliers==='medium' ? 't-left-grey':'' || suppliers === 'high'?'t-left-red':''">
+                  </div>
+                </div>
+                <div class="block-o"
+                  [ngClass]="segments==='low'?'green':'' || segments==='medium' ? 'grey':'' || segments === 'high'?'red':''">
+                  <div class="block-in">
+                    <h6 class="h6">Segment Rivalry ({{segments}})</h6>
+                  </div>
+                </div>
+                <div class="flexer">
+                  <div class="triangle-right"
+                    [ngClass]="buyers==='low'?'t-right-green':'' || buyers==='medium' ? 't-right-grey':'' || buyers === 'high'?'t-right-red':''">
+                  </div>
+                  <div class="block-v"
+                    [ngClass]="buyers==='low'?'green':'' || buyers==='medium' ? 'grey':'' || buyers === 'high'?'red':''">
+                    <h6 class="h6">Bargaining Power of Buyers ({{buyers}})</h6>
+                  </div>
+                </div>
+              </div>
+              <div class="porters porters-50">
+                <div class="flexer wrapper">
+                  <div class="triangle-up"
+                    [ngClass]="substitutes==='low'?'t-up-green':'' || substitutes==='medium' ? 't-up-grey':'' || substitutes === 'high'?'t-up-red':''">
+                  </div>
+                  <div class="block"
+                    [ngClass]="substitutes==='low'?'green':'' || substitutes==='medium' ? 'grey':'' || substitutes === 'high'?'red':''">
+                    <h6 class="h6">Threat of Substitutes ({{substitutes}})</h6>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <p class="mat-caption"><span class="font-weight-bold">Source&nbsp;:&nbsp;</span>Wantstats
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="display: none" id="download">
+          <img #canvas>
+          <a #downloadLink></a>
+        </div>
+
+        <div class="accordion">
+          <div *ngFor="let child of data; let i = index">
+            <div class="mat-head">
+              {{child.name}}
+            </div>
+            <app-porter-driver [dataType]=child.name [chartId]=child.id></app-porter-driver>
+          </div>
+          <div *ngIf="conclusion">
+            <p class="mat-head">Conclusion</p>
+            <p [innerHTML]="conclusion" class="content-p">
+          </div>
+        </div>
+
+      </div>
+      <div class="col-3">
+        <app-hardcoded-suggestions [suggestion]="{orderType: 'porter'}"></app-hardcoded-suggestions>
+      </div>
+    </div>
+  </div>

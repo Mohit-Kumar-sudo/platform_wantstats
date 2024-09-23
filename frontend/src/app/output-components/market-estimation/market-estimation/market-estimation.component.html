@@ -1,0 +1,47 @@
+<div class="container-fluid" id="scroll">
+    <div class="mt-4">
+      <div class="row" id="main-div">
+        <div class="col-9 m8" style="margin-bottom: 20px;">
+          <div class="down-header container-fluid">Market Breakup, {{reportName}} Market
+            [{{startYear}} -
+            {{endYear}}]
+          </div>
+          <div class="header-background float-l-width">
+            <div class="float-l">
+              <a class="analyze" role="button" (click)="analyze()">Analyze</a>
+            </div>
+            <div class="float-right">
+              <!--            <a class="btn-icon ppt-btn" (click)="sendChartToWhatsApp()">Send <i class="fa fa-whatsapp"></i></a>-->
+              <!--            <a class="btn-icon ppt-btn" (click)="addSlideToPPT(dataElement)">PPT <i class="fa fa-plus"></i></a>-->
+              <i class="btn-icon fa fa-download" (click)="generateImage()" title="Download Chart"></i>
+              <!--            <i class="btn-icon fa  fa-file-powerpoint-o" (click)="downloadPpt(dataElement)" title="Download PPT"></i>-->
+              <i class="btn-icon fa fa-expand" (click)="openDroctDialog()" title="Full Screen"></i>
+            </div>
+          </div>
+
+          <mat-card-content class="padding20 outer-year-conatiner float-l-width" #screen>
+
+            <div class="center">
+              <p class="mat-caption" style="text-align: center;font-size: 14px;font-weight: 500;">
+                <span class="font-weight-bold">Title&nbsp;:&nbsp;</span>
+                Market Estimation, {{reportName}} Market [{{startYear}} - {{endYear}}], Base Year: {{baseYear}}
+                ({{metric}})
+              </p>
+            </div>
+            <div>
+              <div id="dendo-container"></div>
+              <p style="font-size: 13px !important;padding: 10px;" class="mat-caption1"><span class="font-weight-bold">Source&nbsp;:&nbsp;</span>Wantstats
+              </p>
+            </div>
+          </mat-card-content>
+          <div style="display: none" id="download">
+            <img #canvas>
+            <a #downloadLink></a>
+          </div>
+        </div>
+        <div class="col-3">
+          <app-hardcoded-suggestions class="suggestion" [suggestion]="{orderType: 'driver'}"></app-hardcoded-suggestions>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,161 @@
+<div class="panel-container">
+  <i class="fa fa-close close-button" (click)="doClose()"></i>
+  <div class="row align-center">
+    <div class="col-12 center">
+      <!-- barchart -->
+      <div *ngIf="inputData?.barChartData?.chartData">
+        <canvas baseChart [datasets]="inputData?.barChartData?.chartData"
+          [labels]="inputData?.barChartData?.chartLabels" [chartType]="chartConfigs?.barChartType"
+          [options]="inputData?.dashboardBarChartOptions" [plugins]="chartConfigs?.barChartPlugins"
+          [legend]="chartConfigs?.columnBarChartLegend">
+        </canvas>
+      </div>
+      <div *ngIf="inputData?.marketDynamicsData && inputData?.marketDynamicsData?.data?.length">
+        <div id="dendrogram"></div>
+      </div>
+      <div *ngIf="inputData?.supplyChainData?.paths?.length">
+        <div class="mermaid svg-width" #panelMermaid></div>
+      </div>
+      <div *ngIf="inputData?.porterDendrogram?.data">
+        <app-porters-dropdown [dataType]="inputData?.porterDendrogram?.data" [chartId]="inputData?.porterDendrogram?.id"
+          [index]="123" [reportId]="inputData?.reportData">
+        </app-porters-dropdown>
+      </div>
+      <div *ngIf="inputData?.porterDiagram?.data?.length" style="display: flex; justify-content: center;">
+        <div #portersDiagram *ngIf="inputData?.switcher"></div>
+        <div *ngIf="!inputData?.switcher">
+          <div id="portersDiagramPanel" style="padding:0 10px;">
+            <div class="center" style="padding-bottom: 10px">
+              <div class="porters porters-50 panel-flexer">
+                <div class="flexer wrapper">
+                  <div class="block"
+                    [ngClass]="inputData?.porterDiagram?.threats==='low'?'green':'' || inputData?.porterDiagram?.threats==='medium' ? 'grey':'' || inputData?.porterDiagram?.threats === 'high'?'red':''">
+                    <div class="h6">Threat of New Entrants ({{inputData?.porterDiagram?.threats}})</div>
+                  </div>
+                  <div class="triangle-down"
+                    [ngClass]="inputData?.porterDiagram?.threats==='low'?'t-down-green':'' || inputData?.porterDiagram?.threats==='medium' ? 't-down-grey':'' || inputData?.porterDiagram?.threats === 'high'?'t-down-red':''">
+                  </div>
+                </div>
+              </div>
+              <div class="porters middle">
+                <div class="flexer">
+                  <div class="block-v" style="width: 50%;"
+                    [ngClass]="inputData?.porterDiagram?.suppliers==='low'?'green':'' || inputData?.porterDiagram?.suppliers==='medium' ? 'grey':'' || inputData?.porterDiagram?.suppliers === 'high'?'red':''">
+                    <h6 class="h6">Bargaining Power of Suppliers ({{inputData?.porterDiagram?.suppliers}})</h6>
+                  </div>
+                  <div class="triangle-left"
+                    [ngClass]="inputData?.porterDiagram?.suppliers==='low'?'t-left-green':'' || inputData?.porterDiagram?.suppliers==='medium' ? 't-left-grey':'' || inputData?.porterDiagram?.suppliers === 'high'?'t-left-red':''">
+                  </div>
+                </div>
+                <div class="block-o" style="width: 25%;"
+                  [ngClass]="inputData?.porterDiagram?.segments==='low'?'green':'' || inputData?.porterDiagram?.segments==='medium' ? 'grey':'' || inputData?.porterDiagram?.segments === 'high'?'red':''">
+                  <div class="block-in">
+                    <h6 class="h6">Segment Rivalry ({{inputData?.porterDiagram?.segments}})</h6>
+                  </div>
+                </div>
+                <div class="flexer">
+                  <div class="triangle-right"
+                    [ngClass]="inputData?.porterDiagram?.buyers==='low'?'t-right-green':'' || inputData?.porterDiagram?.buyers==='medium' ? 't-right-grey':'' || inputData?.porterDiagram?.buyers === 'high'?'t-right-red':''">
+                  </div>
+                  <div class="block-v" style="width: 50%;"
+                    [ngClass]="inputData?.porterDiagram?.buyers==='low'?'green':'' || inputData?.porterDiagram?.buyers==='medium' ? 'grey':'' || inputData?.porterDiagram?.buyers === 'high'?'red':''">
+                    <h6 class="h6">Bargaining Power of Buyers ({{inputData?.porterDiagram?.buyers}})</h6>
+                  </div>
+                </div>
+              </div>
+              <div class="porters porters-50 panel-flexer">
+                <div class="flexer wrapper">
+                  <div class="triangle-up"
+                    [ngClass]="inputData?.porterDiagram?.substitutes==='low'?'t-up-green':'' || inputData?.porterDiagram?.substitutes==='medium' ? 't-up-grey':'' || inputData?.porterDiagram?.substitutes === 'high'?'t-up-red':''">
+                  </div>
+                  <div class="block"
+                    [ngClass]="inputData?.porterDiagram?.substitutes==='low'?'green':'' || inputData?.porterDiagram?.substitutes==='medium' ? 'grey':'' || inputData?.porterDiagram?.substitutes === 'high'?'red':''">
+                    <h6 class="h6">Threat of Substitutes ({{inputData?.porterDiagram?.substitutes}})</h6>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Financial Overview -->
+      <div *ngIf="inputData?.financialOverview?.data?.length">
+        <canvas baseChart [datasets]="inputData?.financialOverview?.data"
+          [labels]="inputData?.financialOverview?.labels" [options]="chartConfigs?.barChartOptions"
+          [plugins]="chartConfigs?.barChartPlugins" [legend]="chartConfigs?.barChartLegend"
+          [chartType]="chartConfigs?.barChartType">
+        </canvas>
+      </div>
+
+      <!-- product offering -->
+      <div *ngIf="inputData?.productOffering?.data?.length">
+        <div id="chart-container-org"></div>
+      </div>
+
+      <!-- SWOT -->
+      <div
+        *ngIf="inputData?.SWOT?.strength.length || inputData?.SWOT?.weakness?.length || inputData?.SWOT?.opportunity?.length || inputData?.SWOT?.threat?.length">
+        <div style="display: flex;justify-content: center;">
+          <div class="swot-container">
+            <div class="swot bg1">
+              <p>Strength</p>
+              <ul>
+                <li *ngFor="let item of inputData?.SWOT?.strength">{{item.name}}</li>
+              </ul>
+            </div>
+            <div class="swot bg2">
+              <p>Weakness</p>
+              <ul>
+                <li *ngFor="let item of inputData?.SWOT?.weakness">{{item.name}}</li>
+              </ul>
+            </div>
+            <div class="swot bg3">
+              <p>Opportunity</p>
+              <ul>
+                <li *ngFor="let item of inputData?.SWOT?.opportunity">{{item.name}}</li>
+              </ul>
+            </div>
+            <div class="bg5">
+            </div>
+            <div class="swot bg4">
+              <p>Threat</p>
+              <ul>
+                <li *ngFor="let item of inputData?.SWOT?.threat">{{item.name}}</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="report-text-container">
+        {{inputData?.panelHeading}}: {{inputData?.reportData?.title}} [{{inputData?.reportData?.me?.start_year}} -
+        {{inputData?.reportData?.me?.end_year}}]
+        <br>
+        <div *ngIf="inputData?.typeButton === 'Drivers' || inputData?.typeButton === 'Restraints'">
+          Market {{inputData?.typeButton}}
+        </div>
+        <div *ngIf="inputData?.typeButton === 'SupplyChain'">
+          Market Supply/Value chain
+        </div>
+        <div *ngIf="inputData?.typeButton === 'Porters'">
+          {{inputData?.porterDendrogram?.data}} Porter's 5 forces
+        </div>
+        <div *ngIf="inputData?.typeButton === 'FinancialOverview'">
+          {{inputData?.financialOverview?.company?.company_name}}, Financial overview,
+          {{inputData?.financialOverview?.btnCategory}}
+        </div>
+        <div *ngIf="inputData?.typeButton === 'ProductOffering'">
+          {{inputData?.productOffering?.company?.company_name}}, Product/service offering
+        </div>
+        <div *ngIf="inputData?.typeButton === 'SWOT'">
+          {{inputData?.SWOT?.company?.name}}, SWOT analysis
+        </div>
+      </div>
+      <div>
+        <p class="mat-caption" style="margin: 0;display: block;"><span class="font-weight-bold">Source
+            :</span> Wantstats
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

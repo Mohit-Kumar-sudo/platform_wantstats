@@ -1,0 +1,42 @@
+// @import "../../market-factor-analysis/porters-5-forces/porters-forces-output.component.scss";
+// @import "../../output-company-profile/output-swot-analysis/output-swot-analysis.component.scss";
+
+.panel-container {
+  position: relative;
+  .close-button {
+    float: right;
+    border: 1px solid gray;
+    padding: 5px;
+    border-radius: 4px;
+    padding: 5px;
+    position: absolute;
+    right: 0;
+    top: 3px;
+    z-index: 4;
+    cursor: pointer;
+
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+}
+
+.report-text-container {
+  width: 100%;
+  font-size: 15px;
+  text-align: center;
+  color: #000;
+}
+.panel-flexer {
+  width: 30%;
+}
+.center {
+  text-align: left;
+}
+.align-center {
+  color: #000;
+}
+
+::ng-deep .mat-caption {
+  display: none;
+}

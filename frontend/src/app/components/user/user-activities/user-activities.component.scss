@@ -1,0 +1,81 @@
+@media screen and (min-width: 1400px) {
+  .details-section{
+    padding-bottom: 250px;
+    }
+}
+
+.sectionHeadline--statistic {
+    color: #0f2741;
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 1.4;
+    margin-bottom: 10px;
+  }
+
+  .error-message{
+    font-size: larger;
+    font-weight: 500;
+    color: red;
+  }
+  .margin-right-15 {
+    margin-right: 15px !important;
+    width: 35px;
+    height: 35px;
+  }
+
+  .iconset a {
+    color: #65258a;
+  }
+  .iconset {
+    float: right !important;
+    text-align: left;
+    position: absolute;
+    right: 2% !important;
+  }
+
+  .report-list-single-card-title {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 30px;
+    color: rgb(39, 48, 95);
+    width: 570px;
+  }
+
+
+  .report-icon {
+    margin-right: 13px;
+    cursor: pointer;
+    color: #2d5598 !important;
+    font-size: 18px;
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+  .report-container {
+    .report-icon {
+      margin-right: 13px;
+      cursor: pointer;
+      color: #2d5598;
+      font-size: 18px;
+      &:hover {
+        opacity: 0.7;
+      }
+    }
+  }
+
+  .single-report-card-wrap {
+    box-sizing: border-box;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    background: #fff;
+    padding: 5px;
+    transition: all ease-in-out 0.4s;
+    display: flex;
+  }
+  .single-report-card-wrap img {
+    width: 90px;
+    border: 1px solid #ccc;
+    padding: 10px;
+  }

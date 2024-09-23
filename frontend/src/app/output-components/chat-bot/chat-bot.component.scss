@@ -1,0 +1,75 @@
+.parent-wrapper {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    margin: 5px;
+    z-index: 999;
+  }
+
+  .container {
+    width: 100%;
+  }
+
+  .card {
+    max-width: 400px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+  }
+
+  .adiv {
+    background-color: #1d5394;
+    cursor: pointer;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    height: 45px;
+    // width: 130px;
+    align-items: center;
+  }
+  .adiv .pb-0{
+    color: white !important;
+  }
+
+  .fa {
+    margin: 5px !important;
+    margin-left: 15px !important;
+  }
+
+  .adiv:hover {
+    background-color: #0056b3;
+  }
+
+  .chat-container {
+    overflow-y: auto;
+    max-height: 300px;
+  }
+
+  .chat {
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    padding: 8px;
+  }
+
+  .chat-input {
+    border-radius: 8px;
+    border: 1px solid #ddd;
+  }
+
+  .dot {
+    display: inline-block;
+    margin-left: 4px;
+    animation: fadeIn 1s infinite;
+  }
+
+  @keyframes fadeIn {
+    0% {
+      opacity: 0.2;
+    }
+    50% {
+      opacity: 0.7;
+    }
+    100% {
+      opacity: 0.2;
+    }
+  }

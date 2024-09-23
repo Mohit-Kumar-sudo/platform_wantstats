@@ -1,0 +1,13 @@
+:host .app-header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000; /* Adjust z-index as needed */
+}
+
+:host .app-navbar {
+  position: fixed;
+  top: 56px; /* Adjust this value based on the height of your header */
+  width: 100%;
+  z-index: 1000; /* Adjust z-index as needed */
+}

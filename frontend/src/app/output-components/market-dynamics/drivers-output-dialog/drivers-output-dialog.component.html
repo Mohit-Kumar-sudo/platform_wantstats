@@ -1,0 +1,29 @@
+<div>
+  <div class="float-l-width header-background">
+    <div class="float-l">
+        <a class="btn-link" *ngIf="typeParam == 'Drivers' || typeParam == 'Restraints'" role="button" (click)="analyze()">Analyze</a>
+    </div>
+      <div class="float-right">
+        <i class="btn-icon fa fa-download" (click)="generateImage()" title="Download"></i>
+        <i (click)="doClose()" class="btn-icon fa fa-times" title="Close"></i>
+      </div>
+  </div>
+  <mat-card-content class="padding20 outer-year-conatiner float-l" #screen>
+    <div class="center">
+        <p class="mat-caption" style="text-align: center"><span class="font-weight-bold">Title
+            :</span>Market Dynamics, {{types | titlecase}}, {{reportName}} Market [{{startYear}} -
+            {{endYear}}]</p>
+        <span style="margin-left: 10px;">Year {{showYear}}</span>
+    </div>
+    <div class="row">
+      <div id="driver-container1"></div>
+      <p class="mat-caption"><span class="font-weight-bold">Source
+          :</span>Wantstats
+      </p>
+    </div>
+  </mat-card-content>
+</div>
+<div style="display: none" id="download">
+  <img #canvas>
+  <a #downloadLink></a>
+</div>

@@ -1,0 +1,117 @@
+.swot-container {
+  width: 80%;
+  height: 50vh;
+  background: white;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 10px 0;
+
+  .swot {
+    width: 50%;
+    height: 25vh;
+    border: 2px solid #fff;
+
+    p {
+      color: #fff;
+      text-align: center;
+      font-weight: 400;
+      padding: 5px;
+      margin: 0;
+    }
+
+    ul {
+      padding: 5px 20px 0 20px;
+      list-style: none;
+      margin: 0;
+
+      li {
+        color: #fff;
+        font-size: 12px;
+      }
+    }
+  }
+
+  .bg1 {
+    overflow-y: auto;
+    background: #bf77ab;
+    border-top-left-radius: 25px;
+  }
+
+  .bg2 {
+    overflow-y: auto;
+    background: #6cb78a;
+    border-top-right-radius: 25px;
+  }
+
+  .bg3 {
+    overflow-y: auto;
+    background: #6ba9b4;
+    border-bottom-left-radius: 25px;
+  }
+
+  .bg4 {
+    overflow-y: auto;
+    background: #86473f;
+    border-bottom-right-radius: 25px;
+  }
+
+  .bg5 {
+    width: 0;
+    height: 0;
+  }
+
+  .bg5:after {
+    content: "SWOT";
+    position: absolute;
+    width: 14%;
+    height: 7vh;
+    background: #2f5597;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #fff;
+    border-radius: 10px;
+    font-size: 20px;
+    display: none;
+  }
+}
+
+.header-background {
+  align-items: center;
+  background: #2f5597;
+  color: #fff;
+  padding: 5px;
+  margin: 0;
+}
+
+.btn-icon {
+  padding: 4px;
+  margin-right: 7px;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.7;
+  }
+}
+
+.main-swot {
+  display: flex;
+  justify-content: center;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  flex-wrap: wrap;
+}
+.down-header {
+  font-weight: bold;
+  margin: 0;
+  margin-bottom: 10px;
+  font-family: Montserrat, "Helvetica Neue", Arial, sans-serif;
+}
+.chart-headers {
+  font-size: 12px;
+  color: #000;
+  span {
+    font-weight: 600;
+    color: #000;
+  }
+}

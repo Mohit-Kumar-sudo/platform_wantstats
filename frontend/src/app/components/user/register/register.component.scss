@@ -1,0 +1,108 @@
+.mfr-full-width {
+  width: 260px !important;
+}
+.reg-btn {
+  width: 100%;
+  margin-top: 20px;
+  border: 1px solid gray;
+  padding: 5px;
+}
+.flexer {
+  display: flex;
+  align-items: center;
+}
+
+// new css started
+
+.testbox {
+  margin: 20px auto;
+  width: 380px;
+  height: auto;
+  border-radius: 5px;
+  background-color: #ebebeb;
+  box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.31);
+  border: solid 1px #cbc9c9;
+  padding: 10px;
+}
+
+.form-group .input-group.input-group-merge > .form-control {
+  text-indent: 35px;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+  height: calc(2em + 0.75rem + 2px);
+  font-size: 14px;
+}
+
+.form-group label {
+  font-weight: 500;
+  font-size: 15px;
+}
+
+.input-icon {
+  height: calc(3.4rem + 2px);
+  position: absolute;
+  z-index: 2;
+  display: block;
+  width: 40px;
+  top: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.input-icon span {
+  padding: 13px 7px;
+  border-left: 2px solid #65258a;
+  position: absolute;
+  height: calc(2.5rem + 1px);
+  border-radius: 4px;
+  color: #afafaf;
+}
+.mat-form-field input {
+  padding-left: 30px; /* Adjust to match the icon's size and position */
+}
+form {
+  margin: 0 30px;
+}
+
+.testbox h1 {
+  font-size: 32px;
+  font-weight: 300;
+  color: #4c4c4c;
+  text-align: center;
+  padding: 10px 0px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.form-control:focus {
+  z-index: inherit !important;
+  outline: none;
+  box-shadow: none;
+  border-color: #65258a;
+  color: #495057;
+  background-color: #fff;
+}
+
+
+.mat-card{
+  background-color: #ebebeb !important;
+  box-shadow: none !important;
+}
+
+.btn-block{
+  background: white;
+  height: 40px;
+  border-radius: 3px;
+  border: 1px solid #80808057;
+  border-bottom: none !important;
+  text-indent: 15px !important;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+  font-size: 14px;
+  min-width: 150px;
+  overflow: hidden;
+  white-space: nowrap;
+  display: inline-block;
+  width: 100%;
+}
+

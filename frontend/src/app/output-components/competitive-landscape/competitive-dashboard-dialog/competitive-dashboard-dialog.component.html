@@ -1,0 +1,55 @@
+<div>
+  <div class="row col header-background">
+    <div class="col-2">
+    </div>
+    <div class="col-2">
+    </div>
+    <div class="col-2">
+    </div>
+    <div class="col-4"></div>
+    <div class="col-2 zero-padding">
+      <div class="float-right">
+        <i class="btn-icon fa fa-download" (click)="generateImage()" title="Download"></i>
+        <i (click)="doClose()" class="btn-icon fa fa-times" title="Close"></i>
+      </div>
+    </div>
+  </div>
+  <mat-card-content class="padding20 outer-year-conatiner table-height">
+    <div class="table-container"  #screen>
+      <table id="myTable" class="table table-bordered">
+          <caption class="caption-top">
+              <p class="mat-caption"><span class="font-weight-bold">Title
+                  :</span>Competitive Dashboard, {{reportName}} Market [{{startYear}} -
+                {{endYear}}]</p>
+          </caption>
+          <caption class="caption-bottom">
+              <p class="mat-caption"><span class="font-weight-bold">Source
+                  :</span>Wantstats
+              </p>
+          </caption>
+        <tr>
+          <th rowspan="2">Company Name</th>
+          <th *ngFor="let item of data.allHeads | keyvalue" [attr.colspan]="data.allHeads[item.key].length">
+            {{item.key | startOnlyWithAlphabets}}</th>
+        </tr>
+        <tr>
+          <th *ngFor="let item of data.allHeads | keyvalue | valueFromKey">{{item}}</th>
+        </tr>
+        <tr *ngFor="let item of data.allData">
+          <td *ngFor="let text of objectKeys(item)">
+            <p *ngIf="checkType(item[text])">{{item[text]}}</p>
+            <mat-icon *ngIf="!checkType(item[text]) && item[text]">done</mat-icon>
+            <mat-icon *ngIf="!checkType(item[text]) && !item[text]">close</mat-icon>
+          </td>
+
+        </tr>
+      </table>
+
+    </div>
+  </mat-card-content>
+</div>
+<div style="display: none" id="download">
+  <img #canvas>
+  <a #downloadLink></a>
+</div>
+<div id="result"></div>

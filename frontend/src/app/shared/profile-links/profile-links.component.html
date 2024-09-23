@@ -1,0 +1,41 @@
+<ul class="navbar-nav right-navbar-options">
+
+    <div class="dropdowndiv ">
+      <button class="btn btn_nav dropdown-toggle " type="button" id="dropdownMenuButton" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false">
+        <i class="fa fa-bell" aria-hidden="true"></i>
+      </button>
+      <div class="dropdown-menu dropdown-small-width" aria-labelledby="dropdownMenuButton">
+        <a class="dropdown-item" href="https://www.youtube.com/embed/gryK_S-i8LQ?autoplay=1" target="_blank"
+         >New video COVID-19: How Will My Business SURVIVE 2020?</a>
+        <a class="dropdown-item" href="assets/covid-19/COVID 19 Insights and Facts.pdf" target="_blank">New
+          article "COVID 19 Insights and Facts"</a>
+        <a class="dropdown-item" routerLink="/market-estimation" target="_blank"
+          [queryParams]="{reportId: '5e212fd57d97af0004f1dad6'}">New report upload "Global Coffee Pods and Capsules
+          market"</a>
+        <a class="dropdown-item"
+          href="https://www.spglobal.com/marketintelligence/en/news-insights/latest-news-headlines/pandemic-delivers-double-shot-of-bad-news-to-global-coffee-industry-58843488"
+          target="_blank">News story "Pandemic delivers double shot of bad news to global coffee industry"</a>
+      </div>
+    </div>
+  
+    <span class="users-name"> Welcome, {{user?.name}}</span>
+    <li class="nav-item dropdown">
+      <div class="dropdown dropdown2">
+        <button class="btn btn_nav dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          <i class="fa fa-user" aria-hidden="true"></i>
+        </button>
+        <div class="dropdown-menu pull-right" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item profile-link" (click)="openMyDashboards()">My Dashboards</a>
+          <a class="dropdown-item profile-link" routerLink="/MyArchive-Page">My Archive</a>
+          <a class="dropdown-item profile-link" (click)="openMyPpts()">My PPTs</a>
+          <a class="dropdown-item profile-link" routerLink="/selfservice/12345" target="_blank">Self Service</a>
+          <a class="dropdown-item profile-link" (click)="logoutUser()">Logout</a>
+        </div>
+      </div>
+  
+  
+    </li>
+  </ul>
+  

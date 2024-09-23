@@ -1,0 +1,47 @@
+@import '../output-financial-overview/output-financial-overview.component.scss';
+
+.org-container{
+    width: 100%;
+    margin-top:10px;
+    display: flex;
+    // justify-content: center;
+}
+
+#chart-container{
+  overflow: initial !important;
+    width: 100% !important;
+    height: auto !important;
+}
+
+.orgchart {
+  transform: matrix(0.566231, 0, 0, 0.566231, -552, -106) !important;
+  cursor: default !important;
+}
+// .orgchart {
+//   background-image: none;
+//   display: flex;
+//   justify-content: center;
+// }
+
+::ng-deep .orgchart .node .leftEdge,::ng-deep .orgchart .node .rightEdge,::ng-deep .orgchart .node .topEdge {
+    display: none;
+}
+::ng-deep .orgchart {
+    transform: matrix(0.954721, 0, 0, 0.954721, -30, -40);
+    cursor: default !important;
+    background-image: none;
+    display: flex;
+    // justify-content: center;
+
+}
+::ng-deep .orgchart .node .title{
+ background: #305497;
+ height: 25px !important;
+ display: flex !important;
+ align-items: center !important;
+ padding: 0 10px !important;
+ width: auto !important;
+ i{
+     padding-right: 10px;
+ }
+}

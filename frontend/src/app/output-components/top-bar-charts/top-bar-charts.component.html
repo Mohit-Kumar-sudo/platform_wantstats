@@ -1,0 +1,122 @@
+<section class="top-bar-div">
+  <div class="container">
+    <div class="row">
+      <div class="col-xl-8 col-lg-8 col-md-12">
+        <div class="border-bottom mb-3">
+          <h2 class="sectionHeadline sectionHeadline--statistic">
+            Chart Reports
+          </h2>
+        </div>
+        <form
+          #chartForm="ngForm"
+          (ngSubmit)="searchCharts(searchText)"
+          style="margin-bottom: 10px"
+        >
+          <input name="utf8" class="" type="hidden" value="✓" />
+          <input
+            class="form-control"
+            id="search"
+            name="q"
+            placeholder="Search Chart Title"
+            type="search"
+            [formControl]="searchTerm"
+            matInput
+            [matAutocomplete]="auto"
+            (input)="onInputChange($event)"
+          />
+          <button
+            name="button"
+            type="submit"
+            class="search-button"
+            aria-label="Search"
+            (click)="searchCharts(this.searchTerm.value)"
+          >
+            <i class="fa fa-search"></i>
+          </button>
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option
+              *ngFor="let charts of chartsList | slice : 0 : 10"
+              [value]="charts.title"
+            >
+              {{ charts.title }}
+            </mat-option>
+          </mat-autocomplete>
+        </form>
+        <div class="filter-box">
+          <span><strong>Filters&nbsp;&nbsp;</strong></span>
+        </div>
+        <mat-card class="example-card1">
+          <mat-card-content>
+            <ng-container
+              *ngFor="
+                let charts of chartsList
+                  | paginate : { itemsPerPage: limit, currentPage: page };
+                let i = index
+              "
+            >
+              <div class="single-report-card-wrap">
+                <div>
+                  <img
+                    class="margin-right-15"
+                    src="../../../assets/images/charts/chart.png"
+                    alt=""
+                  />
+                </div>
+                <a
+                  *ngIf="charts?.key"
+                  (click)="navigateToChartsAndStatistics(charts)"
+                  class="report-list-single-card-title"
+                >
+                  <strong>{{ charts?.title }}</strong>
+                </a>
+                <!-- <div class="iconset">
+                  <button (click)="addChartToActivity(charts)" class="report-icon2">
+                    <i class="fa-solid fa-bookmark"></i>
+                    <span class="tooltip-text">Add to My Focus Area</span>
+                  </button>
+                </div> -->
+              </div>
+            </ng-container>
+            <div class="card-footer text-center" *ngIf="chartsList?.length">
+              <pagination-controls
+                (pageChange)="page = $event"
+              ></pagination-controls>
+            </div>
+            <li
+              class="list-group-item no-record-found"
+              *ngIf="!chartsList?.length && showNoChartsMessage && !loadingIndicator"
+            >
+              No Charts found
+            </li>
+            <div *ngIf="loadingIndicator">
+              <i class="fa fa-spinner fa-spin fa-3x"></i> Loading...
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+      <div class="col-xl-4 col-lg-4 col-md-12 p-lg-0">
+        <mat-card class="example-card">
+          <div class="caption">
+            <div class="border-bottom mb-3">
+              <h5 class="card-header">
+                <span style="font-size: 18px">Chart Report</span>
+              </h5>
+            </div>
+            <!-- new select CheckBok -->
+            <div class="card-header" *ngFor="let item of categories">
+              <label class="linkset">
+                <input
+                  (click)="SelectedValue(item)"
+                  type="checkbox"
+                  [(ngModel)]="item.isChecked"
+                  class="float_left margin_left"
+                />
+                {{ item.value }}
+              </label>
+            </div>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</section>

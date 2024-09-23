@@ -1,0 +1,10 @@
+@import "../../../common-css/charts-panel.scss";
+
+.mat-dialog-container {
+  padding: 0 !important;
+}
+.outer-conatiner {
+  position: relative;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  display: block;
+}

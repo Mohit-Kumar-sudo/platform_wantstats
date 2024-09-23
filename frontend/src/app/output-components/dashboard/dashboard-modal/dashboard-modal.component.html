@@ -1,0 +1,789 @@
+<div class="dashboard-container" *ngIf="inputData">
+  <i class="fa fa-close dashboard-close-button btn-dark" (click)="doClose()"></i>
+  <div class="padding-0 border-light chart-block" [ngClass]="inputData.length <= 2 ? 'col-sm-12' : 'col-sm-6'" *ngIf="inputData[0]">
+    <div style="text-align: center;">
+      <p class="mat-caption" style="margin: 0;display: block"><span class="font-weight-bold">Panel 1 - Title: </span>
+        {{ inputData[0]?.panelHeading }}, {{inputData[0]?.reportData?.title}}
+        [{{inputData[0]?.reportData?.me?.start_year}} -
+        {{inputData[0]?.reportData?.me?.end_year}}]
+      </p>
+    </div>
+    <div *ngIf="inputData[0]?.barChartData.chartData?.length">
+      <ng-container *ngIf="inputData.length > 2">
+        <canvas height="115" baseChart [datasets]="inputData[0]?.barChartData.chartData"
+                [labels]="inputData[0]?.barChartData.chartLabels" [chartType]="chartConfigs?.barChartType"
+                [options]="inputData[0]?.dashboardBarChartOptions" [plugins]="chartConfigs?.barChartPlugins"
+                [legend]="chartConfigs?.barChartLegend">
+        </canvas>
+      </ng-container>
+      <ng-container *ngIf="inputData.length <= 2">
+        <canvas height="50" baseChart [datasets]="inputData[0]?.barChartData.chartData"
+                [labels]="inputData[0]?.barChartData.chartLabels" [chartType]="chartConfigs?.barChartType"
+                [options]="inputData[0]?.dashboardBarChartOptions" [plugins]="chartConfigs?.barChartPlugins"
+                [legend]="chartConfigs?.barChartLegend">
+        </canvas>
+      </ng-container>
+      <div class="controls-container">
+        <span>Tab:</span> {{inputData[0]?.selectedControls?.selectedTab}}
+        <span>Years:</span> {{inputData[0]?.selectedControls?.selectedYears.join(',')}}
+        <span>Regions:</span> {{inputData[0]?.selectedControls?.selectedRegions.join(',')}}
+        <span>Countries:</span> {{inputData[0]?.selectedControls?.selectedCountries}}
+      </div>
+    </div>
+
+    <!-- Driver and Restriants -->
+    <div *ngIf="inputData[0]?.marketDynamics?.data?.length">
+      <div style=" text-align: center;font-size: 12px">Year: {{showYear[0]}}</div>
+      <div id="dia-driver-container0"></div>
+      <div class="controls-container">
+        <span>Tab:</span> {{inputData[0]?.selectedControls?.selectedTab}}
+        <span>Years:</span> {{inputData[0]?.selectedControls?.selectedYears.join(',')}}
+      </div>
+    </div>
+
+    <!-- supply-chain -->
+    <div *ngIf="inputData[0]?.supplyChain?.paths?.length">
+      <div class="mermaid svg-width p-supply" #chain01></div>
+      <div class="controls-container">
+        <span>Tab:</span> {{inputData[0]?.selectedControls?.selectedTab}}
+      </div>
+    </div>
+
+    <!-- porters -->
+    <div *ngIf="inputData[0]?.portersDiagram?.data?.length">
+      <div class="container" #porter01></div>
+      <div class="controls-container">
+        <span>Tab:</span> {{inputData[0]?.selectedControls?.selectedTab}} 5
+      </div>
+      <div>
+        <p class="mat-caption" style="margin: 0;display: block"><span class="font-weight-bold">Source
+            :</span> Wantstats
+        </p>
+      </div>
+      <mat-card-content id="portersDiagram01" style="padding:0 10px;">
+        <div class="center" style="padding-bottom: 10px">
+        </div>
+        <div class="porters porters-50 dia-porters-26">
+          <div class="flexer wrapper">
+            <div class="block"
+              [ngClass]="inputData[0]?.portersDiagram.threats==='low'?'green':'' || inputData[0]?.portersDiagram.threats==='medium' ? 'grey':'' || inputData[0]?.portersDiagram.threats === 'high'?'red':''">
+              <div class="h6">Threat of New Entrants ({{inputData[0]?.portersDiagram.threats}})</div>
+            </div>
+            <div class="triangle-down"
+              [ngClass]="inputData[0]?.portersDiagram.threats==='low'?'t-down-green':'' || inputData[0]?.portersDiagram.threats==='medium' ? 't-down-grey':'' || inputData[0]?.portersDiagram.threats === 'high'?'t-down-red':''">
+            </div>
+          </div>
+        </div>
+        <div class="porters middle dia-middle">
+          <div class="flexer">
+            <div class="block-v dia-block-v"
+              [ngClass]="inputData[0]?.portersDiagram.suppliers==='low'?'green':'' || inputData[0]?.portersDiagram.suppliers==='medium' ? 'grey':'' || inputData[0]?.portersDiagram.suppliers === 'high'?'red':''">
+              <h6 class="h6">Bargaining Power of Suppliers ({{inputData[0]?.portersDiagram.suppliers}})</h6>
+            </div>
+            <div class="triangle-left"
+              [ngClass]="inputData[0]?.portersDiagram.suppliers==='low'?'t-left-green':'' || inputData[0]?.portersDiagram.suppliers==='medium' ? 't-left-grey':'' || inputData[0]?.portersDiagram.suppliers === 'high'?'t-left-red':''">
+            </div>
+          </div>
+          <div class="block-o"
+            [ngClass]="inputData[0]?.portersDiagram.segments==='low'?'green':'' || inputData[0]?.portersDiagram.segments==='medium' ? 'grey':'' || inputData[0]?.portersDiagram.segments === 'high'?'red':''">
+            <div class="block-in">
+              <h6 class="h6">Segment Rivalry ({{inputData[0]?.portersDiagram.segments}})</h6>
+            </div>
+          </div>
+          <div class="flexer">
+            <div class="triangle-right"
+              [ngClass]="inputData[0]?.portersDiagram.buyers==='low'?'t-right-green':'' || inputData[0]?.portersDiagram.buyers==='medium' ? 't-right-grey':'' || inputData[0]?.portersDiagram.buyers === 'high'?'t-right-red':''">
+            </div>
+            <div class="block-v dia-block-v"
+              [ngClass]="inputData[0]?.portersDiagram.buyers==='low'?'green':'' || inputData[0]?.portersDiagram.buyers==='medium' ? 'grey':'' || inputData[0]?.portersDiagram.buyers === 'high'?'red':''">
+              <h6 class="h6">Bargaining Power of Buyers ({{inputData[0]?.portersDiagram.buyers}})</h6>
+            </div>
+          </div>
+        </div>
+        <div class="porters porters-50 dia-porters-26">
+          <div class="flexer wrapper">
+            <div class="triangle-up"
+              [ngClass]="inputData[0]?.portersDiagram.substitutes==='low'?'t-up-green':'' || inputData[0]?.portersDiagram.substitutes==='medium' ? 't-up-grey':'' || inputData[0]?.portersDiagram.substitutes === 'high'?'t-up-red':''">
+            </div>
+            <div class="block"
+              [ngClass]="inputData[0]?.portersDiagram.substitutes==='low'?'green':'' || inputData[0]?.portersDiagram.substitutes==='medium' ? 'grey':'' || inputData[0]?.portersDiagram.substitutes === 'high'?'red':''">
+              <h6 class="h6">Threat of Substitutes ({{inputData[0]?.portersDiagram.substitutes}})</h6>
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+      <div class="controls-container">
+        <span>Tab:</span> {{inputData[0]?.selectedControls?.selectedTab}} 5
+      </div>
+    </div>
+
+    <!-- porter dendrogram -->
+    <div *ngIf="inputData[0]?.porterDendrogram?.data">
+      <app-porters-dropdown [dataType]="inputData[0]?.porterDendrogram?.data"
+        [chartId]="inputData[0]?.porterDendrogram?.id" [index]="010" [reportId]="inputData[0]?.reportData">
+      </app-porters-dropdown>
+      <div class="controls-container">
+        <span>Tab:</span> {{inputData[0]?.selectedControls?.selectedTab}} 5
+        <span>Porter's 5:</span> {{inputData[0]?.selectedControls?.selectedPorters}}
+      </div>
+      <p class="mat-caption" style="margin: 0;display: block"><span class="font-weight-bold">Source
+          :</span> Wantstats
+      </p>
+    </div>
+
+    <!-- financial overview -->
+    <div *ngIf="inputData[0]?.financialOverview?.data?.length">
+      <canvas height="115" baseChart [datasets]="inputData[0]?.financialOverview?.data"
+        [labels]="inputData[0]?.financialOverview?.labels" [chartType]="chartConfigs?.barChartType"
+        [options]="chartConfigs?.barChartOptions" [plugins]="chartConfigs?.barChartPlugins"
+        [legend]="chartConfigs?.barChartLegend">
+      </canvas>
+      <div class="controls-container">
+        <span>Tab:</span> {{inputData[0]?.selectedControls?.selectedTab}}
+        <span>Years:</span> {{inputData[0]?.selectedControls?.selectedFoYears.join(',')}}
+        <span>Company:</span> {{inputData[0]?.financialOverview?.company?.company_name}}
+        <span>Financial Overview:</span> {{inputData[0]?.selectedControls?.selectedFoData}}
+      </div>
+    </div>
+
+    <!-- product offering -->
+    <div *ngIf="inputData[0]?.productOffering?.data?.length">
+      <div id="chart-container-org0"></div>
+      <div class="controls-container">
+        <span>Tab:</span> {{inputData[0]?.selectedControls?.selectedTab}}
+        <span>Company:</span> {{inputData[0]?.productOffering?.company?.company_name}}
+      </div>
+    </div>
+
+    <!-- SWOT -->
+    <div
+      *ngIf="inputData[0]?.SWOT?.strength.length || inputData[0]?.SWOT?.weakness?.length || inputData[0]?.SWOT?.opportunity?.length || inputData[0]?.SWOT?.threat?.length">
+      <div style="display: flex;justify-content: center;">
+        <div class="swot-container">
+          <div class="swot bg1">
+            <p>Strength</p>
+            <ul>
+              <li *ngFor="let item of inputData[0]?.SWOT?.strength">{{item.name}}</li>
+            </ul>
+          </div>
+          <div class="swot bg2">
+            <p>Weakness</p>
+            <ul>
+              <li *ngFor="let item of inputData[0]?.SWOT?.weakness">{{item.name}}</li>
+            </ul>
+          </div>
+          <div class="swot bg3">
+            <p>Opportunity</p>
+            <ul>
+              <li *ngFor="let item of inputData[0]?.SWOT?.opportunity">{{item.name}}</li>
+            </ul>
+          </div>
+          <div class="bg5">
+          </div>
+          <div class="swot bg4">
+            <p>Threat</p>
+            <ul>
+              <li *ngFor="let item of inputData[0]?.SWOT?.threat">{{item.name}}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="controls-container">
+        <span>Tab:</span> {{inputData[0]?.selectedControls?.selectedTab}}
+        <span>Company:</span> {{inputData[0]?.SWOT?.company?.name}}
+      </div>
+    </div>
+
+    <!-- source Wantstats -->
+    <div *ngIf="inputData[0]?.porterDendrogram?.type !== 'porter-dendogram'">
+      <p class="mat-caption" style="margin: 0;display: block"><span class="font-weight-bold">Source
+          :</span> Wantstats
+      </p>
+    </div>
+  </div>
+
+  <div class="padding-0 border-light chart-block" [ngClass]="inputData.length <= 2 ? 'col-sm-12' : 'col-sm-6'" *ngIf="inputData[1]">
+    <div style="text-align: center;">
+      <p class="mat-caption" style="margin: 0;display: block"><span class="font-weight-bold">Panel 2 - Title: </span>
+        {{ inputData[0]?.panelHeading }}, {{inputData[1]?.reportData?.title}} [{{inputData[1]?.reportData?.me?.start_year}} -
+        {{inputData[1]?.reportData?.me?.end_year}}]
+      </p>
+    </div>
+    <div *ngIf="inputData[1]?.barChartData.chartData?.length">
+      <ng-container *ngIf="inputData.length > 2">
+        <canvas height="115" baseChart [datasets]="inputData[1]?.barChartData.chartData"
+                [labels]="inputData[1]?.barChartData.chartLabels" [chartType]="chartConfigs?.barChartType"
+                [options]="inputData[1]?.dashboardBarChartOptions" [plugins]="chartConfigs?.barChartPlugins"
+                [legend]="chartConfigs?.barChartLegend">
+        </canvas>
+      </ng-container>
+      <ng-container *ngIf="inputData.length <= 2">
+        <canvas height="50" baseChart [datasets]="inputData[1]?.barChartData.chartData"
+                [labels]="inputData[1]?.barChartData.chartLabels" [chartType]="chartConfigs?.barChartType"
+                [options]="inputData[1]?.dashboardBarChartOptions" [plugins]="chartConfigs?.barChartPlugins"
+                [legend]="chartConfigs?.barChartLegend">
+        </canvas>
+      </ng-container>
+      <div class="controls-container">
+        <span>Tab:</span> {{inputData[1]?.selectedControls?.selectedTab}}
+        <span>Years:</span> {{inputData[1]?.selectedControls?.selectedYears.join(',')}}
+        <span>Regions:</span> {{inputData[1]?.selectedControls?.selectedRegions.join(',')}}
+        <span>Countries:</span> {{inputData[1]?.selectedControls?.selectedCountries}}
+      </div>
+    </div>
+
+    <!-- Driver and Restriants -->
+    <div *ngIf="inputData[1]?.marketDynamics?.data?.length">
+      <div style=" text-align: center;font-size: 12px">Year: {{showYear[1]}}</div>
+      <div id="dia-driver-container1"></div>
+      <div class="controls-container">
+        <span>Tab:</span> {{inputData[1]?.selectedControls?.selectedTab}}
+        <span>Years:</span> {{inputData[1]?.selectedControls?.selectedYears.join(',')}}
+      </div>
+    </div>
+
+    <!-- supply-chain -->
+    <div *ngIf="inputData[1]?.supplyChain?.paths?.length">
+      <div class="mermaid svg-width p-supply" #chain02></div>
+      <div class="controls-container">
+        <span>Tab:</span> {{inputData[1]?.selectedControls?.selectedTab}}
+      </div>
+    </div>
+
+    <!-- porters -->
+    <div *ngIf="inputData[1]?.portersDiagram?.data?.length">
+      <div class="container" #porter02></div>
+      <div class="controls-container">
+        <span>Tab:</span> {{inputData[1]?.selectedControls?.selectedTab}} 5
+      </div>
+      <div>
+        <p class="mat-caption" style="margin: 0;display: block"><span class="font-weight-bold">Source
+            :</span> Wantstats
+        </p>
+      </div>
+      <mat-card-content id="portersDiagram02" style="padding:0 10px;">
+        <div class="center" style="padding-bottom: 10px">
+        </div>
+        <div class="porters porters-50 dia-porters-26">
+          <div class="flexer wrapper">
+            <div class="block"
+              [ngClass]="inputData[1]?.portersDiagram.threats==='low'?'green':'' || inputData[1]?.portersDiagram.threats==='medium' ? 'grey':'' || inputData[1]?.portersDiagram.threats === 'high'?'red':''">
+              <div class="h6">Threat of New Entrants ({{inputData[1]?.portersDiagram.threats}})</div>
+            </div>
+            <div class="triangle-down"
+              [ngClass]="inputData[1]?.portersDiagram.threats==='low'?'t-down-green':'' || inputData[1]?.portersDiagram.threats==='medium' ? 't-down-grey':'' || inputData[1]?.portersDiagram.threats === 'high'?'t-down-red':''">
+            </div>
+          </div>
+        </div>
+        <div class="porters middle dia-middle">
+          <div class="flexer">
+            <div class="block-v dia-block-v"
+              [ngClass]="inputData[1]?.portersDiagram.suppliers==='low'?'green':'' || inputData[1]?.portersDiagram.suppliers==='medium' ? 'grey':'' || inputData[1]?.portersDiagram.suppliers === 'high'?'red':''">
+              <h6 class="h6">Bargaining Power of Suppliers ({{inputData[1]?.portersDiagram.suppliers}})</h6>
+            </div>
+            <div class="triangle-left"
+              [ngClass]="inputData[1]?.portersDiagram.suppliers==='low'?'t-left-green':'' || inputData[1]?.portersDiagram.suppliers==='medium' ? 't-left-grey':'' || inputData[1]?.portersDiagram.suppliers === 'high'?'t-left-red':''">
+            </div>
+          </div>
+          <div class="block-o"
+            [ngClass]="inputData[1]?.portersDiagram.segments==='low'?'green':'' || inputData[1]?.portersDiagram.segments==='medium' ? 'grey':'' || inputData[1]?.portersDiagram.segments === 'high'?'red':''">
+            <div class="block-in">
+              <h6 class="h6">Segment Rivalry ({{inputData[1]?.portersDiagram.segments}})</h6>
+            </div>
+          </div>
+          <div class="flexer">
+            <div class="triangle-right"
+              [ngClass]="inputData[1]?.portersDiagram.buyers==='low'?'t-right-green':'' || inputData[1]?.portersDiagram.buyers==='medium' ? 't-right-grey':'' || inputData[1]?.portersDiagram.buyers === 'high'?'t-right-red':''">
+            </div>
+            <div class="block-v dia-block-v"
+              [ngClass]="inputData[1]?.portersDiagram.buyers==='low'?'green':'' || inputData[1]?.portersDiagram.buyers==='medium' ? 'grey':'' || inputData[1]?.portersDiagram.buyers === 'high'?'red':''">
+              <h6 class="h6">Bargaining Power of Buyers ({{inputData[1]?.portersDiagram.buyers}})</h6>
+            </div>
+          </div>
+        </div>
+        <div class="porters porters-50 dia-porters-26">
+          <div class="flexer wrapper">
+            <div class="triangle-up"
+              [ngClass]="inputData[1]?.portersDiagram.substitutes==='low'?'t-up-green':'' || inputData[1]?.portersDiagram.substitutes==='medium' ? 't-up-grey':'' || inputData[1]?.portersDiagram.substitutes === 'high'?'t-up-red':''">
+            </div>
+            <div class="block"
+              [ngClass]="inputData[1]?.portersDiagram.substitutes==='low'?'green':'' || inputData[1]?.portersDiagram.substitutes==='medium' ? 'grey':'' || inputData[1]?.portersDiagram.substitutes === 'high'?'red':''">
+              <h6 class="h6">Threat of Substitutes ({{inputData[1]?.portersDiagram.substitutes}})</h6>
+            </div>
+          </div>
+        </div>
+        <div class="controls-container">
+          <span>Tab:</span> {{inputData[1]?.selectedControls?.selectedTab}} 5
+        </div>
+      </mat-card-content>
+    </div>
+
+    <!-- porter dendrogram -->
+    <div *ngIf="inputData[1]?.porterDendrogram?.data">
+      <app-porters-dropdown [dataType]="inputData[1]?.porterDendrogram?.data"
+        [chartId]="inputData[1]?.porterDendrogram?.id" [index]="020" [reportId]="inputData[1]?.reportData">
+      </app-porters-dropdown>
+      <div class="controls-container">
+        <span>Tab:</span> {{inputData[1]?.selectedControls?.selectedTab}} 5
+        <span>Porter's 5:</span> {{inputData[1]?.selectedControls?.selectedPorters}}
+      </div>
+      <p class="mat-caption" style="margin: 0;display: block"><span class="font-weight-bold">Source
+          :</span> Wantstats
+      </p>
+    </div>
+
+    <!-- financial overview -->
+    <div *ngIf="inputData[1]?.financialOverview?.data?.length">
+      <canvas height="115" baseChart [datasets]="inputData[1]?.financialOverview?.data"
+        [labels]="inputData[1]?.financialOverview?.labels" [chartType]="chartConfigs?.barChartType"
+        [options]="chartConfigs?.barChartOptions" [plugins]="chartConfigs?.barChartPlugins"
+        [legend]="chartConfigs?.barChartLegend">
+      </canvas>
+      <div class="controls-container">
+        <span>Tab:</span> {{inputData[1]?.selectedControls?.selectedTab}}
+        <span>Years:</span> {{inputData[1]?.selectedControls?.selectedFoYears.join(',')}}
+        <span>Company:</span> {{inputData[1]?.financialOverview?.company?.company_name}}
+        <span>Financial Overview:</span> {{inputData[1]?.selectedControls?.selectedFoData}}
+      </div>
+    </div>
+
+    <!-- product offering -->
+    <div *ngIf="inputData[1]?.productOffering?.data?.length">
+      <div id="chart-container-org1"></div>
+      <div class="controls-container">
+        <span>Tab:</span> {{inputData[1]?.selectedControls?.selectedTab}}
+        <span>Company:</span> {{inputData[1]?.productOffering?.company?.company_name}}
+      </div>
+    </div>
+
+    <!-- SWOT -->
+    <div
+      *ngIf="inputData[1]?.SWOT?.strength.length || inputData[1]?.SWOT?.weakness?.length || inputData[1]?.SWOT?.opportunity?.length || inputData[1]?.SWOT?.threat?.length">
+      <div style="display: flex;justify-content: center;">
+        <div class="swot-container">
+          <div class="swot bg1">
+            <p>Strength</p>
+            <ul>
+              <li *ngFor="let item of inputData[1]?.SWOT?.strength">{{item.name}}</li>
+            </ul>
+          </div>
+          <div class="swot bg2">
+            <p>Weakness</p>
+            <ul>
+              <li *ngFor="let item of inputData[1]?.SWOT?.weakness">{{item.name}}</li>
+            </ul>
+          </div>
+          <div class="swot bg3">
+            <p>Opportunity</p>
+            <ul>
+              <li *ngFor="let item of inputData[1]?.SWOT?.opportunity">{{item.name}}</li>
+            </ul>
+          </div>
+          <div class="bg5">
+          </div>
+          <div class="swot bg4">
+            <p>Threat</p>
+            <ul>
+              <li *ngFor="let item of inputData[1]?.SWOT?.threat">{{item.name}}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="controls-container">
+        <span>Tab:</span> {{inputData[1]?.selectedControls?.selectedTab}}
+        <span>Company:</span> {{inputData[1]?.SWOT?.company?.name}}
+      </div>
+    </div>
+
+    <!-- source Wantstats -->
+    <div *ngIf="inputData[1]?.porterDendrogram?.type !== 'porter-dendogram'">
+      <p class="mat-caption" style="margin: 0;display: block"><span class="font-weight-bold">Source
+          :</span> Wantstats
+      </p>
+    </div>
+  </div>
+
+  <div class="col-sm-6 padding-0 border-light chart-block" *ngIf="inputData[2]">
+    <div style="text-align: center;">
+      <p class="mat-caption" style="margin: 0;display: block"><span class="font-weight-bold">Panel 3 - Title: </span>
+        {{ inputData[0]?.panelHeading }}, {{inputData[2]?.reportData?.title}} [{{inputData[2]?.reportData?.me?.start_year}} -
+        {{inputData[2]?.reportData?.me?.end_year}}]
+      </p>
+    </div>
+    <div *ngIf="inputData[2]?.barChartData.chartData?.length">
+      <canvas height="115" baseChart [datasets]="inputData[2]?.barChartData.chartData"
+        [labels]="inputData[2]?.barChartData.chartLabels" [chartType]="chartConfigs?.barChartType"
+        [options]="inputData[2]?.dashboardBarChartOptions" [plugins]="chartConfigs?.barChartPlugins"
+        [legend]="chartConfigs?.barChartLegend">
+      </canvas>
+      <div class="controls-container">
+        <span>Tab:</span> {{inputData[2]?.selectedControls?.selectedTab}}
+        <span>Years:</span> {{inputData[2]?.selectedControls?.selectedYears.join(',')}}
+        <span>Regions:</span> {{inputData[2]?.selectedControls?.selectedRegions.join(',')}}
+        <span>Countries:</span> {{inputData[2]?.selectedControls?.selectedCountries}}
+      </div>
+    </div>
+
+    <!-- Driver and Restriants -->
+    <div *ngIf="inputData[2]?.marketDynamics?.data?.length">
+      <div style=" text-align: center;font-size: 12px">Year: {{showYear[2]}}</div>
+      <div id="dia-driver-container2"></div>
+      <div class="controls-container">
+        <span>Tab:</span> {{inputData[2]?.selectedControls?.selectedTab}}
+        <span>Years:</span> {{inputData[2]?.selectedControls?.selectedYears.join(',')}}
+      </div>
+    </div>
+
+    <!-- supply-chain -->
+    <div *ngIf="inputData[2]?.supplyChain?.paths?.length">
+      <div class="mermaid svg-width p-supply" #chain03></div>
+      <div class="controls-container">
+        <span>Tab:</span> {{inputData[2]?.selectedControls?.selectedTab}}
+      </div>
+    </div>
+
+    <!-- porters -->
+    <div *ngIf="inputData[2]?.portersDiagram?.data?.length">
+      <div class="container" #porter03></div>
+      <div class="controls-container">
+        <span>Tab:</span> {{inputData[2]?.selectedControls?.selectedTab}} 5
+      </div>
+      <div>
+        <p class="mat-caption" style="margin: 0;display: block"><span class="font-weight-bold">Source
+            :</span> Wantstats
+        </p>
+      </div>
+      <mat-card-content id="portersDiagram03" style="padding:0 10px;">
+        <div class="center" style="padding-bottom: 10px">
+        </div>
+        <div class="porters porters-50 dia-porters-26">
+          <div class="flexer wrapper">
+            <div class="block"
+              [ngClass]="inputData[2]?.portersDiagram.threats==='low'?'green':'' || inputData[2]?.portersDiagram.threats==='medium' ? 'grey':'' || inputData[2]?.portersDiagram.threats === 'high'?'red':''">
+              <div class="h6">Threat of New Entrants ({{inputData[2]?.portersDiagram.threats}})</div>
+            </div>
+            <div class="triangle-down"
+              [ngClass]="inputData[2]?.portersDiagram.threats==='low'?'t-down-green':'' || inputData[2]?.portersDiagram.threats==='medium' ? 't-down-grey':'' || inputData[2]?.portersDiagram.threats === 'high'?'t-down-red':''">
+            </div>
+          </div>
+        </div>
+        <div class="porters middle dia-middle">
+          <div class="flexer">
+            <div class="block-v dia-block-v"
+              [ngClass]="inputData[2]?.portersDiagram.suppliers==='low'?'green':'' || inputData[2]?.portersDiagram.suppliers==='medium' ? 'grey':'' || inputData[2]?.portersDiagram.suppliers === 'high'?'red':''">
+              <h6 class="h6">Bargaining Power of Suppliers ({{inputData[2]?.portersDiagram.suppliers}})</h6>
+            </div>
+            <div class="triangle-left"
+              [ngClass]="inputData[2]?.portersDiagram.suppliers==='low'?'t-left-green':'' || inputData[2]?.portersDiagram.suppliers==='medium' ? 't-left-grey':'' || inputData[2]?.portersDiagram.suppliers === 'high'?'t-left-red':''">
+            </div>
+          </div>
+          <div class="block-o"
+            [ngClass]="inputData[2]?.portersDiagram.segments==='low'?'green':'' || inputData[2]?.portersDiagram.segments==='medium' ? 'grey':'' || inputData[2]?.portersDiagram.segments === 'high'?'red':''">
+            <div class="block-in">
+              <h6 class="h6">Segment Rivalry ({{inputData[2]?.portersDiagram.segments}})</h6>
+            </div>
+          </div>
+          <div class="flexer">
+            <div class="triangle-right"
+              [ngClass]="inputData[2]?.portersDiagram.buyers==='low'?'t-right-green':'' || inputData[2]?.portersDiagram.buyers==='medium' ? 't-right-grey':'' || inputData[2]?.portersDiagram.buyers === 'high'?'t-right-red':''">
+            </div>
+            <div class="block-v dia-block-v"
+              [ngClass]="inputData[2]?.portersDiagram.buyers==='low'?'green':'' || inputData[2]?.portersDiagram.buyers==='medium' ? 'grey':'' || inputData[2]?.portersDiagram.buyers === 'high'?'red':''">
+              <h6 class="h6">Bargaining Power of Buyers ({{inputData[2]?.portersDiagram.buyers}})</h6>
+            </div>
+          </div>
+        </div>
+        <div class="porters porters-50 dia-porters-26">
+          <div class="flexer wrapper">
+            <div class="triangle-up"
+              [ngClass]="inputData[2]?.portersDiagram.substitutes==='low'?'t-up-green':'' || inputData[2]?.portersDiagram.substitutes==='medium' ? 't-up-grey':'' || inputData[2]?.portersDiagram.substitutes === 'high'?'t-up-red':''">
+            </div>
+            <div class="block"
+              [ngClass]="inputData[2]?.portersDiagram.substitutes==='low'?'green':'' || inputData[2]?.portersDiagram.substitutes==='medium' ? 'grey':'' || inputData[2]?.portersDiagram.substitutes === 'high'?'red':''">
+              <h6 class="h6">Threat of Substitutes ({{inputData[2]?.portersDiagram.substitutes}})</h6>
+            </div>
+          </div>
+        </div>
+        <div class="controls-container">
+          <span>Tab:</span> {{inputData[2]?.selectedControls?.selectedTab}} 5
+        </div>
+      </mat-card-content>
+    </div>
+
+    <!-- porter dendrogram -->
+    <div *ngIf="inputData[2]?.porterDendrogram?.data">
+      <app-porters-dropdown [dataType]="inputData[2]?.porterDendrogram?.data"
+        [chartId]="inputData[2]?.porterDendrogram?.id" [index]="030" [reportId]="inputData[2]?.reportData">
+      </app-porters-dropdown>
+      <div class="controls-container">
+        <span>Tab:</span> {{inputData[2]?.selectedControls?.selectedTab}} 5
+        <span>Porter's 5:</span> {{inputData[2]?.selectedControls?.selectedPorters}}
+      </div>
+      <p class="mat-caption" style="margin: 0;display: block"><span class="font-weight-bold">Source
+          :</span> Wantstats
+      </p>
+    </div>
+
+    <!-- financial overview -->
+    <div *ngIf="inputData[2]?.financialOverview?.data?.length">
+      <canvas height="115" baseChart [datasets]="inputData[2]?.financialOverview?.data"
+        [labels]="inputData[2]?.financialOverview?.labels" [chartType]="chartConfigs?.barChartType"
+        [options]="chartConfigs?.barChartOptions" [plugins]="chartConfigs?.barChartPlugins"
+        [legend]="chartConfigs?.barChartLegend">
+      </canvas>
+      <div class="controls-container">
+        <span>Tab:</span> {{inputData[2]?.selectedControls?.selectedTab}}
+        <span>Years:</span> {{inputData[2]?.selectedControls?.selectedFoYears.join(',')}}
+        <span>Company:</span> {{inputData[2]?.financialOverview?.company?.company_name}}
+        <span>Financial Overview:</span> {{inputData[2]?.selectedControls?.selectedFoData}}
+      </div>
+    </div>
+
+    <!-- product offering -->
+    <div *ngIf="inputData[2]?.productOffering?.data?.length">
+      <div id="chart-container-org2"></div>
+      <div class="controls-container">
+        <span>Tab:</span> {{inputData[2]?.selectedControls?.selectedTab}}
+        <span>Company:</span> {{inputData[2]?.productOffering?.company?.company_name}}
+      </div>
+    </div>
+
+    <!-- SWOT -->
+    <div
+      *ngIf="inputData[2]?.SWOT?.strength.length || inputData[2]?.SWOT?.weakness?.length || inputData[2]?.SWOT?.opportunity?.length || inputData[2]?.SWOT?.threat?.length">
+      <div style="display: flex;justify-content: center;">
+        <div class="swot-container">
+          <div class="swot bg1">
+            <p>Strength</p>
+            <ul>
+              <li *ngFor="let item of inputData[2]?.SWOT?.strength">{{item.name}}</li>
+            </ul>
+          </div>
+          <div class="swot bg2">
+            <p>Weakness</p>
+            <ul>
+              <li *ngFor="let item of inputData[2]?.SWOT?.weakness">{{item.name}}</li>
+            </ul>
+          </div>
+          <div class="swot bg3">
+            <p>Opportunity</p>
+            <ul>
+              <li *ngFor="let item of inputData[2]?.SWOT?.opportunity">{{item.name}}</li>
+            </ul>
+          </div>
+          <div class="bg5">
+          </div>
+          <div class="swot bg4">
+            <p>Threat</p>
+            <ul>
+              <li *ngFor="let item of inputData[2]?.SWOT?.threat">{{item.name}}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="controls-container">
+        <span>Tab:</span> {{inputData[2]?.selectedControls?.selectedTab}}
+        <span>Company:</span> {{inputData[2]?.SWOT?.company?.name}}
+      </div>
+    </div>
+
+    <!-- source Wantstats -->
+    <div *ngIf="inputData[2]?.porterDendrogram?.type !== 'porter-dendogram'">
+      <p class="mat-caption" style="margin: 0;display: block"><span class="font-weight-bold">Source
+          :</span> Wantstats
+      </p>
+    </div>
+  </div>
+
+  <div class="col-sm-6 padding-0 border-light chart-block" *ngIf="inputData[3]">
+    <div style="text-align: center;">
+      <p class="mat-caption" style="margin: 0;display: block"><span class="font-weight-bold">Panel 4 - Title: </span>
+        {{ inputData[0]?.panelHeading }}, {{inputData[3]?.reportData?.title}} [{{inputData[3]?.reportData?.me?.start_year}} -
+        {{inputData[3]?.reportData?.me?.end_year}}]
+      </p>
+    </div>
+    <div *ngIf="inputData[3]?.barChartData.chartData?.length">
+      <canvas height="115" baseChart [datasets]="inputData[3]?.barChartData.chartData"
+        [labels]="inputData[3]?.barChartData.chartLabels" [chartType]="chartConfigs?.barChartType"
+        [options]="inputData[3]?.dashboardBarChartOptions" [plugins]="chartConfigs?.barChartPlugins"
+        [legend]="chartConfigs?.barChartLegend">
+      </canvas>
+      <div class="controls-container">
+        <span>Tab:</span> {{inputData[3]?.selectedControls?.selectedTab}}
+        <span>Years:</span> {{inputData[3]?.selectedControls?.selectedYears.join(',')}}
+        <span>Regions:</span> {{inputData[3]?.selectedControls?.selectedRegions.join(',')}}
+        <span>Countries:</span> {{inputData[3]?.selectedControls?.selectedCountries}}
+      </div>
+    </div>
+
+    <!-- Driver and Restriants -->
+    <div *ngIf="inputData[3]?.marketDynamics?.data?.length">
+      <div style=" text-align: center;font-size: 12px">Year: {{showYear[3]}}</div>
+      <div id="dia-driver-container3"></div>
+      <div class="controls-container">
+        <span>Tab:</span> {{inputData[3]?.selectedControls?.selectedTab}}
+        <span>Years:</span> {{inputData[3]?.selectedControls?.selectedYears.join(',')}}
+      </div>
+    </div>
+
+    <!-- supply-chain -->
+    <div *ngIf="inputData[3]?.supplyChain?.paths?.length">
+      <div class="mermaid svg-width p-supply" #chain04></div>
+      <div class="controls-container">
+        <span>Tab:</span> {{inputData[3]?.selectedControls?.selectedTab}}
+      </div>
+    </div>
+
+    <!-- porters -->
+    <div *ngIf="inputData[3]?.portersDiagram?.data?.length">
+      <div class="container" #porter04></div>
+      <div class="controls-container">
+        <span>Tab:</span> {{inputData[3]?.selectedControls?.selectedTab}} 5
+      </div>
+      <div>
+        <p class="mat-caption" style="margin: 0;display: block"><span class="font-weight-bold">Source
+            :</span> Wantstats
+        </p>
+      </div>
+      <mat-card-content id="portersDiagram04" style="padding:0 10px;">
+        <div class="center" style="padding-bottom: 10px">
+        </div>
+        <div class="porters porters-50 dia-porters-26">
+          <div class="flexer wrapper">
+            <div class="block"
+              [ngClass]="inputData[3]?.portersDiagram.threats==='low'?'green':'' || inputData[3]?.portersDiagram.threats==='medium' ? 'grey':'' || inputData[3]?.portersDiagram.threats === 'high'?'red':''">
+              <div class="h6">Threat of New Entrants ({{inputData[3]?.portersDiagram.threats}})</div>
+            </div>
+            <div class="triangle-down"
+              [ngClass]="inputData[3]?.portersDiagram.threats==='low'?'t-down-green':'' || inputData[3]?.portersDiagram.threats==='medium' ? 't-down-grey':'' || inputData[3]?.portersDiagram.threats === 'high'?'t-down-red':''">
+            </div>
+          </div>
+        </div>
+        <div class="porters middle dia-middle">
+          <div class="flexer">
+            <div class="block-v dia-block-v"
+              [ngClass]="inputData[3]?.portersDiagram.suppliers==='low'?'green':'' || inputData[3]?.portersDiagram.suppliers==='medium' ? 'grey':'' || inputData[3]?.portersDiagram.suppliers === 'high'?'red':''">
+              <h6 class="h6">Bargaining Power of Suppliers ({{inputData[3]?.portersDiagram.suppliers}})</h6>
+            </div>
+            <div class="triangle-left"
+              [ngClass]="inputData[3]?.portersDiagram.suppliers==='low'?'t-left-green':'' || inputData[3]?.portersDiagram.suppliers==='medium' ? 't-left-grey':'' || inputData[3]?.portersDiagram.suppliers === 'high'?'t-left-red':''">
+            </div>
+          </div>
+          <div class="block-o"
+            [ngClass]="inputData[3]?.portersDiagram.segments==='low'?'green':'' || inputData[3]?.portersDiagram.segments==='medium' ? 'grey':'' || inputData[3]?.portersDiagram.segments === 'high'?'red':''">
+            <div class="block-in">
+              <h6 class="h6">Segment Rivalry ({{inputData[3]?.portersDiagram.segments}})</h6>
+            </div>
+          </div>
+          <div class="flexer">
+            <div class="triangle-right"
+              [ngClass]="inputData[3]?.portersDiagram.buyers==='low'?'t-right-green':'' || inputData[3]?.portersDiagram.buyers==='medium' ? 't-right-grey':'' || inputData[3]?.portersDiagram.buyers === 'high'?'t-right-red':''">
+            </div>
+            <div class="block-v dia-block-v"
+              [ngClass]="inputData[3]?.portersDiagram.buyers==='low'?'green':'' || inputData[3]?.portersDiagram.buyers==='medium' ? 'grey':'' || inputData[3]?.portersDiagram.buyers === 'high'?'red':''">
+              <h6 class="h6">Bargaining Power of Buyers ({{inputData[3]?.portersDiagram.buyers}})</h6>
+            </div>
+          </div>
+        </div>
+        <div class="porters porters-50 dia-porters-26">
+          <div class="flexer wrapper">
+            <div class="triangle-up"
+              [ngClass]="inputData[3]?.portersDiagram.substitutes==='low'?'t-up-green':'' || inputData[3]?.portersDiagram.substitutes==='medium' ? 't-up-grey':'' || inputData[3]?.portersDiagram.substitutes === 'high'?'t-up-red':''">
+            </div>
+            <div class="block"
+              [ngClass]="inputData[3]?.portersDiagram.substitutes==='low'?'green':'' || inputData[3]?.portersDiagram.substitutes==='medium' ? 'grey':'' || inputData[3]?.portersDiagram.substitutes === 'high'?'red':''">
+              <h6 class="h6">Threat of Substitutes ({{inputData[3]?.portersDiagram.substitutes}})</h6>
+            </div>
+          </div>
+        </div>
+        <div class="controls-container">
+          <span>Tab:</span> {{inputData[3]?.selectedControls?.selectedTab}} 5
+        </div>
+      </mat-card-content>
+    </div>
+
+    <!-- porter dendrogram -->
+    <div *ngIf="inputData[3]?.porterDendrogram?.data">
+      <app-porters-dropdown [dataType]="inputData[3]?.porterDendrogram?.data"
+        [chartId]="inputData[3]?.porterDendrogram?.id" [index]="040" [reportId]="inputData[3]?.reportData">
+      </app-porters-dropdown>
+      <div class="controls-container">
+        <span>Tab:</span> {{inputData[2]?.selectedControls?.selectedTab}} 5
+        <span>Porter's 5:</span> {{inputData[3]?.selectedControls?.selectedPorters}}
+      </div>
+      <p class="mat-caption" style="margin: 0;display: block"><span class="font-weight-bold">Source
+          :</span> Wantstats
+      </p>
+    </div>
+
+    <!-- financial overview -->
+    <div *ngIf="inputData[3]?.financialOverview?.data?.length">
+      <canvas height="115" baseChart [datasets]="inputData[3]?.financialOverview?.data"
+        [labels]="inputData[3]?.financialOverview?.labels" [chartType]="chartConfigs?.barChartType"
+        [options]="chartConfigs?.barChartOptions" [plugins]="chartConfigs?.barChartPlugins"
+        [legend]="chartConfigs?.barChartLegend">
+      </canvas>
+      <div class="controls-container">
+        <span>Tab:</span> {{inputData[3]?.selectedControls?.selectedTab}}
+        <span>Years:</span> {{inputData[3]?.selectedControls?.selectedFoYears.join(',')}}
+        <span>Company:</span> {{inputData[3]?.financialOverview?.company?.company_name}}
+        <span>Financial Overview:</span> {{inputData[3]?.selectedControls?.selectedFoData}}
+      </div>
+    </div>
+
+    <!-- product offering -->
+    <div *ngIf="inputData[3]?.productOffering?.data?.length">
+      <div id="chart-container-org3"></div>
+      <div class="controls-container">
+        <span>Tab:</span> {{inputData[3]?.selectedControls?.selectedTab}}
+        <span>Company:</span> {{inputData[3]?.productOffering?.company?.company_name}}
+      </div>
+    </div>
+
+    <!-- SWOT -->
+    <div
+      *ngIf="inputData[3]?.SWOT?.strength.length || inputData[3]?.SWOT?.weakness?.length || inputData[3]?.SWOT?.opportunity?.length || inputData[3]?.SWOT?.threat?.length">
+      <div style="display: flex;justify-content: center;">
+        <div class="swot-container">
+          <div class="swot bg1">
+            <p>Strength</p>
+            <ul>
+              <li *ngFor="let item of inputData[3]?.SWOT?.strength">{{item.name}}</li>
+            </ul>
+          </div>
+          <div class="swot bg2">
+            <p>Weakness</p>
+            <ul>
+              <li *ngFor="let item of inputData[3]?.SWOT?.weakness">{{item.name}}</li>
+            </ul>
+          </div>
+          <div class="swot bg3">
+            <p>Opportunity</p>
+            <ul>
+              <li *ngFor="let item of inputData[3]?.SWOT?.opportunity">{{item.name}}</li>
+            </ul>
+          </div>
+          <div class="bg5">
+          </div>
+          <div class="swot bg4">
+            <p>Threat</p>
+            <ul>
+              <li *ngFor="let item of inputData[3]?.SWOT?.threat">{{item.name}}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="controls-container">
+        <span>Tab:</span> {{inputData[3]?.selectedControls?.selectedTab}}
+        <span>Company:</span> {{inputData[3]?.SWOT?.company?.name}}
+      </div>
+    </div>
+    <!-- source Wantstats -->
+    <div *ngIf="inputData[3]?.porterDendrogram?.type !== 'porter-dendogram'">
+      <p class="mat-caption" style="margin: 0;display: block"><span class="font-weight-bold">Source
+          :</span> Wantstats
+      </p>
+    </div>
+  </div>
+
+</div>

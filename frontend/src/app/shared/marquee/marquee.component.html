@@ -1,0 +1,32 @@
+<div class="marquee visual-aid">
+  <marquee
+    onmouseover="this.stop();"
+    onmouseout="this.start();"
+    style="background: #fff"
+  >
+    <ul class="stock-ul">
+      <li
+        *ngFor="let item of marqueeAPI"
+        class="stock-li"
+        (click)="getSelectedStock(item)"
+      >
+        <span class="stock-brand">{{ item?.shortName }}</span>
+        <span class="stock-price">{{
+          isNumber(item.price) ? (item.price | number) : item.price
+        }}</span>
+        <div
+          [ngClass]="
+            item.change > 0
+              ? 'fa fa-caret-up fa-1x cyan-bg flexy'
+              : 'fa fa-caret-down fa-1x red-bg flexy'
+          "
+        >
+          <span class="stock-change">{{
+            isNumber(item.change) ? (item.change | number) : item.change
+          }}</span>
+          <span class="stock-change">{{ item.change_percent }}</span>
+        </div>
+      </li>
+    </ul>
+  </marquee>
+</div>

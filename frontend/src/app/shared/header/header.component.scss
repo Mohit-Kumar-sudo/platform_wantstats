@@ -1,0 +1,49 @@
+:host {
+  position: sticky;
+  z-index: 5;
+  top: 0px;
+}
+
+@media screen and (max-width: 600px) {
+  #topbar {
+    background: linear-gradient(
+      179deg,
+      #1b64b6,
+      10%,
+      #1d5393,
+      #20497a
+    ) !important;
+    font-size: 14px;
+    transition: all 0.5s;
+    color: #fff;
+    padding: 5px;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+    line-height: 1em;
+    height: 90px;
+    padding: 30px;
+  }
+
+  .navbar-brand {
+    margin-left: -12%;
+    margin-top: -34px;
+  }
+}
+
+#topbar {
+  background: linear-gradient(
+    179deg,
+    #1b64b6,
+    10%,
+    #1d5393,
+    #20497a
+  ) !important;
+  font-size: 14px;
+  transition: all 0.5s;
+  color: #fff;
+  // padding: 5px;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  line-height: 1em;
+}
+

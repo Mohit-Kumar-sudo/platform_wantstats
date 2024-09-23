@@ -1,0 +1,51 @@
+<section style="margin-top:10px;">
+  <div class="container details-section">
+    <div class="row justify-content-center">
+      <div class="col-xl-10 col-lg-10 col-md-12">
+        <div class="border-bottom mb-3 ">
+          <h2 class="sectionHeadline sectionHeadline--statistic">
+            Company Profiles
+          </h2>
+        </div>
+        <form class="search" #companyForm="ngForm" (submit)="searchCp(searchText)" ><input name="utf8" class="" type="hidden" value="✓">
+          <input class="typeahead back-shadow form-control " (keyup.enter)="searchCp(searchText)"
+            [(ngModel)]="searchText" id="search" name="q" placeholder="Search for Company" type="text"
+            autocomplete="off">
+          <button class="searchbutton" type="submit" (click)="searchCp(searchText)"><svg
+              xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search"
+              viewBox="0 0 16 16">
+              <path
+                d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z">
+              </path>
+            </svg></button>
+        </form>
+        <div *ngIf="searchText" style="margin-top: 20px;">
+          <ng-container *ngFor="let company of allCompanies">
+            <div class="single-report-card-wrap">
+              <img class="margin-right-15" src="../../../assets/images/companyprofile.png" alt="">
+              <a *ngIf="company?.company_name" routerLink="/chart-results"
+                [queryParams]="{searchText: searchText, companyId: company._id,menu:'Financial Overview', id:'SBU', key:'financial_overview'}"
+                class="report-list-single-card-title">{{company?.company_name}}</a>
+            </div>
+            <li class="no-record-found list-group-item" *ngIf="!allCompanies.length && showNoChartsMessage">
+              No records found
+            </li>
+          </ng-container>
+          <div *ngIf="loadingIndicator">
+            <i class="fa fa-spinner fa-spin fa-3x"></i> Loading...
+          </div>
+        </div>
+        <div *ngIf="!searchText" style="margin-top: 20px;">
+          <ng-container *ngFor="let company of TopCompines">
+            <div class="single-report-card-wrap">
+              <img class="margin-right-15" src="../../../assets/images/companyprofile.png" alt="">
+              <a *ngIf="company?.company_name" routerLink="/chart-results"
+                [queryParams]="{searchText: searchText, companyId: company._id,menu:'Financial Overview', id:'SBU', key:'financial_overview'}"
+                class="report-list-single-card-title">{{company?.company_name}}</a>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

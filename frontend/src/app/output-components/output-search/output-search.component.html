@@ -1,0 +1,198 @@
+<!-- new html start -->
+
+<section style="margin-top: -10px">
+  <div class="container">
+    <div class="row">
+      <div class="col-xl-8 col-lg-8 col-md-12">
+        <div class="section-title">
+          <h2 class="sectionHeadline sectionHeadline--statistic">
+            News & Updates Search
+          </h2>
+        </div>
+
+        <div class="results-container" *ngIf="!iFrameUrl">
+          <div
+            *ngIf="selectedAll && !isDirectSearch"
+            class="slide-animated"
+            style="outline-style: none"
+          >
+            <div
+              class="sliders"
+              *ngFor="
+                let item of googleSearch
+                  | paginate : { itemsPerPage: limit, currentPage: page };
+                let i = index
+              "
+            >
+              <ul class="video-ul">
+                <h5 class="sectionRooftitle">{{ item.name }}</h5>
+                <li
+                  *ngFor="
+                    let news of item?.results
+                      | slice : 0 : 10
+                      | paginate : config;
+                    let i = index
+                  "
+                  class="single-report-card-wrap1"
+                >
+                  <div class="news-flex">
+                    <div class="list-post-media_1">
+                      <a role="button">
+                        <div class="bg-wrap">
+                          <img
+                            class="img1"
+                            [src]="item.image"
+                            alt=""
+                            width="260px"
+                            height="150px"
+                          />
+                        </div>
+                      </a>
+                    </div>
+                    <div class="news-text">
+                      <a
+                        class="news_description"
+                        *ngIf="!news?.linkExists"
+                        href="{{ news?.link }}"
+                        target="_blank"
+                        (click)="getLink(news)"
+                        >{{ news?.title }}</a
+                      >
+                      <p class="news-source">
+                        <span class="post-date"
+                          ><strong>Source :</strong> {{ news?.source }}</span
+                        >
+                        <span class="post-date"
+                          ><strong> Published :</strong>
+                          {{ news?.published | date : "fullDate" }}</span
+                        >
+                      </p>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            <div *ngIf="!googleSearch.length" style="margin-top: -100px">
+              No recordssss found
+            </div>
+          </div>
+
+          <div
+            *ngIf="!selectedAll || isDirectSearch"
+            class="slide-animated"
+            style="outline-style: none"
+          >
+            <h5 class="sectionRooftitle">{{ selectedText }}</h5>
+            <div class="sliders">
+              <ul class="video-ul">
+                <li
+                  *ngFor="
+                    let news of collection?.data
+                      | paginate : { itemsPerPage: limit, currentPage: page };
+                    let i = index
+                  "
+                  class="single-report-card-wrap1"
+                >
+                  <div class="news-flex">
+                    <div class="list-post-media_1">
+                      <a role="button">
+                        <div class="bg-wrap">
+                          <img
+                            class="img1"
+                            src="{{ news.images }}"
+                            alt=""
+                            width="260px"
+                            height="150px"
+                          />
+                        </div>
+                      </a>
+                    </div>
+                    <div class="news-text">
+                      <a
+                        class="news_description"
+                        *ngIf="!news?.linkExists"
+                        href="{{ news?.link }}"
+                        target="_blank"
+                        (click)="getLink(news)"
+                        >{{ news?.title }}</a
+                      >
+                      <p class="news-source">
+                        <span class="post-date"
+                          ><strong>Source :</strong> {{ news?.source }}</span
+                        >
+                        <span class="post-date"
+                          ><strong> Published :</strong>
+                          {{ news?.published | date : "fullDate" }}</span
+                        >
+                      </p>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+              <div *ngIf="collection.data.length" class="pagination">
+                <pagination-controls
+                  (pageChange)="page = $event"
+                ></pagination-controls>
+              </div>
+
+              <div id="errors" *ngIf="!collection.data.length">
+                No News found
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- section II start -->
+      <div class="col-xl-4 col-lg-4 col-md-12 p-lg-0">
+        <div
+          class="sidebar-content fixed-bar fixbar-action"
+          style="z-index: auto; position: relative; top: 0px"
+        >
+          <div class="box-widget">
+            <form
+              html='{:class=>"form-horizontal", :id=>"search_form"}'
+              action="reports"
+              accept-charset="UTF-8"
+              method="get"
+              style="margin-bottom: 10px"
+            >
+              <input name="utf8" class="" type="hidden" value="✓" />
+              <input
+                [(ngModel)]="searchText"
+                (keyup.enter)="directSearch(0)"
+                class="typeahead back-shadow form-control"
+                id="search"
+                name="q"
+                placeholder="Search..."
+                type="search"
+                autocomplete="off"
+              />
+              <button
+                name="button"
+                type="submit"
+                class="search-button"
+                aria-label="Search"
+              >
+                <i class="fa fa-search"></i>
+              </button>
+            </form>
+            <div class="widget-title">Categories</div>
+            <div class="pb-lg-3">
+              <div class="caption">
+                <div class="card-header" *ngFor="let item of categories">
+                  <a
+                    (click)="industrialVertical(item)"
+                    class="linkset d-flex align-items-center text-decoration-none"
+                    >{{ item }}</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- section II end -->
+    </div>
+  </div>
+</section>

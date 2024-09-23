@@ -1,0 +1,78 @@
+<div *ngIf="this.reportData">
+  <div class="seprator-div">
+    <ng-container class="component-element-renderer" [ngSwitch]="reportData?.data?.type">
+      <div class="float-l-width header-background">
+        <div class="float-l">
+          <a role="button" class="analyze btn-link" (click)="analyze()">Analyze</a>
+        </div>
+          <div class="float-right">
+            <i class="btn-icon fa fa-download" (click)="generateImage()" title="Download"></i>
+            <i class="btn-icon fa fa-file-excel-o" (click)="downLoadPieData()" *ngIf="reportData?.data?.type === 'PIE'"></i>
+            <i class="btn-icon fa fa-file-excel-o" (click)="downLoadTableData()" *ngIf="reportData?.data?.type !== 'PIE'"></i>
+            <i (click)="doClose()" class="btn-icon fa fa-times" title="Close"></i>
+          </div>
+      </div>
+      <!-- IMAGE -->
+      <div class="container-fluid float-l-width" *ngSwitchCase="'IMAGE'" #screen>
+        <p class="mat-caption" style="
+        text-align: center;"><span class="font-weight-bold">Title
+            :</span>{{reportData.data.metaDataValue.title}}
+        </p>
+        <div style="display: flex;justify-content:center">
+          <img [src]="reportData.data.imageUrl" class="responsiveImg" *ngIf="reportData.data.imageUrl">
+        </div>
+        <p class="mat-caption"><span class="font-weight-bold">Source
+            :</span>{{reportData.data.metaDataValue.source}}
+        </p>
+      </div>
+
+      <!-- PIE -->
+      <div *ngSwitchCase="'PIE'">
+        <div class="container-fluid float-l" #screen>
+          <div>
+            <br>
+            <p class="mat-caption" style="text-align: center"><span class="font-weight-bold">Title
+                :</span>{{reportData?.data?.data?.metaDataValue?.title}}
+            </p>
+            <canvas height="100" baseChart [data]="reportData?.data?.data?.chartData" [labels]="reportData?.data?.data?.chartLabels"
+              [chartType]="pieChartType" [options]="pieChartOptions" [plugins]="pieChartPlugins"
+              [legend]="pieChartLegend">
+            </canvas>
+            <p class="mat-caption"><span class="font-weight-bold">Source
+                :</span>{{reportData?.data?.data?.metaDataValue?.source}}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- BAR -->
+      <div *ngSwitchCase="'BAR'">
+        <div class="container-fluid float-l">
+          <div #screen>
+            <br>
+            <p class="mat-caption" style="text-align: center"><span class="font-weight-bold">Title
+                :</span>{{reportData?.data?.data?.metaDataValue.title}}
+            </p>
+            <div style="display: flex;align-items:center;width: 95%;">
+              <p class="mat-caption" style="text-align: left">
+                {{reportData?.data?.data?.metaDataValue?.labelY}}</p>
+              <canvas height="100" baseChart [datasets]="reportData?.data?.data?.chartData"
+                [labels]="reportData?.data?.data?.chartLabels" [options]="barChartOptions" [plugins]="barChartPlugins"
+                [legend]="barChartLegend" [chartType]="barChartType">
+              </canvas>
+            </div>
+            <p class="mat-caption" style="text-align: center;">
+              {{reportData?.data?.data?.metaDataValue.labelX}}</p>
+            <p class="mat-caption"><span class="font-weight-bold">Source
+                :</span>{{reportData?.data?.data?.metaDataValue.source}}
+            </p>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>
+<div style="display: none" id="download">
+  <img #canvas>
+  <a #downloadLink></a>
+</div>

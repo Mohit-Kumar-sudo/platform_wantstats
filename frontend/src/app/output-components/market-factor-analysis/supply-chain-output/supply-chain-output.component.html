@@ -1,0 +1,65 @@
+<div class="container-fluid" id="scroll">
+  <div class="mt-4">
+    <div class="row">
+      <div class="col-9 m8">
+        <div class="float-l-width header-background">
+          <div class="float-l">
+            <a role="button" class="btn-link" (click)="analyze()">Analyze</a>
+          </div>
+          <div class="float-right">
+            <i class="btn-icon fa fa-download" (click)="generateImage()" title="Download Chart"></i>
+            <i class="btn-icon fa fa-expand" (click)="openDroctDialog()" title="Full Screen"></i>
+          </div>
+        </div>
+
+        <mat-card-content class="padding20 outer-year-conatiner1 float-l-width" #screen>
+          <div class="center">
+            <p class="mat-caption" style="text-align: center;font-size: 14px;font-weight: 500;"><span class="font-weight-bold">Title&nbsp;:&nbsp;</span>{{chainType}}, {{reportName}} [{{startYear}} - {{endYear}}]</p>
+          </div>
+          <div class="row align-center" style="height: 100%;">
+            <div class="mermaid svg-width" #mermaidId></div>
+            <p class="supply-caption"><span class="font-weight-bold">Source&nbsp;:&nbsp;</span>Wantstats
+            </p>
+          </div>
+
+        </mat-card-content>
+
+        <!-- <div id="download">
+          <img #canvas height="140px" width="400px">
+          <a #downloadLink></a>
+          <button (click)="generateImage()">Generate Image</button>
+        </div> -->
+        <div class="down-header">
+          {{chainType}}, {{reportName}} [{{startYear}} - {{endYear}}]
+        </div>
+        <div class="accordion">
+          <div *ngFor="let child of nodes">
+            <div class="mat-head">
+              {{child.title}}
+            </div>
+            <div>
+              <div>
+                <p class="content-p" [innerHTML]="child.data[0]?.info">
+                </p>
+              </div>
+              <div>
+
+                <p class="vendor" *ngIf="child.data[1]?.info.length > 0">Vendors</p>
+                <table class="content-p">
+                  <tr *ngFor="let item of child.data[1]?.info; let i = index">
+                    <td>{{item}}</td>
+                  </tr>
+                </table>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-3">
+        <app-hardcoded-suggestions [suggestion]="{orderType: 'supplychain'}"></app-hardcoded-suggestions>
+
+      </div>
+    </div>
+  </div>
+</div>

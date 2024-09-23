@@ -1,0 +1,55 @@
+<div class="main-container" id="scroll">
+  <div class="mt-4">
+    <div class="row margin-0">
+      <div class="col-9 m8">
+        <div class="tabular-company">
+          <ng-container *ngFor="let company of companyEleList">
+            <button class="company-btn-option" mat-raised-button (click)="onElementSelect(company)" [ngClass]="company == selectEle?'mat-raised-button clicked-btn':'mat-raised-button'">{{company}}</button>
+          </ng-container>
+        </div>
+        <div [ngSwitch]="selectEle">
+          <div *ngIf="selectEle != 'SWOT analysis'">
+            <div class="down-header">{{currentReport.title}} Market
+              [{{currentReport.me.start_year}} -
+              {{currentReport.me.end_year}}]
+            </div>
+            <div class="down-header" *ngIf="currentCompany">
+              {{currentCompany?.company_name | titlecase}}, {{selectEle}}
+            </div>
+          </div>
+          <div *ngSwitchCase="'Company overview'" style="padding: 15px 10px">
+            <app-output-company-shared [outputData]="companyOverview"></app-output-company-shared>
+          </div>
+
+          <div *ngSwitchCase="'Financial overview'" style="padding-top: 15px 10px">
+            <app-output-financial-overview></app-output-financial-overview>
+          </div>
+
+          <div *ngSwitchCase="'Product/Service offering'" style="padding-top: 15px 10px">
+            <app-output-product-offering></app-output-product-offering>
+          </div>
+
+          <div *ngSwitchCase="'Key development'" style="padding-top: 15px 10px">
+            <app-output-company-shared [outputData]="keyDevelopment"></app-output-company-shared>
+          </div>
+
+          <div *ngSwitchCase="'SWOT analysis'" style="padding: 15px">
+            <app-output-swot-analysis [outputData]="swotData"></app-output-swot-analysis>
+          </div>
+          <div *ngSwitchCase="'Strategy'" style="padding-top: 15px 10px">
+            <app-output-company-shared [outputData]="strategy"></app-output-company-shared>
+          </div>
+        </div>
+      </div>
+      <div class="col-3">
+        <app-hardcoded-suggestions *ngIf="interConnectData"
+          [suggestion]="{orderType: 'topPlayers', interConnect:interConnectData}">
+        </app-hardcoded-suggestions>
+      </div>
+    </div>
+  </div>
+</div>
+<div style="display: none" id="download">
+  <img #canvas>
+  <a #downloadLink></a>
+</div>

@@ -1,0 +1,61 @@
+<div class="">
+  <div class="row col header-background">
+    <div class="col-2">
+        <a role="button" (click)="analyze()">Analyze</a>
+    </div>
+    <div class="col-2">
+
+    </div>
+    <div class="col-2">
+
+    </div>
+    <div class="col-4"></div>
+    <div class="col-2 zero-padding">
+      <div class="float-right">
+        <i class="btn-icon fa fa-download"
+           (click)="generateImage()" title="Download"></i>
+        <i class="btn-icon fa fa-close"
+           (click)="doClose()" title="Close"></i>
+      </div>
+    </div>
+  </div>
+  <div class="main-swot" #screen>
+    <mat-card-subtitle style="margin: 10px">{{currentReport.title}} Market
+      [{{currentReport.me.start_year}} -
+      {{currentReport.me.end_year}}], {{swotData.company_name | titlecase}}, SWOT Analysis
+    </mat-card-subtitle>
+    <div class="swot-container">
+      <div class="swot bg1">
+        <p>Strength</p>
+        <ul>
+          <li *ngFor="let item of strength">{{item.name}}</li>
+        </ul>
+      </div>
+      <div class="swot bg2">
+        <p>Weakness</p>
+        <ul>
+          <li *ngFor="let item of weakness">{{item.name}}</li>
+        </ul>
+      </div>
+      <div class="swot bg3">
+        <p>Opportunity</p>
+        <ul>
+          <li *ngFor="let item of opportunity">{{item.name}}</li>
+        </ul>
+      </div>
+      <div class="bg5">
+      </div>
+      <div class="swot bg4">
+        <p>Threat</p>
+        <ul>
+          <li *ngFor="let item of threat">{{item.name}}</li>
+        </ul>
+      </div>
+    </div>
+    <mat-card-subtitle style="width: 100%;padding: 10px;">Source: Wantstats</mat-card-subtitle>
+  </div>
+</div>
+<div style="display: none" id="download">
+  <img #canvas>
+  <a #downloadLink></a>
+</div>

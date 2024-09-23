@@ -1,0 +1,294 @@
+.search-outer-container {
+    display: flex;
+    padding: 0 10px;
+    align-items: center;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    .search-bar-container {
+      margin-left: 10px;
+      top: 12px;
+      display: inline-flex;
+      align-items: center;
+      // border: 1px solid #ced4da;
+      padding: 0 15px;
+      width: 70%;
+      .search-bar {
+        width: 100%;
+        border: 0;
+        padding: 0;
+        display: block;
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #495057;
+        outline: none;
+        margin-left: 0;
+        background-color: transparent;
+      }
+      .search-btn {
+        cursor: pointer;
+        &:focus {
+          opacity: 0.7;
+        }
+      }
+    }
+  }
+  .indutry-vertical {
+    padding: 5px;
+    color: #000;
+    ::ng-deep .mat-select-value {
+      color: #000 !important;
+    }
+    ::ng-deep .mat-select-arrow {
+      color: #495057;
+    }
+    ::ng-deep .mat-form-field-infix {
+      font-size: 12px;
+    }
+  }
+  
+  // carousel
+  .sliders {
+    width: 100%;
+    .col-6 {
+      padding: 0;
+    }
+    .stock-content {
+      padding: 10px;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      border-radius: 5px;
+      ::ng-deep .mat-tab-label {
+        height: 25px !important;
+        min-width: 100px !important;
+      }
+      .stock-name {
+        font-family: BWHaasGrotesk-75Bold-Web;
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 1;
+        .dateSymbol {
+          display: flex;
+          justify-content: space-between;
+          .dates {
+            font: 400 14px "";
+          }
+        }
+      }
+      .stock-index {
+        display: flex;
+        align-items: center;
+        .stock-price-f {
+          font-size: 15px;
+          font-weight: 600;
+          margin-right: 30px;
+        }
+        .stock-change-f {
+          font-size: 12px;
+          margin-right: 20px;
+        }
+        .stock-percent-f {
+          font-size: 12px;
+          display: flex;
+          margin-right: 10px;
+          align-items: center;
+          .cyan-bg {
+            margin-left: 5px;
+            color: aqua;
+          }
+          .red-bg {
+            margin-left: 5px;
+            color: red;
+          }
+        }
+      }
+  
+      .stock-summary {
+        display: flex;
+        justify-content: space-between;
+        .s-head {
+          font-size: 10px;
+          font-weight: 500;
+          color: #444;
+        }
+        .s-values-f {
+          line-height: 2;
+          font-size: 12px;
+        }
+      }
+    }
+  
+    .search-outer-container {
+      display: flex;
+      padding: 0 10px;
+      align-items: center;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      .search-bar-container {
+        margin-left: 10px;
+        top: 12px;
+        display: inline-flex;
+        align-items: center;
+        // border: 1px solid #ced4da;
+        padding: 0 15px;
+        width: 70%;
+        .search-bar {
+          width: 100%;
+          border: 0;
+          padding: 0;
+          display: block;
+          font-size: 1rem;
+          font-weight: 400;
+          line-height: 1.5;
+          color: #495057;
+          outline: none;
+          margin-left: 0;
+          background-color: transparent;
+        }
+        .search-btn {
+          cursor: pointer;
+          &:focus {
+            opacity: 0.7;
+          }
+        }
+      }
+    }
+    .indutry-vertical {
+      padding: 5px;
+      color: #000;
+      ::ng-deep .mat-select-value {
+        color: #000 !important;
+      }
+      ::ng-deep .mat-select-arrow {
+        color: #495057;
+      }
+      ::ng-deep .mat-form-field-infix {
+        font-size: 12px;
+      }
+    }
+  }
+  .img-container {
+    float: right;
+    padding: 20px;
+    width: 50%;
+    height: 70vh;
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+  .text-container {
+    width: 50%;
+    float: left;
+    top: 50%;
+    transform: translate(-0%, -50%);
+    left: 20px;
+    color: #000;
+    h1 {
+      font: 500 35px "Roboto";
+      text-align: left;
+      padding-left: 40px;
+    }
+    p {
+      text-align: left;
+      padding: 30px 40px;
+      font-size: 16px;
+      color: #333;
+    }
+  }
+  carousel.slide-animated {
+    slide.item {
+      display: flex !important;
+      animation-duration: 1s;
+      animation-fill-mode: both;
+      &.active {
+        display: flex !important;
+        width: 100%;
+        animation-name: carouselSlideIn;
+      }
+      &:not(.active) {
+        display: table-cell;
+        animation-name: carouselSlideOut;
+      }
+    }
+  }
+  
+  @keyframes carouselSlideIn {
+    0% {
+      transform: translateX(100%);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+  @keyframes carouselSlideOut {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+  
+  // ::ng-deep.carousel-control-next-icon,
+  // ::ng-deep.carousel-control-prev-icon {
+  //   display: none;
+  // }
+  
+  ::ng-deep .item {
+    width: 100%;
+    display: flex;
+  }
+  
+  ::ng-deep .carousel-control-next,
+  ::ng-deep .carousel-control-prev {
+    width: 10px;
+  }
+  
+  .news-flex-stock {
+    display: flex;
+    justify-content: left;
+    img {
+      width: 100px;
+    }
+    .article-titles {
+      font-size: 12px;
+      cursor: pointer;
+      margin: 5px 0;
+      color: #2c5498;
+      font-weight: 500;
+  
+      &:hover {
+        opacity: 0.7;
+      }
+  
+      a {
+        color: black;
+      }
+    }
+    .newsSource {
+      font-size: 10px;
+      margin-left: 5px;
+    }
+  }
+  
+  .iframe-container {
+    margin-top: 30px;
+  
+    .iframe {
+      height: 68vh;
+      width: 100%;
+    }
+  }
+  .iframe-back-button {
+    color: #2f5597;
+    position: absolute;
+    right: 13px;
+    cursor: pointer;
+    font-size: 13px;
+    text-decoration: none;
+    background-color: transparent;
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+  .news-text{
+    line-height: 1 !important
+  }

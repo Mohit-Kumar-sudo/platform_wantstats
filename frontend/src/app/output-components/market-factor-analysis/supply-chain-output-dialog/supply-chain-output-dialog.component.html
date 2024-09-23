@@ -1,0 +1,30 @@
+<div class="float-l-width header-background">
+  <div class="float-l">
+      <a role="button" class="btn-link" (click)="analyze()">Analyze</a>
+  </div>
+    <div class="float-right">
+      <i class="btn-icon fa fa-download" (click)="generateImage()" title="Download Chart"></i>
+      <i (click)="doClose()" class="btn-icon fa fa-times"></i>
+    </div>
+</div>
+<mat-card-content class="padding10-20 outer-conatiner1 float-l-width" #screen>
+  <div class="center">
+      <p class="mat-caption" style="text-align: center"><span class="font-weight-bold">Title
+          :</span>{{chainType}}, {{reportName}} [{{startYear}} - {{endYear}}]</p>
+  </div>
+  <div class="align-center">
+    <div class="mermaid svg-width1" #mermaidId></div>
+
+  </div>
+  <p class="supply-caption"><span class="font-weight-bold">Source
+      :</span>Wantstats
+  </p>
+</mat-card-content>
+
+
+
+<div style="display: none" id="download">
+  <img #canvas>
+  <a #downloadLink></a>
+</div>
+

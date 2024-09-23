@@ -1,0 +1,53 @@
+@import "../../shared/sidebar/sidebar.component.scss";
+::ng-deep .mat-header-cell {
+  padding: 10px !important;
+  border: 1px solid gray !important;
+  color: black;
+}
+::ng-deep .mat-cell {
+  padding: 10px !important;
+  border: 1px solid gray !important;
+}
+
+.results-container {
+  margin: 10px 0;
+}
+
+.report-list-item {
+  padding: 8px 12px;
+  font-size: 12px;
+  cursor: pointer;
+
+  &:hover {
+    background: #2f5597;
+    color: #fff;
+  }
+}
+
+.fo-container {
+  padding: 20px;
+  border: 1px solid gray;
+  border-radius: 10px;
+}
+.left-menu-div {
+  height: 70vh;
+  overflow-y: scroll;
+  border-right: 1px solid grey;
+  position: fixed;
+  width: 12%;
+  margin-top: -11px;
+
+}
+.right-content-div {
+  margin-left: 17%;
+}
+
+.left-menu-item {
+  cursor: pointer;
+}
+
+.company-name {
+  font-size: 14px;
+  border-bottom: 1px solid grey;
+  padding-bottom: 7px;
+}

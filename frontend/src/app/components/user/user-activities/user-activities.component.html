@@ -1,0 +1,95 @@
+<section style="margin: 10px 0px 10px 0px">
+  <div class="container details-section">
+    <div class="row">
+      <div class="col-xl-12 col-lg-12 col-md-12">
+        <div class="border-bottom mb-4">
+          <h2 class="sectionHeadline sectionHeadline--statistic">My Reports</h2>
+        </div>
+        <mat-card class="example-card small-example-card">
+          <mat-card-content>
+            <div *ngFor="let report of activityList?.reportIds">
+              <div class="report-list-single-card-title" style="display: flex">
+                <img
+                  class="margin-right-15"
+                  src="../../../assets/contact/report-list-icon-18e1627466b06c818966d9b9d193bd31817454ca9a6f8591ec04b1b153b00bbb.png"
+                  alt=""
+                />
+                <p class="report-list-single-card-title">
+                  <strong>{{ report?.title }}</strong
+                  >&nbsp;&nbsp;&nbsp;
+                </p>
+                <div class="iconset">
+                  <a
+                    *ngIf="report?.isPdf && permissions.pdfOpen"
+                    style="margin-left: 15px"
+                    title="PDF"
+                    class="report-icon"
+                    (click)="visitPdf(report._id, report.pdfLink)"
+                    ><i class="fa fa-file-pdf-o"></i
+                  ></a>
+                  <a
+                    *ngIf="report?.isExcel && isSubscribed"
+                    href="{{ report?.excelLink }}"
+                    title="ME Data"
+                    class="report-icon"
+                    ><i class="fa fa-file-excel-o"></i
+                  ></a>
+                  <a
+                    *ngIf="report?.isDoc && isSubscribed"
+                    href="{{ report?.docLink }}"
+                    title="Doc File"
+                    class="report-icon"
+                    ><i class="fa fa-file-word-o"></i
+                  ></a>
+                  <a
+                    *ngIf="report?.isPdf && !permissions.pdfOpen"
+                    title="This feature is not available with your current subscription"
+                    disabled
+                    class="report-icon disabled-cursor"
+                    ><i class="fa fa-file-pdf-o"></i
+                  ></a>
+                  <a
+                    *ngIf="report?.isExcel && !isSubscribed"
+                    title="This feature is not available with your current subscription"
+                    disabled
+                    class="report-icon disabled-cursor"
+                    ><i class="fa fa-file-excel-o"></i
+                  ></a>
+                  <a
+                    *ngIf="report?.isDoc && !isSubscribed"
+                    title="This feature is not available with your current subscription"
+                    disabled
+                    class="report-icon disabled-cursor"
+                    ><i class="fa fa-file-word-o"></i
+                  ></a>
+                  <a
+                    *ngIf="report?.isAnalytics"
+                    title="Analytics"
+                    (click)="onReportSelect(report._id)"
+                    class="report-icon"
+                    ><i class="fa fa-bar-chart"></i
+                  ></a>
+                  <a
+                    *ngIf="report"
+                    title="Analytics"
+                    (click)="onReportDelete(report._id)"
+                    class="report-icon"
+                    ><i class="fa fa-trash"></i
+                  ></a>
+                </div>
+              </div>
+              <br />
+            </div>
+            <!-- <div class="card-footer text-center" *ngIf="activityList.reportIds?.length">
+                <pagination-controls (pageChange)="page = $event"></pagination-controls>
+              </div> -->
+            <div *ngIf="errorMessage" class="error-message">
+              {{ errorMessage }}
+            </div>
+            <div *ngIf="loadingIndicator">Loading...</div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</section>

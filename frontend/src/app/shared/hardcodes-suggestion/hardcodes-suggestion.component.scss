@@ -1,0 +1,104 @@
+.header-card {
+    display: flex;
+    .suggestion-img {
+      width: 120px;
+      height: 70px;
+      padding-left: 10px;
+    }
+    h6 {
+      margin: 0;
+      padding-top: 3px;
+    }
+    .span {
+      font-size: 10px;
+      color: #333;
+      line-height: 1.2;
+    }
+    .btns {
+      font-size: 9px;
+      border: none;
+      color: blue;
+      background: rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+    }
+    .pads {
+      padding: 5px;
+      cursor: pointer;
+    }
+  }
+  ::ng-deep .mat-expansion-panel-header {
+    padding: 0px 4px !important;
+  }
+  
+  ::ng-deep .col,
+  ::ng-deep .col-3,
+  ::ng-deep hr {
+    margin: 0 !important;
+    padding: 0 10px 0 0 !important;
+  }
+  ::ng-deep .mat-expansion-panel-body {
+    padding: 0 4px !important;
+  }
+  ::ng-deep .mat-expansion-panel {
+    box-shadow: none !important;
+    background: transparent;
+  }
+  
+  .sug-head {
+    font-size: 14px;
+    font-weight: 500;
+    padding: 0 0 5px 5px;
+  }
+  .blue-block {
+    height: 80px;
+    background-color: #2b5498;
+    color: #fff;
+    font-weight: 500;
+    padding: 10px;
+    font-size: 12px;
+    margin: 5px 0;
+  }
+  .widther {
+    padding-left: 10px;
+    margin: 5px 0;
+  }
+  .blue-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .white-bg {
+    background-color: transparent;
+    padding: 0;
+  }
+  .reportName {
+    font-size: 10px;
+    color: #4c4c4c;
+  }
+  .sectionName {
+    font-size: 13px;
+  }
+  .dataOverlap {
+    font-size: 11px;
+    color: rgba(0, 0, 0, 0.87);
+  }
+  .video-section {
+    color: #4087ff;
+    cursor: pointer;
+    padding-top: 14px !important;
+  }
+  .bottom-line {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+  }
+  .padding-left-10 {
+    padding-left: 10px;
+  }
+  a {
+    color: #2b5498 !important;
+    &:hover {
+      color: #007bff !important;
+    }
+  }
+  .btn-margin-left{
+    margin-left: 10px;
+  }

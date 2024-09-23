@@ -1,0 +1,19 @@
+@import "../../market-dynamics/drivers/drivers.component.scss";
+.main-container {
+  padding: 0;
+}
+.tabular-company {
+  .company-btn-option {
+    margin: 0 10px 10px 0;
+    font-size: 12px;
+  }
+}
+
+.company-container {
+  margin-top: 20px;
+}
+
+.clicked-btn {
+  background: #fff !important;
+  color: #305497 !important;
+}

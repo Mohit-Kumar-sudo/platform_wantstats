@@ -1,0 +1,24 @@
+@import "../../../common-css/charts-panel.scss";
+
+.mat-dialog-container {
+  padding: 0 !important;
+}
+.table-height{
+  padding: 2px 16px;
+  overflow: auto;
+  max-height: calc(100vh - 144px);
+}
+.caption-top {
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  text-align: left;
+  caption-side: top;
+  color: rgba(0,0,0,.87);
+}
+.caption-bottom {
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  text-align: left;
+  caption-side: bottom;
+  color: rgba(0,0,0,.87);
+}

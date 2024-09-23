@@ -1,0 +1,5 @@
+<div *ngIf="chartData.length" class='card'>
+  <canvas baseChart [datasets]="chartData" [labels]="chartLabels" [chartType]="chartConfigs?.columnBarChartType" [options]="chartConfigs?.columnBarChartOptions"
+    [plugins]="chartConfigs?.chartPlugins" [legend]="chartConfigs?.columnBarChartLegend">
+  </canvas>
+</div>

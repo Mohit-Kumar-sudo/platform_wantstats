@@ -1,0 +1,341 @@
+// @import "../output-company-profile/output-company-profile.component.scss";
+.category-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.category {
+  flex: 1 1 30%; /* Adjust as needed for the desired layout */
+  margin: 0 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.category-title {
+  margin-bottom: 10px;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.report-list {
+  max-height: 300px; /* Adjust as needed for the desired height */
+  overflow-y: auto;
+}
+
+.report {
+  margin-bottom: 5px;
+}
+
+.report h3 {
+  margin: 0;
+  font-size: 1em;
+}
+
+.report-icon {
+  margin-right: 13px;
+  cursor: pointer;
+  color: #2d5598 !important;
+  // float: right;
+  font-size: 18px;
+  &:hover {
+    opacity: 0.7;
+  }
+}
+
+.report-container {
+  .report-icon {
+    margin-right: 13px;
+    cursor: pointer;
+    color: #2d5598;
+    // float: right;
+    font-size: 18px;
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+}
+.group-panel {
+  .group-content {
+    max-height: 25vh;
+    overflow-y: scroll;
+
+    .report-container {
+      .report-name {
+        font-size: 14px;
+        padding: 6px;
+        margin-bottom: 8px;
+        float: left;
+        width: 100%;
+      }
+    }
+  }
+}
+.card-panel-border {
+  border: 1px solid #2d5598;
+}
+.search-outer-container {
+  display: flex;
+  padding: 0 10px;
+  align-items: center;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+
+  .search-bar-container {
+    margin-left: 10px;
+    top: 12px;
+    display: inline-flex;
+    align-items: center;
+    // border: 1px solid #ced4da;
+    padding: 0 15px;
+    width: 70%;
+
+    .search-bar {
+      width: 100%;
+      border: 0;
+      padding: 0;
+      display: block;
+      font-size: 1rem;
+      font-weight: 400;
+      line-height: 1.5;
+      color: #495057;
+      outline: none;
+      margin-left: 0;
+      background-color: transparent;
+    }
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .search-btn {
+    // border: 1px solid;
+    cursor: pointer;
+    position: absolute;
+    right: 150px !important;
+    // top: 78px;
+    &:focus {
+      opacity: 0.7;
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .search-btn {
+    right: 65px !important;
+  }
+}
+
+.search-btn {
+  // border: 1px solid;
+  cursor: pointer;
+  position: absolute;
+  right: 300px;
+  // top: 78px;
+  &:focus {
+    opacity: 0.7;
+  }
+}
+
+.search-button {
+  position: absolute;
+  top: 46px;
+  right: 27px;
+  margin-top: -20px;
+  color: #7d7d7d;
+  background: transparent;
+  border: none;
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.output-search-report-item {
+  cursor: pointer;
+  color: #212529;
+  border-radius: 0;
+
+  // &:hover {
+  //   background: #2c5498;
+  //   color: #fff !important;
+  // }
+}
+
+.font-size-21 {
+  font-size: 21px;
+}
+
+.single-report-card-wrap {
+  box-sizing: border-box;
+  // border: 1px solid;
+  // margin-bottom: 10px;
+  border-radius: 5px;
+  background: rgb(247, 248, 248);
+  padding: 5px;
+  transition: all ease-in-out 0.4s;
+}
+
+.report-list-single-card-title {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 23px;
+  color: rgb(39, 48, 95);
+}
+
+.report-list-single-card-short-desc {
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 100;
+  line-height: 30px;
+  color: rgb(90, 94, 112);
+}
+
+.single-report-card-wrap:hover {
+  background-color: #ededed;
+}
+
+.details-section .card {
+  background-color: #fff;
+  box-shadow: 0 0 40px rgba(51, 51, 51, 0.1);
+  padding: 20px;
+}
+
+.furtherStatistics__statistic {
+  background-color: #fff;
+  box-sizing: border-box;
+  display: flex;
+  padding: 10px;
+}
+
+.form-check-label {
+  font-size: 14px;
+}
+
+.margin-right-15 {
+  margin-right: 15px !important;
+}
+
+.sectionHeadline--statistic {
+  color: #0f2741;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 1.4;
+  margin-bottom: 10px;
+}
+
+.pagination > li > a,
+.pagination > li > span {
+  position: relative;
+  float: left;
+  padding: 6px 12px;
+  margin-left: -1px;
+  line-height: 1.42857143;
+  color: #337ab7;
+  text-decoration: none;
+  background-color: #fff;
+  border: 1px solid #ddd;
+}
+
+.pagination > .disabled > a,
+.pagination > .disabled > a:focus,
+.pagination > .disabled > a:hover,
+.pagination > .disabled > span,
+.pagination > .disabled > span:focus,
+.pagination > .disabled > span:hover {
+  color: #777;
+  cursor: not-allowed;
+  background-color: #fff;
+  border-color: #ddd;
+}
+
+.pagination > .active > a,
+.pagination > .active > a:focus,
+.pagination > .active > a:hover,
+.pagination > .active > span,
+.pagination > .active > span:focus,
+.pagination > .active > span:hover {
+  z-index: 3;
+  color: #fff;
+  cursor: default;
+  background: linear-gradient(14deg, #65258a 10%, #791a70, #e80566) !important;
+  border-color: #65258a;
+}
+
+.industryFilters::-webkit-scrollbar-button,
+.resultTab-section::-webkit-scrollbar-button {
+  background-color: #747474;
+}
+
+.industryFilters::-webkit-scrollbar-thumb,
+.resultTab-section::-webkit-scrollbar-thumb {
+  background: linear-gradient(14deg, #65258a 10%, #791a70, #e80566) !important;
+  outline: #708090 solid 1px;
+  border-radius: 2%;
+  height: 100px;
+}
+
+.holder::-webkit-scrollbar,
+.industryFilters::-webkit-scrollbar,
+.resultTab-section::-webkit-scrollbar,
+.row.twitterBlock::-webkit-scrollbar {
+  width: 8px;
+  background-color: transparent;
+}
+
+.show_category_link {
+  background-color: #65258a;
+  color: #fff;
+}
+#category {
+  border: 1px solid;
+}
+
+.aerospace-defense input {
+  margin-right: 10px;
+}
+
+.show_category_link:hover {
+  background-color: #e80566;
+  color: #fff;
+}
+
+.filter-box {
+  padding: 10px 0;
+}
+
+label {
+  color: #000;
+  font-size: 14px !important;
+  margin-bottom: 0.3rem;
+}
+
+.published_date_panel {
+  color: #000;
+  font-size: 14px !important;
+}
+
+.iconset a {
+  color: #65258a;
+}
+
+.iconset {
+  // float: right !important;
+  // border: 1px solid;
+  float: right !important;
+}
+// .report-list-single-card-title{
+
+// }
+.Button {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.footer-add-bottom {
+  // margin-top: -200px;
+  font-size: 14px;
+  // padding: 15px 0;
+  // color: white;
+  width: Auto;
+}

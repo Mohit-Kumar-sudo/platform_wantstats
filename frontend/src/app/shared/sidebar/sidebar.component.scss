@@ -1,0 +1,177 @@
+.right-navbar-options {
+  position: absolute;
+  right: 18px;
+  align-items: center;
+}
+
+.left-menu-item {
+  padding: 8px 12px;
+  font-size: 12px;
+  color: #000;
+
+  &:hover {
+    opacity: 0.7;
+  }
+}
+
+.router-container {
+  float: left;
+  width: 100%;
+
+  .top-checkbox-container {
+    text-align: center;
+
+    .checkbox-filter {
+      margin-right: 8px;
+    }
+  }
+
+  .outer-checkbox-container {
+    width: 12%;
+    margin: 8px 0;
+
+    .check-box-container {
+      padding: 13px;
+    }
+
+    .filter-label {
+      font-size: 14px;
+    }
+  }
+}
+
+.width-100 {
+  width: 100% !important;
+}
+
+.fixed-top {
+  z-index: 2;
+}
+.left-menu-container {
+  float: left;
+  width: 12%;
+  margin-top: 30px;
+  position: fixed;
+  z-index: 9;
+  overflow-y: scroll;
+  bottom: 0;
+  top: 0;
+}
+
+.menu-active {
+  background-color: #2f5597 !important;
+  color: #fff !important;
+}
+
+.inner-router-container {
+  width: 87%;
+  margin-top: 73px;
+  float: left;
+  //width: 100%;
+
+  .router-content-container {
+    overflow-y: auto;
+    float: left;
+    width: 100%;
+    margin-left: 159px;
+  }
+}
+
+.outer-search-bar-container {
+  text-align: center;
+
+  .search-field {
+    width: 45%;
+    margin-top: 26px;
+    font-size: 24px;
+  }
+}
+
+.searchbar-filter-container {
+  text-align: center;
+  float: left;
+  width: 100%;
+  margin-top: 6px;
+
+  .width-70 {
+    float: left;
+    width: 70%;
+  }
+
+  .width-30 {
+    float: left;
+    width: 30%;
+
+    .opinion-container {
+      min-height: 50vh;
+      border: 1px solid #3c3c3c;
+      border-top: 8px solid #000;
+      padding: 0;
+      margin: 0 0 20px;
+      text-align: center;
+
+      .title {
+        font-size: 24px;
+      }
+    }
+  }
+}
+
+.float-left {
+  float: left;
+}
+
+.width-20 {
+  float: left;
+  width: 20%;
+}
+
+.search-result-container {
+  .filter-checkbox {
+    padding: 6px 12px;
+    font-size: 12px;
+    color: #000;
+  }
+}
+
+.sub-menu {
+  background-color: #e2e0e0;
+  color: #000;
+  border-radius: 0;
+}
+
+.parent-menu {
+  border-radius: 0;
+}
+
+.parent-menu-name {
+  float: left;
+  width: 90%;
+}
+
+.mat-sidenav-content {
+  padding-top: 0;
+  margin-left: 1px;
+  position: absolute;
+  right: 0;
+  overflow-y: scroll;
+  top: 0;
+  bottom: 0;
+  width: 88%;
+
+  .fixed-header {
+    background: #fff;
+    width: 99%;
+    position: fixed;
+    z-index: 6;
+  }
+
+  .outlet-container {
+    margin-top: 73px;
+  }
+}
+
+#sidenavContainer {
+  top: 100px;
+}
+

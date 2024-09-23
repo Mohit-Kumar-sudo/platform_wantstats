@@ -1,0 +1,5 @@
+@import "../droct-driver-container/droct-driver-container.component.scss";
+
+::ng-deep .mat-dialog-container {
+  padding: 0 !important;
+}

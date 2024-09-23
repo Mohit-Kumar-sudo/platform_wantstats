@@ -1,0 +1,149 @@
+<div style="display: none" id="download">
+  <img #canvas />
+  <a #downloadLink></a>
+</div>
+<!-- new Design -->
+<div class="main-chart-div">
+  <section class="details-section">
+    <div class="container-fluid">
+      <h2 class="sectionHeadline sectionHeadline--statistic">
+        {{ chartsData?.data?.metaDataValue?.title }}
+      </h2>
+      <div class="details">
+        <div class="row">
+          <div class="col-xl-8 col-lg-8 col-md-12" #screen>
+            <div class="card card3 text-left pt-lg-3 pb-lg-3 position-relative">
+              <ng-container [ngSwitch]="chartsData?.type">
+                <div class="ribin-header">
+                  <div class="ribin-logo">
+                    <img src="../../../assets/images/wantstats_logo_white.png" />
+                  </div>
+                  <div class="float-right">
+                    <a class="btn-icon ppt-btn">PPT <i class="fa fa-plus"></i></a>
+                    <i class="ribin-btn fa fa-download" (click)="generateImage()" title="Download"></i>
+                    <i class="btn-icon fa fa-file-powerpoint-o" title="Download PPT"></i>
+                    <i *ngIf="
+                        chartsData.type == 'PIE' || chartsData.type == 'BAR'
+                      " class="ribin-btn fa fa-file-excel-o" (click)="downLoadCSV()"></i>
+                    <i class="ribin-btn fa fa-expand" (click)="openDialog()" title="Full Screen"></i>
+                  </div>
+                </div>
+                <div>
+                  <div *ngSwitchCase="'BAR'" (click)="changeChart(chartsData)">
+                    <div class="image" class="chart mar-top-20" width="965" style="display: block; height: auto">
+                      <canvas baseChart [datasets]="chartsData?.data?.chartData"
+                        [labels]="chartsData?.data?.chartLabels" [options]="sbarChartOptions"
+                        [plugins]="sbarChartPlugins" [colors]="sbarChartColors" [legend]="sbarChartLegend"
+                        [chartType]="sbarChartType">
+                      </canvas>
+                    </div>
+                  </div>
+                  <div *ngSwitchCase="'PIE'" (click)="changeChart(chartsData)">
+                    <div class="image" class="mar-top-20" style="display: block; height: 343px; width: 634px">
+                      <canvas baseChart [data]="chartsData?.data?.chartData" [labels]="chartsData?.data?.chartLabels"
+                        [chartType]="spieChartType" [options]="spieChartOptions" [plugins]="spieChartPlugins"
+                        [colors]="spieChartColors" [legend]="spieChartLegend">
+                      </canvas>
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+            </div>
+            <div *ngIf="error == true" class="card card4 text-left pt-lg-3 pb-lg-3 position-relative"
+              style="padding: 10px; margin-top: 15px">
+              <h2>Chart Data Not Found</h2>
+            </div>
+
+            <div *ngIf="error == false" class="card card4 text-left pt-lg-3 pb-lg-3 position-relative"
+              style="padding: 10px; margin-top: 15px">
+              <div class="details-title">
+                <h2 style="text-align: left">
+                  {{ chartsData?.data?.metaDataValue?.title }}
+                </h2>
+              </div>
+              <div class="mar-top-20 mainhead">
+                <h5>Synopsis</h5>
+                <p>
+                  The above chart is
+                  {{ chartsData?.data?.metaDataValue?.title }}.
+                </p>
+              </div>
+              <div class="mar-top-20 mainhead">
+                <h5>Market Dynamics</h5>
+                <p>{{ chartsData?.text }}</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-4 col-lg-4 col-md-12 p-lg-0">
+            <div class="card card1 pt-lg-3 pb-lg-3 pt-md-3 pb-md-3">
+              <div class="border-bottom mb-3">
+                <h5 class="text-center">
+                  <span style="font-size: 18px">More charts from the same Report</span>
+                </h5>
+              </div>
+              <div class="scrollBox statTabs__scroller statTabs__scroller--normal">
+                <ng-container *ngFor="let chartsData of suggestionsCharts">
+                  <div class="furtherStatistics__statistic">
+                    <a (click)="changeChart(chartsData)" class="furtherStatistics__statistic">
+                      <div class="">
+                        <img src="../../../assets/barGraph.png" alt="" width="100" height="71" class="margin-right-16"
+                          loading="lazy" />
+                      </div>
+                      <div class="">
+                        <p class="furtherStatistics__statisticTitle title-1">
+                          {{ chartsData?.data?.metaDataValue?.title }}
+                        </p>
+                      </div>
+                    </a>
+                  </div>
+                </ng-container>
+              </div>
+            </div>
+            <div class="card card2 pt-lg-3 pb-lg-3 mar-top-20">
+              <div class="border-bottom mb-3">
+                <h5 class="text-center">
+                  <span style="font-size: 18px">Similar Industry Reports</span>
+                </h5>
+              </div>
+
+              <div class="scrollBox statTabs__scroller statTabs__scroller--normal">
+                <ng-container *ngFor="let report of SimilarReports | slice : 0 : 10">
+                  <div class="furtherStatistics__statistic">
+                    <a (click)="changeChart(chartsData)" class="furtherStatistics__statistic">
+                      <div class="">
+                        <img
+                          src="https://www.wantstats.com/assets/report-list-icon-18e1627466b06c818966d9b9d193bd31817454ca9a6f8591ec04b1b153b00bbb.png"
+                          alt="" class="margin-right-15" loading="lazy" />
+                      </div>
+                      <p class="furtherStatistics__statisticTitle title-2">
+                        {{ report?.title }}
+                      </p>
+                      <div class="iconset">
+                        <a *ngIf="report?.isPdf && permissions.pdfOpen" style="margin-left: 15px" target="_blank"
+                          title="PDF" class="report-icon font-size-21" routerLink="/view-pdf/{{ report?._id }}"><i
+                            class="fa fa-file-pdf-o"></i></a>
+                        <a *ngIf="report?.isExcel && isSubscribed" href="{{ report?.excelLink }}" target="_blank"
+                          title="ME Data" class="report-icon font-size-21"><i class="fa fa-file-excel-o"></i></a>
+                        <a *ngIf="report?.isDoc && isSubscribed" href="{{ report?.docLink }}" title="Doc File"
+                          class="report-icon font-size-21"><i class="fa fa-file-word-o"></i></a>
+                        <a *ngIf="report?.isPdf && !permissions.pdfOpen" title="{{ subscriptionMessage }}"
+                          class="report-icon disabled-cursor font-size-21"><i class="fa fa-file-pdf-o"></i></a>
+                        <a *ngIf="report?.isExcel && !isSubscribed" title="{{ subscriptionMessage }}"
+                          class="report-icon disabled-cursor font-size-21"><i class="fa fa-file-excel-o"></i></a>
+                        <a *ngIf="report?.isDoc && !isSubscribed" title="{{ subscriptionMessage }}"
+                          class="report-icon disabled-cursor font-size-21"><i class="fa fa-file-word-o"></i></a>
+                        <a *ngIf="report?.isAnalytics" title="Analytics" routerLink="/market-estimation"
+                          [queryParams]="{ reportId: report._id }" class="report-icon font-size-21"><i
+                            class="fa fa-bar-chart"></i></a>
+                      </div>
+                    </a>
+                  </div>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

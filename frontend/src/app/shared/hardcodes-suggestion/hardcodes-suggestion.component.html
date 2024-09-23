@@ -1,0 +1,491 @@
+<mat-accordion displayMode="flat" multi="true">
+    <!-- for interconnection -->
+    <div class="sug-head">Suggested Interconnects</div>
+    <!-- for sections -->
+    <div *ngIf="
+        interConnects &&
+        suggestion.orderType != 'covid' && suggestion.orderType != 'newsVideos'
+      ">
+      <div class="bottom-line">
+        <div *ngIf="interConnects && interConnects?.length">
+          <div *ngIf="!isTopPlayer">
+            <div class="bgs">
+              <div class="row col margin-one zero-padding bottom-line" *ngFor="let item of interConnects; let i = index">
+                <div class="header-card">
+                  <div class="widther">
+                    <h6 class="dataOverlap">Similar Sections</h6>
+  
+                    <a *ngIf="
+                        item.main_section == 'Market Dynamics' &&
+                        item?.report_id != reportId
+                      " routerLink="{{ item.router_link }}" [queryParams]="{
+                        type: item.section,
+                        reportId: item.report_id,
+                        reportName: item.report_name
+                      }">
+                      <h6 class="sectionName">
+                        {{ item.section | titlecase }}, {{ item.main_section }}
+                      </h6>
+                      <h6 class="reportName">{{ item.report_name }} Market</h6>
+                    </a>
+                    <a *ngIf="
+                        item.main_section == 'Market Dynamics' &&
+                        item?.report_id == reportId
+                      " (click)="showMessage()">
+                      <h6 class="sectionName">
+                        {{ item.section | titlecase }}, {{ item.main_section }}
+                      </h6>
+                      <h6 class="reportName">{{ item.report_name }} Market</h6>
+                    </a>
+                    <a *ngIf="
+                        item.main_section != 'Market Dynamics' &&
+                        item?.report_id != reportId
+                      " routerLink="{{ item.router_link }}" [queryParams]="{
+                        reportId: item.report_id,
+                        reportName: item.report_name
+                      }">
+                      <h6 class="sectionName">
+                        {{ item.main_section | titlecase }}
+                      </h6>
+                      <h6 class="reportName">{{ item.report_name }} Market</h6>
+                    </a>
+                    <a *ngIf="
+                        item.main_section != 'Market Dynamics' &&
+                        item?.report_id == reportId
+                      " (click)="showMessage()">
+                      <h6 class="sectionName">
+                        {{ item.main_section | titlecase }}
+                      </h6>
+                      <h6 class="reportName">{{ item.report_name }} Market</h6>
+                    </a>
+                    <a class="header-card" *ngIf="
+                        interConnectsMore.length && i == interConnects.length - 1
+                      ">
+                      <label class="btns" (click)="moreStatus = !moreStatus"><span *ngIf="!moreStatus"> more
+                          Sections...</span>
+                        <span *ngIf="moreStatus"> ...less Sections </span></label>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <div *ngIf="isTopPlayer">
+          <div class="bgs">
+            <div class="row col margin-one zero-padding bottom-line"
+              *ngFor="let item of suggestion?.interConnect?.data; let i = index">
+              <div class="header-card" *ngIf="i != 0 && i < suggestion?.interConnect?.data.length">
+                <div class="widther">
+                  <h6 class="dataOverlap">Similar Companies</h6>
+                  <a routerLink="/chart-results" *ngIf="reportId != '5f636e6394ef4c5219ac9cd1'" [queryParams]="{
+                      companyId: item?._id,
+                      menu: 'Financial Overview',
+                      id: 'SBU',
+                      key: 'financial_overview'
+                    }">
+                    <h6 class="sectionName">{{ item?.name }}</h6>
+                  </a>
+                  <a *ngIf="reportId == '5f636e6394ef4c5219ac9cd1'">
+                    <h6 class="sectionName">{{ item?.name }}</h6>
+                  </a>
+                  <a routerLink="/top-bar-cp">
+                    <label class="btns">More Companies...</label></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <div *ngIf="moreStatus && interConnectsMore && interConnectsMore?.length">
+          <div *ngIf="!isTopPlayer">
+            <div class="bgs">
+              <div class="row col margin-one zero-padding bottom-line" *ngFor="let item of interConnectsMore">
+                <div class="header-card">
+                  <div class="widther">
+                    <h6 class="dataOverlap">Similar Sections</h6>
+  
+                    <a *ngIf="
+                        item.main_section == 'Market Dynamics' &&
+                        item?.report_id != reportId
+                      " routerLink="{{ item.router_link }}" target="_blank" [queryParams]="{
+                        type: item.section,
+                        reportId: item.report_id,
+                        reportName: item.report_name
+                      }">
+                      <h6 class="sectionName">
+                        {{ item.section | titlecase }}, {{ item.main_section }}
+                      </h6>
+                      <h6 class="reportName">{{ item.report_name }} Market</h6>
+                    </a>
+                    <a *ngIf="
+                        item.main_section == 'Market Dynamics' &&
+                        item?.report_id == reportId
+                      " (click)="showMessage()">
+                      <h6 class="sectionName">
+                        {{ item.section | titlecase }}, {{ item.main_section }}
+                      </h6>
+                      <h6 class="reportName">{{ item.report_name }} Market</h6>
+                    </a>
+  
+                    <a *ngIf="
+                        item.main_section != 'Market Dynamics' &&
+                        item?.report_id != reportId
+                      " routerLink="{{ item.router_link }}" [queryParams]="{
+                        reportId: item.report_id,
+                        reportName: item.report_name
+                      }">
+                      <h6 class="sectionName">
+                        {{ item.main_section | titlecase }}
+                      </h6>
+                      <h6 class="reportName">{{ item.report_name }} Market</h6>
+                    </a>
+                    <a *ngIf="
+                        item.main_section != 'Market Dynamics' &&
+                        item?.report_id == reportId
+                      " (click)="showMessage()">
+                      <h6 class="sectionName">
+                        {{ item.main_section | titlecase }}
+                      </h6>
+                      <h6 class="reportName">{{ item.report_name }} Market</h6>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- for report -->
+    <div *ngIf="
+        reportConnectData &&
+        reportConnectData?.data.length &&
+        suggestion.orderType != 'covid' && suggestion.orderType != 'newsVideos'
+      ">
+      <div class="bgs">
+        <div class="row col margin-one zero-padding" *ngFor="let item of reportConnectData?.data; let i = index">
+          <div class="row col margin-one zero-padding bottom-line" *ngIf="(!moreReports && i <= 5) || moreReports">
+            <div class="header-card">
+              <div class="widther">
+                <h6 class="dataOverlap">Similar Reports</h6>
+                <a *ngIf="item?.report_id != reportId" routerLink="/market-estimation" [queryParams]="{
+                    reportId: item?.report_id,
+                    reportName: item?.report_name
+                  }" target="_blank">
+                  <h6 class="sectionName">{{ item?.report_name }} market</h6>
+                </a>
+                <a *ngIf="item?.report_id == reportId" (click)="showMessage()">
+                  <h6 class="sectionName">{{ item?.report_name }} market</h6>
+                </a>
+                <a class="header-card" *ngIf="
+                    reportConnectData?.data.length &&
+                    reportConnectData?.data.length > 5 &&
+                    (i == 5 || i == reportConnectData?.data.length - 1)
+                  ">
+                  <label class="btns" (click)="moreReports = !moreReports"><span *ngIf="!moreReports && i == 5"> more
+                      Reports...</span>
+                    <span *ngIf="moreReports && i != 5">
+                      ...less Reports
+                    </span></label>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- for report -->
+    <div *ngIf="
+        hardCodedReportConnectData &&
+        hardCodedReportConnectData?.data.length &&
+        suggestion.orderType == 'newsVideos'
+      ">
+      <div class="bgs">
+        <div class="row col margin-one zero-padding bottom-line" *ngFor="let item of hardCodedReportConnectData?.data">
+          <div class="header-card">
+            <div class="widther">
+              <h6 class="dataOverlap">Similar Reports</h6>
+              <a routerLink="/market-estimation" [queryParams]="{
+                  reportId: item?.report_id,
+                  reportName: item?.report_name
+                }">
+                <h6 class="sectionName">{{ item?.report_name }} market</h6>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- for videos -->
+    <mat-expansion-panel [hideToggle]="false" *ngIf="
+        youtubeContents &&
+        youtubeContents.length &&
+        suggestion.orderType != 'covid' && suggestion.orderType != 'newsVideos'
+      ">
+      <mat-expansion-panel-header class="bottom-line" (click)="videoStatus = !videoStatus" [collapsedHeight]="'110px'"
+        [expandedHeight]="'110px'">
+        <div class="header-card">
+          <div class="blue-block white-bg" *ngIf="youtubeContents[0]?.imgUrl" (click)="openYtDailog(youtubeContents[0])">
+            <div class="dataOverlap padding-left-10">Industry Videos</div>
+            <img class="suggestion-img" [src]="youtubeContents[0]?.imgUrl" />
+          </div>
+          <div class="widther">
+            <h6 class="sectionName video-section" [title]="youtubeContents[0]?.title"
+              (click)="openYtDailog(youtubeContents[0])">
+              {{ youtubeContents[0]?.title | slice : 0 : 45 }}...
+            </h6>
+            <div class="span">{{ youtubeContents[0]?.publishedAt | date }}</div>
+            <label *ngIf="youtubeContents.length < 5" class="btns"><span *ngIf="!videoStatus">+{{ youtubeContents.length -
+                1 }} more
+              </span>
+              <span *ngIf="videoStatus">-{{ youtubeContents.length - 1 }} </span>Videos</label>
+            <label *ngIf="youtubeContents.length >= 5" class="btns"><span *ngIf="!videoStatus">+4 more </span>
+              <span *ngIf="videoStatus">-4 </span>Videos</label>
+          </div>
+        </div>
+      </mat-expansion-panel-header>
+      <div class="bgs">
+        <div class="row col margin-one zero-padding" *ngFor="let item of youtubeContents; let i = index">
+          <div class="header-card bottom-line" *ngIf="i != 0 && i < 5">
+            <div class="blue-block white-bg" *ngIf="item?.imgUrl" (click)="openYtDailog(item)">
+              <div class="dataOverlap padding-left-10">Industry Videos</div>
+              <img class="suggestion-img" [src]="item?.imgUrl" />
+            </div>
+            <div class="widther">
+              <h6 class="sectionName video-section" [title]="item?.title" (click)="openYtDailog(item)">
+                {{ item?.title | slice : 0 : 45 }}...
+              </h6>
+              <div class="span">{{ item?.publishedAt | date }}</div>
+              <a routerLink="/output-chart/youtube" [queryParams]="{ searchQuery: reportName }">
+                <label class="btns">More Videos...</label></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+  
+    <!-- for news -->
+    <mat-expansion-panel [hideToggle]="false" *ngIf="
+        finalNews.length &&
+        suggestion.orderType != 'covid' && suggestion.orderType != 'newsVideos'
+      ">
+      <mat-expansion-panel-header class="bottom-line" (click)="newStat = !newStat" [collapsedHeight]="'90px'"
+        [expandedHeight]="'90px'">
+        <div class="header-card">
+          <div class="widther">
+            <h6 class="dataOverlap">News Stories</h6>
+            <h6 class="sectionName" [title]="finalNews[0]?.title">
+              <a [href]="finalNews[0]?.link" target="_blank">
+                {{ finalNews[0]?.title | slice : 0 : 45 }}...
+              </a>
+            </h6>
+            <div class="span">{{ finalNews[0]?.source }}</div>
+            <a *ngIf="finalNews.length == 1" routerLink="/output-chart/api-search"
+              [queryParams]="{ searchQuery: reportName }">
+              <label class="btns">More News...</label></a>
+            <label *ngIf="finalNews.length < 5 && finalNews.length > 1" class="btns"><span *ngIf="!newStat">+{{
+                finalNews.length - 1 }} more </span>
+              <span *ngIf="newStat">-{{ finalNews.length - 1 }} </span>News</label>
+            <label *ngIf="finalNews.length >= 5" class="btns"><span *ngIf="!newStat">+4 more </span>
+              <span *ngIf="newStat">-4 </span>News</label>
+          </div>
+        </div>
+      </mat-expansion-panel-header>
+      <div class="bgs">
+        <div class="row col margin-one zero-padding bottom-line" *ngFor="let item of finalNews; let i = index">
+          <div class="header-card" *ngIf="i != 0 && i < 5">
+            <div class="widther">
+              <h6 class="dataOverlap">News Stories</h6>
+              <h6 class="sectionName" [title]="item?.title">
+                <a [href]="item?.link" target="_blank">
+                  {{ item?.title | slice : 0 : 45 }}...
+                </a>
+              </h6>
+              <div class="span">{{ item?.source }}</div>
+              <a routerLink="/output-chart/api-search" [queryParams]="{ searchQuery: reportName }">
+                <label class="btns">More News...</label></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+  
+    <!-- for videos -->
+    <div *ngIf="
+        youtubeContents &&
+        youtubeContents.length &&
+        (suggestion.orderType == 'covid' || suggestion.orderType == 'newsVideos')
+      ">
+      <div class="row col margin-one zero-padding" *ngFor="let item of youtubeContents; let i = index">
+        <div class="header-card bottom-line" *ngIf="i < 3">
+          <div class="blue-block white-bg" *ngIf="item?.imgUrl" (click)="openYtDailog(item)">
+            <div class="dataOverlap padding-left-10">Industry Videos</div>
+            <img class="suggestion-img" [src]="item?.imgUrl" />
+          </div>
+          <div class="widther">
+            <h6 class="sectionName video-section" [title]="item?.title" (click)="openYtDailog(item)">
+              {{ item?.title | slice : 0 : 45 }}...
+            </h6>
+            <div class="span">{{ item?.publishedAt | date }}</div>
+            <a routerLink="/output-chart/youtube" [queryParams]="{ searchQuery: reportName }">
+              <label class="btns">More Videos...</label></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- for news -->
+    <div *ngIf="
+        finalNews.length &&
+        (suggestion.orderType == 'covid' || suggestion.orderType == 'newsVideos')
+      ">
+      <div class="row col margin-one zero-padding" *ngFor="let item of finalNews; let i = index">
+        <div class="header-card bottom-line" *ngIf="i < 3">
+          <div class="widther">
+            <h6 class="dataOverlap">News Stories</h6>
+            <h6 class="sectionName" [title]="item?.title">
+              <a [href]="item?.link" target="_blank">
+                {{ item?.title | slice : 0 : 45 }}...
+              </a>
+            </h6>
+            <div class="span">{{ item?.source }}</div>
+            <a routerLink="/output-chart/api-search" [queryParams]="{ searchQuery: searchText }">
+              <label class="btns">More News...</label></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- for leadsdb -->
+    <mat-expansion-panel [hideToggle]="false" *ngIf="
+        leadsArray.length &&
+        suggestion.orderType != 'covid' && suggestion.orderType != 'newsVideos'
+      ">
+      <mat-expansion-panel-header class="bottom-line" (click)="leadsDb = !leadsDb" [collapsedHeight]="'70px'"
+        [expandedHeight]="'70px'">
+        <div class="header-card blue-flex">
+          <div class="widther">
+            <h6 class="dataOverlap">Top Leads</h6>
+            <h6 class="sectionName">
+              <a routerLink="/output-chart/leads-data/{{ leadsArray[0] }}">
+                {{ leadsArray[0] | titlecase }}
+              </a>
+            </h6>
+            <label class="btns"><span *ngIf="!leadsDb">+{{ leadsArray.length - 1 }} more </span>
+              <span *ngIf="leadsDb">-{{ leadsArray.length - 1 }} </span>Leads</label>
+          </div>
+        </div>
+      </mat-expansion-panel-header>
+      <div class="bgs">
+        <div class="row col margin-one zero-padding bottom-line" *ngFor="let item of leadsArray; let i = index">
+          <div class="header-card blue-flex" *ngIf="i != 0 && i < 5">
+            <div class="widther">
+              <h6 class="dataOverlap">Top Leads</h6>
+              <h6 class="sectionName">
+                <a routerLink="/output-chart/leads-data/{{ item }}">
+                  {{ item | titlecase }}
+                </a>
+              </h6>
+              <a routerLink="/output-chart/leads-db" [queryParams]="{ vertical: currentReport.vertical }">
+                <label class="btns">More Leads...</label></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+  
+    <!--   for fillings-->
+    <mat-expansion-panel [hideToggle]="false" *ngIf="
+        hardCodedFiling.length &&
+        suggestion.orderType != 'covid' && suggestion.orderType != 'newsVideos'
+      ">
+      <mat-expansion-panel-header (click)="fillingOverlap = !fillingOverlap" [collapsedHeight]="'70px'"
+        [expandedHeight]="'70px'">
+        <div class="header-card blue-flex">
+          <div class="widther">
+            <h6 class="dataOverlap">Regulatory Fillings (US)</h6>
+            <h6 class="sectionName">
+              <a routerLink="/output-chart/sec-edgar" [queryParams]="{ searchQuery: hardCodedFiling[0] }">
+                {{ hardCodedFiling[0] | titlecase }}
+              </a>
+            </h6>
+            <label *ngIf="hardCodedFiling.length > 1" class="btns"><span *ngIf="!fillingOverlap">+{{
+                hardCodedFiling?.length - 1 }} more
+              </span>
+              <span *ngIf="fillingOverlap">
+                {{ hardCodedFiling?.length - 1 }} </span>Fillings</label>
+          </div>
+        </div>
+      </mat-expansion-panel-header>
+      <div class="bgs">
+        <div class="row col margin-one zero-padding bottom-line" *ngFor="let item of hardCodedFiling; let i = index">
+          <div class="header-card blue-flex" *ngIf="i != 0 && i < 5">
+            <div class="widther">
+              <h6 class="dataOverlap">Regulatory Fillings (US)</h6>
+              <h6 class="sectionName">
+                <a routerLink="/output-chart/sec-edgar" [queryParams]="{ searchQuery: item }">
+                  {{ item | titlecase }}
+                </a>
+              </h6>
+            </div>
+          </div>
+        </div>
+        <a class="header-card" routerLink="/output-chart/sec-edgar" [queryParams]="{ searchQuery: '' }"
+          *ngIf="fillingOverlap">
+          <label class="btns btn-margin-left"><span> more Fillings </span></label>
+        </a>
+      </div>
+    </mat-expansion-panel>
+  
+    <!-- for stocks -->
+    <mat-expansion-panel [hideToggle]="false" *ngIf="
+        hardcodedStocks.length &&
+        suggestion.orderType != 'covid' && suggestion.orderType != 'newsVideos'
+      ">
+      <mat-expansion-panel-header (click)="stocksOverlap = !stocksOverlap" [collapsedHeight]="'70px'"
+        [expandedHeight]="'70px'">
+        <div class="header-card blue-flex">
+          <div class="widther">
+            <h6 class="dataOverlap">Top Stocks</h6>
+            <h6 class="sectionName">
+              <a routerLink="/stocks" [queryParams]="{
+                  symbol: hardcodedStocks[0].ticker,
+                  name: hardcodedStocks[0].name
+                }">
+                {{ hardcodedStocks[0].name | titlecase }}, (
+                {{ hardcodedStocks[0].ticker }} )
+              </a>
+            </h6>
+            <label *ngIf="hardcodedStocks.length > 1" class="btns"><span *ngIf="!stocksOverlap">+{{ hardcodedStocks.length
+                - 1 }} more
+              </span>
+              <span *ngIf="stocksOverlap">
+                -{{ hardcodedStocks.length - 1 }} </span>Stocks</label>
+          </div>
+        </div>
+      </mat-expansion-panel-header>
+      <div class="bgs">
+        <div class="row col margin-one zero-padding bottom-line" *ngFor="let item of hardcodedStocks; let i = index">
+          <div class="header-card blue-flex" *ngIf="i != 0 && i < 5">
+            <div class="widther">
+              <h6 class="dataOverlap">Top Stocks</h6>
+              <h6 class="sectionName">
+                <a routerLink="/stocks" [queryParams]="{ symbol: item.ticker, name: item.name }">
+                  {{ item.name | titlecase }}, ( {{ item.ticker }} )
+                </a>
+              </h6>
+            </div>
+          </div>
+        </div>
+        <a class="header-card" routerLink="/stocks" *ngIf="stocksOverlap">
+          <label class="btns btn-margin-left"><span> more Stocks </span></label>
+        </a>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+  

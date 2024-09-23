@@ -1,0 +1,112 @@
+.responsiveImg {
+  width: 80%;
+  height: 80%;
+}
+.card-border {
+  box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 1px rgba(0, 0, 0, 0.14), 0 1px 3px 2px rgba(0, 0, 0, 0.12);
+}
+
+.float-right {
+  float: right;
+}
+
+.modal-container {
+  width: 100% !important;
+}
+
+::ng-deep .mat-dialog-container {
+  width: 100% !important;
+  padding: 0 !important;
+}
+
+.upper-div {
+  border: 1px solid black;
+  min-height: 50px;
+}
+
+.zero-margin {
+  margin: 0;
+}
+
+.zero-padding {
+  padding: 0;
+}
+
+.right-heading {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.btn {
+  margin-right: 10px;
+}
+
+.right-part {
+  padding: 0;
+  margin: 0;
+  font-size: 12px;
+}
+
+.margin-one {
+  margin: 5px 0;
+}
+
+.down-header {
+  font-weight: bold;
+  margin: 17px 0;
+  font-family: Montserrat, "Helvetica Neue", Arial, sans-serif;
+}
+
+.desc {
+  font-family: Montserrat, "Helvetica Neue", Arial, sans-serif;
+}
+
+.header-background {
+  align-items: center;
+  background: #2f5597;
+  color: #fff;
+  padding: 5px;
+  margin: 0;
+}
+
+::ng-deep .mat-select-value,
+::ng-deep .mat-select-arrow,
+::ng-deep .mat-select-placeholder {
+  color: white !important;
+}
+
+.btn-icon {
+  padding: 4px;
+  margin-right: 7px;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.7;
+  }
+}
+
+.outer-year-conatiner {
+  position: relative;
+
+  .year-container {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    font-size: 12px;
+    color: rgba(0, 0, 0, 0.54);
+  }
+
+  .center {
+    text-align: center;
+  }
+}
+
+.align-center {
+  color: rgba(0, 0, 0, 0.54);
+  align-items: center;
+}
+.align-centers {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+}

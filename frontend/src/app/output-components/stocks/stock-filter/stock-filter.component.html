@@ -1,0 +1,97 @@
+<!-- <carousel class="slide-animated" style="outline-style: none" [pauseOnFocus]="true" [interval]="5000" [showIndicators]=false [noPause]=false>
+  <slide class="sliders" *ngFor="let item of finalStocks;let i = index">
+    <div class="col-6">
+      <mat-card>
+        <div class="stock-content">
+          <div class="stock-name">
+            <div class="dateSymbol">
+              <span>
+                {{item?.symbol}}
+              </span>
+              <span class="dates">
+                {{item?.latesttradingday | date}}
+              </span>
+            </div>
+            <div>
+              {{item.name}}
+            </div>
+          </div>
+          <div class="stock-index">
+            <div class="stock-price-f">
+              {{isNumber(item.price) ? (item.price | number) : 0}}
+            </div>
+            <div class="stock-change-f">
+              <span *ngIf="item?.change > 0">+</span>{{isNumber(item?.change) ? (item?.change | number) : 0}}
+            </div>
+            <div class="stock-percent-f">
+              <span *ngIf="item?.change_percent > 0">+</span>
+              {{item?.change_percent}}
+              <span
+                [ngClass]="item?.change > 0 ? 'fa fa-caret-up fa-2x cyan-bg': 'fa fa-caret-down fa-2x red-bg'"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="stock-content" style="margin-top: 10px;">
+          <div class="stock-summary">
+            <div>
+              <div class="s-head">OPEN</div>
+              <div class="s-values-f">
+                {{isNumber(item?.open) ? (item?.open | number) : 0}}
+              </div>
+            </div>
+            <div>
+              <div class="s-head">HIGH</div>
+              <div class="s-values-f">
+                {{isNumber(item?.high) ? (item?.high | number) : 0}}
+              </div>
+            </div>
+            <div>
+              <div class="s-head">LOW</div>
+              <div class="s-values-f">
+                {{isNumber(item?.low) ? (item?.low | number) : 0}}
+              </div>
+            </div>
+            <div>
+              <div class="s-head">PREVIOUS CLOSE</div>
+              <div class="s-values-f">
+                {{isNumber(item?.previousclose) ? (item?.previousclose | number) : 0}}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="stock-content" style="margin-top: 10px;">
+          <mat-tab-group (selectedTabChange)="tabClick($event,i,item.symbol)">
+            <mat-tab label="1D">
+              <div style="margin-top: 10px;">
+                <canvas id="myChart10{{i}}" width="200" height="100"></canvas>
+              </div>
+            </mat-tab>
+            <mat-tab label="1M">
+              <div style="margin-top: 10px;">
+                <canvas id="myChart20{{i}}" width="400" height="150"></canvas>
+              </div>
+            </mat-tab>
+            <mat-tab label="1Y">
+              <div style="margin-top: 10px;">
+                <canvas id="myChart30{{i}}" width="400" height="150"></canvas>
+              </div>
+            </mat-tab>
+          </mat-tab-group>
+        </div>
+      </mat-card>
+    </div>
+    <div class="col-6" style="padding: 16px;">
+      <div style="font-size: 14px;font-weight: 500;">Market News</div>
+      <div *ngFor="let news of newNewsArray[i]?.results">
+        <div class="news-flex-stock">
+          <div class="news-text">
+            <a class="article-titles" href="{{news?.link}}" target="_blank">{{news?.title}}</a>
+            <p class="newsSource"><span><em> Published :</em>
+                {{news?.published}}</span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </slide>
+</carousel> -->

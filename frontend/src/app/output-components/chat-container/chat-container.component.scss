@@ -1,0 +1,100 @@
+.card-border {
+    border: 1px solid rgba(0,0,0,.12);
+    box-shadow: none;
+  }
+  
+  .no-border {
+    border: 0 !important;
+  }
+  
+  .float-right {
+    float: right;
+  }
+  
+  .upper-div {
+    border: 1px solid black;
+    min-height: 50px;
+  }
+  
+  .zero-margin {
+  
+    margin: 0;
+  }
+  
+  .zero-padding {
+    padding: 0;
+  }
+  
+  .right-heading {
+    font-weight: bold;
+    font-size: 14px;
+  }
+  
+  .btn {
+    margin-right: 10px;
+  }
+  
+  .right-part {
+    padding: 0;
+    margin: 0;
+    font-size: 12px;
+  }
+  
+  .margin-one {
+    margin: 5px 0;
+  }
+  
+  .down-header {
+    font-weight: bold;
+    margin: 17px 0;
+    font-family: Montserrat, "Helvetica Neue", Arial, sans-serif;
+  
+  }
+  
+  .desc {
+    font-family: Montserrat, "Helvetica Neue", Arial, sans-serif;
+  }
+  
+  .header-background {
+    align-items: center;
+    background: #2f5597;
+    color: #fff;
+    padding: 5px;
+    margin: 0;
+  }
+  
+  .mat-select-value, .mat-select-arrow, .mat-select-placeholder {
+    color: white !important;
+  }
+  
+  .btn-icon {
+    padding: 4px;
+    margin-right: 7px;
+    cursor: pointer;
+  
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+  
+  .outer-year-conatiner {
+    position: relative;
+  
+    .year-container {
+      position: absolute;
+      right: 5px;
+      top: 5px;
+      font-size: 12px;
+      color: rgba(0, 0, 0, .54);
+    }
+  
+    .center {
+      text-align: center;
+    }
+  }
+  
+  .align-center {
+    color: rgba(0, 0, 0, .54);
+    align-items: center;
+  }
+  

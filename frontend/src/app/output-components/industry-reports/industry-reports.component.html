@@ -1,0 +1,175 @@
+<section style="margin-top: 10px">
+  <div class="container details-section">
+    <div class="row">
+      <div class="col-xl-8 col-lg-8 col-md-12">
+        <div class="border-bottom">
+          <h2 class="sectionHeadline sectionHeadline--statistic">
+            Industry Reports
+          </h2>
+        </div>
+        <form html='{:class=>"form-horizontal", :id=>"search_form"}' action="reports" accept-charset="UTF-8"
+          method="get" style="margin-bottom: 10px">
+          <input name="utf8" type="hidden" value="✓" />
+          <input class="typeahead back-shadow form-control" style="box-shadow: 0 0 40px rgb(51 51 51 / 10%)" id="search"
+            name="q" placeholder="Search Report title" type="search" matInput [formControl]="searchTerm"
+            [matAutocomplete]="auto" (input)="onInputChange($event)" />
+          <button name="button" type="submit" class="search-button" aria-label="Search" (click)="search()">
+            <i class="fa fa-search"></i>
+          </button>
+          <mat-autocomplete #auto="matAutocomplete" style="z-index: 1;">
+            <mat-option *ngFor="let report of reports | slice : 0 : 20" [value]="report.title">
+              {{ report.title }}
+            </mat-option>
+          </mat-autocomplete>
+        </form>
+
+        <div class="filter_content well hidden-xs" id="filter_content" style="
+            background-color: #f9fbfb;
+            padding: 8px;
+            border: none !important;
+          ">
+          <span><strong>Filters</strong></span>
+        </div>
+        <mat-card class="example-card" *ngIf="isSearched">
+          <mat-card-content>
+            <div id="scrollToTop" class="report-container" *ngFor="
+                let report of reports
+                  | paginate : { itemsPerPage: limit, currentPage: page };
+                let i = index
+              ">
+              <mat-card-content>
+                <div *ngIf="report._id && report.approved" class="report-list-single-card-title" style="display: flex">
+                  <img class="margin-right-15"
+                    src="../../../assets/contact/report-list-icon-18e1627466b06c818966d9b9d193bd31817454ca9a6f8591ec04b1b153b00bbb.png"
+                    alt="" />
+                  <p class="report-list-single-card-title">
+                    <strong>{{ report?.title }}</strong>&nbsp;&nbsp;&nbsp;
+                  </p>
+                  <div class="iconset">
+                    <a *ngIf="report?.isPdf && permissions.pdfOpen" style="margin-left: 15px" title="PDF"
+                      class="report-icon" (click)="visitPdf(report._id, report.pdfLink)"><i
+                        class="fa fa-file-pdf-o"></i></a>
+                    <a *ngIf="report?.isExcel && isSubscribed" href="{{ report?.excelLink }}" title="ME Data"
+                      class="report-icon"><i class="fa fa-file-excel-o"></i></a>
+                    <a *ngIf="report?.isDoc && isSubscribed" href="{{ report?.docLink }}" title="Doc File"
+                      class="report-icon"><i class="fa fa-file-word-o"></i></a>
+                    <a *ngIf="report?.isPdf && !permissions.pdfOpen"
+                      title="This feature is not available with your current subscription" disabled
+                      class="report-icon disabled-cursor"><i class="fa fa-file-pdf-o"></i></a>
+                    <a *ngIf="report?.isExcel && !isSubscribed"
+                      title="This feature is not available with your current subscription" disabled
+                      class="report-icon disabled-cursor"><i class="fa fa-file-excel-o"></i></a>
+                    <a *ngIf="report?.isDoc && !isSubscribed"
+                      title="This feature is not available with your current subscription" disabled
+                      class="report-icon disabled-cursor"><i class="fa fa-file-word-o"></i></a>
+                    <a *ngIf="report?.isAnalytics" title="Analytics" (click)="onReportSelect(report._id)"
+                      class="report-icon"><i class="fa fa-bar-chart"></i>
+                    </a>
+                    <button (click)="addReportToActivity(report)" class="report-icon2">
+                      <i class="fa-solid fa-bookmark"></i>
+                      <span class="tooltip-text">Add to My Focus Area</span>
+                    </button>
+                  </div>
+                </div>
+                <a *ngIf="report.id && !report.approved" class="report-list-single-card-title" style="display: flex"
+                  routerLink="/premium-reports/{{ report.id }}">
+                  <img class="margin-right-15"
+                    src="../../../assets/contact/report-list-icon-18e1627466b06c818966d9b9d193bd31817454ca9a6f8591ec04b1b153b00bbb.png"
+                    alt="" />
+                  <p class="report-list-single-card-title">
+                    <strong>{{ report?.title }}</strong>&nbsp;&nbsp;&nbsp;
+                  </p>
+                  <div class="iconset">
+                    <span class="premium-reports">
+                      <a class="text-white" routerLink="/premium-reports/{{ report.id }}">
+                        Premium Report
+                      </a>
+                    </span>
+                  </div>
+                </a>
+              </mat-card-content>
+            </div>
+            <div *ngIf="loadingIndicator">
+              <i class="fa fa-spinner fa-spin fa-3x"></i> Loading...
+            </div>
+            <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+            <div class="card-footer text-center" *ngIf="reports?.length">
+              <pagination-controls (pageChange)="page = $event"></pagination-controls>
+            </div>
+          </mat-card-content>
+        </mat-card>
+        <mat-card class="example-card small-example-card" *ngIf="!isSearched">
+          <mat-card-content>
+            <div *ngFor="
+                let report of allReports
+                  | paginate : { itemsPerPage: limit, currentPage: page };
+                let i = index
+              ">
+              <div class="report-list-single-card-title" style="display: flex">
+                <img class="margin-right-15"
+                  src="../../../assets/contact/report-list-icon-18e1627466b06c818966d9b9d193bd31817454ca9a6f8591ec04b1b153b00bbb.png"
+                  alt="" />
+                <p class="report-list-single-card-title">
+                  <strong>{{ report?.title }}</strong>&nbsp;&nbsp;&nbsp;
+                </p>
+                <div class="iconset">
+                  <a *ngIf="report?.isPdf && permissions.pdfOpen" style="margin-left: 15px" title="PDF"
+                    class="report-icon" (click)="visitPdf(report._id, report.pdfLink)"><i
+                      class="fa fa-file-pdf-o"></i></a>
+                  <a *ngIf="report?.isExcel && isSubscribed" href="{{ report?.excelLink }}" title="ME Data"
+                    class="report-icon"><i class="fa fa-file-excel-o"></i></a>
+                  <a *ngIf="report?.isDoc && isSubscribed" href="{{ report?.docLink }}" title="Doc File"
+                    class="report-icon"><i class="fa fa-file-word-o"></i></a>
+                  <a *ngIf="report?.isPdf && !permissions.pdfOpen"
+                    title="This feature is not available with your current subscription" disabled
+                    class="report-icon disabled-cursor"><i class="fa fa-file-pdf-o"></i></a>
+                  <a *ngIf="report?.isExcel && !isSubscribed"
+                    title="This feature is not available with your current subscription" disabled
+                    class="report-icon disabled-cursor"><i class="fa fa-file-excel-o"></i></a>
+                  <a *ngIf="report?.isDoc && !isSubscribed"
+                    title="This feature is not available with your current subscription" disabled
+                    class="report-icon disabled-cursor"><i class="fa fa-file-word-o"></i></a>
+                  <a *ngIf="report?.isAnalytics" title="Analytics" (click)="onReportSelect(report._id)"
+                    class="report-icon"><i class="fa fa-bar-chart"></i></a>
+                    <button (click)="addReportToActivity(report)" class="report-icon2">
+                      <i class="fa-solid fa-bookmark"></i>
+                      <span class="tooltip-text">Add to My Focus Area</span>
+                    </button>
+                </div>
+              </div>
+              <br />
+            </div>
+            <div class="card-footer text-center" *ngIf="allReports?.length">
+              <pagination-controls (pageChange)="page = $event"></pagination-controls>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+      <div class="col-xl-4 col-lg-4 col-md-12 p-lg-0">
+        <mat-card class="example-card">
+          <div class="caption">
+            <div class="border-bottom mb-3">
+              <h5 class="">
+                <span style="font-size: 18px">Industry</span>
+              </h5>
+            </div>
+            <!-- new select CheckBok -->
+            <div class="card-header" *ngFor="let cat of categories">
+              <label style="font-weight: normal; cursor: pointer">
+                &nbsp;
+                <input (click)="SelectedValue(cat)" type="checkbox" [(ngModel)]="cat.isChecked"
+                  class="float_left margin_left pt-2" />
+                {{ cat.value }}</label>
+            </div>
+          </div>
+        </mat-card>
+        <div class="Button">
+          <button class="mat-raised-button" mat-raised-button color="primary" routerLinkActive="btn-activated"
+            [queryParams]="{ reportId: currentReport?._id }" mat-flat-button routerLink="/Categorywise-reports">
+            Industry Reports
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

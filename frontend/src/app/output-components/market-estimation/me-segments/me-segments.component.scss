@@ -1,0 +1,206 @@
+@import "../../../common-css/charts-panel.scss";
+.card-border {
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  box-shadow: none;
+}
+.no-border {
+  border: 0 !important;
+}
+.float-right {
+  float: right;
+}
+.upper-div {
+  border: 1px solid black;
+  min-height: 50px;
+}
+.zero-margin {
+  margin: 0;
+}
+.zero-padding {
+  padding: 0;
+}
+.right-heading {
+  font-weight: bold;
+  font-size: 14px;
+}
+.btn {
+  margin-right: 10px;
+}
+.right-part {
+  padding: 0;
+  margin: 0;
+  font-size: 12px;
+}
+.margin-one {
+  margin: 5px 0;
+}
+.down-header {
+  font-weight: bold;
+  margin: 10px 15px;
+  font-size: 15px;
+  margin-bottom: 10px;
+  font-family: Montserrat, "Helvetica Neue", Arial, sans-serif;
+}
+.desc {
+  font: 600 14px Montserrat, "Helvetica Neue", Arial, sans-serif;
+}
+.header-background {
+  align-items: center;
+  background: #2f5597;
+  color: #fff;
+  padding: 5px;
+  margin: 0;
+}
+.btn-icon {
+  padding: 4px;
+  margin-right: 7px;
+  cursor: pointer;
+  &:hover {
+    opacity: 0.7;
+  }
+}
+.outer-year-conatiner {
+  position: relative;
+  .year-container {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    font-size: 12px;
+    color: rgba(0, 0, 0, 0.54);
+  }
+  .center {
+    text-align: center;
+  }
+}
+.align-center {
+  color: rgba(0, 0, 0, 0.54);
+  align-items: center;
+}
+.tabular2 {
+  position: fixed;
+  bottom: 0;
+  display: flex;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  align-items: flex-start;
+  justify-content: center;
+}
+.sub-heading {
+  font-weight: 500;
+  font-size: 15px;
+  margin: 5px 0;
+}
+.listing {
+  padding: 0;
+  list-style: none;
+  display: flex;
+  margin: 0;
+  li {
+    margin: 0 10px;
+  }
+}
+.mat-raised-button {
+  background: #305497;
+  color: #fff;
+  line-height: 30px;
+  &:hover {
+    opacity: 0.7;
+  }
+}
+.component-renderer {
+  height: 71vh;
+  width: 98%;
+  overflow: auto;
+  border: 1px solid black;
+}
+.component-element-renderer {
+  padding-bottom: 20px;
+}
+div.comment-item {
+  outline: none;
+}
+.conponent-table {
+  width: 100%;
+}
+.my-sidebar {
+  -ms-flex: 0 0 10px;
+  flex: 0 0 10px;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+.responsiveImg {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 5px;
+  width: 300px;
+  &:hover {
+    box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+  }
+}
+.seprator-div {
+  th.mat-header-cell:first-of-type,
+  td.mat-cell:first-of-type {
+    padding-left: 10px !important;
+  }
+  th.mat-header-cell:last-of-type,
+  td.mat-cell:last-of-type {
+    padding-right: 10px !important;
+  }
+  th.mat-header-cell {
+    padding: 10px !important;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    background: #305497;
+    color: #fff;
+  }
+  td.mat-cell {
+    padding: 0 10px !important;
+    border: none;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+  }
+  tr.mat-header-row {
+    height: 20px !important;
+  }
+  tr.mat-row {
+    height: 32px !important;
+  }
+}
+.main-container {
+  padding: 0;
+}
+.border {
+  border: 1px solid #00000033;
+}
+.margin-20-bottom {
+  margin-bottom: 20px;
+}
+p {
+  padding-left: 15px;
+}
+.mat-caption {
+  margin-top: 20px;
+  margin-bottom: 0px;
+  padding-left: 0px;
+}
+.table-caption {
+  margin-top: 0px;
+  margin-bottom: 20px;
+  font: 400 12px/20px Roboto, "Helvetica Neue", sans-serif;
+}
+.analyze {
+  font-size: 13px !important;
+  color: #fff;
+  font-weight: 500;
+  cursor: pointer;
+}
+.first-letter-caps {
+  text-transform: capitalize;
+}
+.over-flow {
+  overflow-x: auto !important;
+}
+.purchase-notification {
+  border: 2px solid black;
+  padding: 2px;
+  font-size: 1.2em;
+  font-weight: bold;
+  text-align: center;
+}

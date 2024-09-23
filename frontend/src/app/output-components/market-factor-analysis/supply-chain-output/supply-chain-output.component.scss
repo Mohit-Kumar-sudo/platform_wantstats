@@ -1,0 +1,180 @@
+@import "../../../common-css/charts-panel.scss";
+
+.card-border {
+  box-shadow: 0 2px 1px -1px rgba(0, 0, 0, .2), 0 1px 1px 1px rgba(0, 0, 0, .14), 0 1px 3px 2px rgba(0, 0, 0, .12);
+}
+
+.float-right {
+  float: right;
+}
+.content-p {
+  line-height: 30px;
+  font-size: 15px !important;
+  text-align: justify;
+}
+.upper-div {
+  border: 1px solid black;
+  min-height: 50px;
+}
+
+.zero-margin {
+
+  margin: 0;
+}
+
+.zero-padding {
+  padding: 0;
+}
+
+.right-heading {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.btn {
+  margin-right: 10px;
+}
+
+.right-part {
+  padding: 0;
+  margin: 0;
+  font-size: 12px;
+}
+
+.margin-one {
+  margin: 5px 0;
+}
+
+.down-header{
+  font-weight: bold;
+  margin: 20px 0;
+  margin-bottom: 10px;
+  font-family: Montserrat, "Helvetica Neue", Arial, sans-serif;
+}
+
+.desc {
+  font-family: Montserrat, "Helvetica Neue", Arial, sans-serif;
+}
+
+.header-background {
+  align-items: center;
+  background: #2f5597;
+  color: #fff;
+  padding: 5px;
+  margin: 0;
+}
+
+::ng-deep .mat-select-value, ::ng-deep .mat-select-arrow, ::ng-deep .mat-select-placeholder {
+  color: white !important;
+}
+
+.btn-icon {
+  padding: 4px;
+  margin-right: 7px;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.7;
+  }
+}
+
+.outer-year-conatiner1 {
+  position: relative;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  display: block;
+  padding: 10px 20px 20px 20px;
+  margin-bottom: 20px;
+}
+
+.align-center {
+  display: block;
+}
+
+.source{
+  font-size: 11px;
+}
+.mat-head{
+  font-size: 16px;
+  font-weight: 500;
+  color: #000;
+  margin: 5px 0px 15px 0px;
+}
+.scroll-window {
+  height: 250px;
+  overflow: hidden;
+  overflow-y: auto;
+  margin: 0;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  padding: 10px;
+}
+
+.seprator-div {
+  padding: 10px 0;
+}
+.center{
+  text-align: center;
+}
+
+foreignObject > div > span {
+  margin:.25rem !important;
+  text-align:justified !important;
+}
+foreignObject > div > span i {
+  font-size:2.5rem !important;
+  margin-left:.85rem !important;
+  margin-top:-.5rem;
+}
+.mermaid .edgeLabel{
+  background-color:#FFFFFF;
+  text-align:left;
+  opacity:1 !important;
+}
+.mermaid .label {
+  padding:1rem .25rem !important;
+}
+
+foreignObject > div, circle{
+  padding:-10% 0 !important;
+}
+
+svg {
+  overflow:auto !important;
+  margin-left:auto;
+  margin-right:auto;
+}
+.svg-width{
+  width:70% !important ;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+  margin: auto;
+}
+
+.vendor{
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 0;
+}
+::ng-deep .mat-expansion-panel-spacing {
+  margin: 16px 0 !important;
+}
+::ng-deep .mat-expansion-panel:not([class*="mat-elevation-z"]) {
+  box-shadow: none;
+}
+::ng-deep .mat-expansion-panel-header,
+::ng-deep .mat-expansion-panel-body {
+  padding: 0 !important;
+}
+.conclusion{
+  font-size: 14px;
+  font-weight: 400;
+  color: #333;
+  font: 400 14px/20px Roboto,"Helvetica Neue",sans-serif;
+}
+.supply-caption{
+  margin-bottom: 0px;
+  padding-left: 0px;
+}
+

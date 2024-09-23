@@ -1,0 +1,45 @@
+ <section
+    style="margin: 10px 0px 80px 0px"
+    ngif="activityList.charts.length !== 0"
+  >
+    <div class="container details-section">
+      <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12">
+          <div class="border-bottom mb-4">
+            <h2 class="sectionHeadline sectionHeadline--statistic">My PPTs</h2>
+          </div>
+          <mat-card class="example-card small-example-card">
+            <mat-card-content>
+              <div *ngFor="let chart of activityList?.charts">
+                <div class="report-list-single-card-title" style="display: flex">
+                  <ng-container>
+                    <div class="single-report-card-wrap" style="cursor: pointer;">
+                      <a
+                        *ngIf="chart"
+                        (click)="navigateToChartsAndStatistics(chart)"
+                        class="report-list-single-card-title"
+                      >
+                        <strong>{{ chart?.title }} {{chart.currentTab.value}} By {{chart.currentTab.id}}</strong>
+                      </a>
+                      <div style="padding-left: 20px;">
+                        <img
+                          style="height: 60px; padding: 5px;"
+                          [src]="chart.image"
+                          [alt]="chart.title"
+                        />
+                      </div>
+                    </div>
+                  </ng-container>
+                </div>
+                <div *ngIf="errorChartMessage" class="error-message">
+                  {{ errorChartMessage }}
+                </div>
+                <div *ngIf="loadingIndicator">Loading...</div>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+  </section>
+  

@@ -1,0 +1,28 @@
+<div class="float-l-width header-background">
+  <div class="float-l">
+    <a role="button" class="btn-link" (click)="analyze()">Analyze</a>
+  </div>
+  <div class="float-right">
+    <i class="btn-icon fa fa-download" (click)="generateImage()" title="Download"></i>
+    <i class="btn-icon fa fa-expand" (click)="openDialog()" title="full screen"></i>
+  </div>
+</div>
+<div class="main-swot main-swot-bar float-l-width" style="overflow:auto;height: 55vh !important;" #screen id="zoom">
+  <mat-card-subtitle style="margin: 10px" class="chart-headers" *ngIf="currentCompany">
+    <span>Title&nbsp;:&nbsp;</span>{{currentCompany.company_name}},
+    Product/Service offering
+  </mat-card-subtitle>
+  <div style="width: 100%;margin-top: 10px;" class="org-container">
+    <div id="chart-container"></div>
+  </div>
+  <mat-card-subtitle class="chart-headers" style="width: 100%;padding: 10px;"><span>Source&nbsp;:&nbsp;</span> Wantstats
+  </mat-card-subtitle>
+</div>
+<div>
+  <button (click)="zoomin()" title="zoom in">+</button>
+  <button (click)="zoomout()" title="zoom out">-</button>
+</div>
+<div style="display: none" id="download">
+  <img #canvas>
+  <a #downloadLink></a>
+</div>
