@@ -15,6 +15,8 @@ middlewaresConfig(app);
 // Define your routes here
 app.use('/api/v1/users', require('./Routes/User.Route'));
 app.use('/api/v1/report', require('./Routes/Reports.Route'));
+// reports access routes
+app.use('/api/v1/reportAccess',require('./Routes/Reports_access.Route'));
 
 app.get("/", (req, res) => {
   // HTML content as a string

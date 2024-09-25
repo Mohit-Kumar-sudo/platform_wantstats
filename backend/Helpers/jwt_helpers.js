@@ -7,7 +7,12 @@ module.exports = {
   signAccessToken: (userId) => {
     return new Promise((resolve, reject) => {
       const payload = {}
-      const secret = process.env.DEV_JWT_SECRET
+      const secret = process.env.DEV_JWT_SECRET;
+      // Check if the secret is undefined
+      if (!secret) {
+        console.error('JWT Secret is undefined!');
+        return reject(createError.InternalServerError('JWT Secret missing'));
+      }
       const options = {
         expiresIn: '1d',
         issuer: 'pickurpage.com',
@@ -24,22 +29,56 @@ module.exports = {
     })
   },
   verifyAccessToken: (req, res, next) => {
-    if (!req.headers['authorization']) return next(createError.Unauthorized())
-    const authHeader = req.headers['authorization']
-    const bearerToken = authHeader.split(' ')
-    const token = bearerToken[1]
-    JWT.verify(token, process.env.DEV_JWT_SECRET, async (err, payload) => {
-      if (err) {
-        const message =
-          err.name === 'JsonWebTokenError' ? 'Unauthorized' : err.message
-        return next(createError.Unauthorized(message))
-      }
-      const user = await User.findOne({ _id: mongoose.Types.ObjectId(payload.aud) })
-      req.user = user
+    if (!req.headers['authorization']) {
+      return next(createError.Unauthorized());
+    }
 
-      req.payload = payload
-      next()
-    })
+    const authHeader = req.headers['authorization'];
+    const bearerToken = authHeader.split(' ');
+    const token = bearerToken[1];
+
+    const secret = process.env.DEV_JWT_SECRET;
+
+    // Check if the secret is undefined
+    if (!secret) {
+      console.error('JWT Secret is undefined!');
+      return next(createError.InternalServerError('JWT Secret missing'));
+    }
+
+    JWT.verify(token, secret, async (err, payload) => {
+      if (err) {
+        const message = err.name === 'JsonWebTokenError' ? 'Unauthorized' : err.message;
+        return next(createError.Unauthorized(message));
+      }
+
+      console.log('Payload audience (aud):', payload.aud);
+
+      if (!payload.aud) {
+        return next(createError.Unauthorized('Invalid token: no audience provided.'));
+      }
+
+      try {
+        // Ensure payload.aud is a valid ObjectId string
+        if (!mongoose.Types.ObjectId.isValid(payload.aud)) {
+          return next(createError.Unauthorized('Invalid user ID'));
+        }
+
+        // Find user by the ObjectId converted from the string
+        const userId = mongoose.Types.ObjectId(payload.aud); // This is a valid string-to-ObjectId conversion.
+        const user = await User.findOne({ _id: userId });
+
+        if (!user) {
+          return next(createError.Unauthorized('User not found'));
+        }
+
+        req.user = user;
+        req.payload = payload;
+        next();
+      } catch (err) {
+        console.error('Error finding user:', err.message);
+        return next(createError.InternalServerError('Error processing token.'));
+      }
+    });
   },
   signRefreshToken: (userId) => {
     return new Promise((resolve, reject) => {

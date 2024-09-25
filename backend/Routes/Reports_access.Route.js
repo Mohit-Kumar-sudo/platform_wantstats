@@ -15,4 +15,4 @@ routes.post('/updateReportsList', verifyAccessToken , reportAccessController.upd
 
 routes.post('/updateCharts', verifyAccessToken , reportAccessController.updateCharts)
 
-export default routes
+module.exports = routes;
