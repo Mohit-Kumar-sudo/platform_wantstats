@@ -1,14 +1,17 @@
 const mongoose = require("mongoose");
-const ReportAccess = require('../Models/Reports_access.Model')
+const ReportAccess = require("../Models/Reports_access.Model");
 
+// Controller Methods
 module.exports = {
+    // Fetch reports list based on userId
     getReportsList: async (req, res, next) => {
         try {
-            const userId = req.params.userId;
+            const userId = req.body.userId; // Fetch userId from params
+            console.log(userId)
             const reportsList = await ReportAccess.aggregate([
                 {
                     $match: {
-                        userId: mongoose.Types.ObjectId(userId)
+                        userId: new mongoose.Types.ObjectId(userId)  // Convert to ObjectId
                     }
                 },
                 {
@@ -42,20 +45,22 @@ module.exports = {
                     }
                 }
             ]);
-    
+
             res.json({ data: reportsList });
         } catch (error) {
             next(error);
         }
     },
+
+    // Add or update reports for a user
     addReports: async (req, res, next) => {
         try {
             const query = req.body;
-            const doesExist = await ReportAccess.findOne({ userId: mongoose.Types.ObjectId(query.userId) });
+            const doesExist = await ReportAccess.findOne({ userId: new mongoose.Types.ObjectId(query.userId) }); // Convert to ObjectId
             
             if (doesExist) {
                 const updatedReport = await ReportAccess.findOneAndUpdate(
-                    { userId: mongoose.Types.ObjectId(query.userId) },
+                    { userId: new mongoose.Types.ObjectId(query.userId) }, // Convert to ObjectId
                     { $set: { reportIds: query.reportIds } },
                     { new: true } // Return the updated document
                 );
@@ -69,11 +74,13 @@ module.exports = {
             next(error);
         }
     },
+
+    // Update reports for a user
     updateReports: async (req, res, next) => {
         try {
             const query = req.body;
             const updatedReport = await ReportAccess.findOneAndUpdate(
-                { userId: mongoose.Types.ObjectId(query.userId) },
+                { userId: new mongoose.Types.ObjectId(query.userId) }, // Convert to ObjectId
                 { $set: { reportIds: query.reportIds } },
                 { new: true } // Return the updated document
             );
@@ -82,14 +89,16 @@ module.exports = {
             next(error);
         }
     },
+
+    // Add or update charts for a user
     addCharts: async (req, res, next) => {
         try {
             const query = req.body;
-            const doesExist = await ReportAccess.findOne({ userId: mongoose.Types.ObjectId(query.userId) });
+            const doesExist = await ReportAccess.findOne({ userId: new mongoose.Types.ObjectId(query.userId) }); // Convert to ObjectId
     
             if (doesExist) {
                 const updatedCharts = await ReportAccess.findOneAndUpdate(
-                    { userId: mongoose.Types.ObjectId(query.userId) },
+                    { userId: new mongoose.Types.ObjectId(query.userId) }, // Convert to ObjectId
                     { $set: { charts: query.charts } },
                     { new: true } // Return the updated document
                 );
@@ -103,11 +112,13 @@ module.exports = {
             next(error);
         }
     },
+
+    // Update charts for a user
     updateCharts: async (req, res, next) => {
         try {
             const query = req.body;
             const updatedCharts = await ReportAccess.findOneAndUpdate(
-                { userId: mongoose.Types.ObjectId(query.userId) },
+                { userId: new mongoose.Types.ObjectId(query.userId) }, // Convert to ObjectId
                 { $set: { charts: query.charts } },
                 { new: true } // Return the updated document
             );
@@ -116,5 +127,4 @@ module.exports = {
             next(error);
         }
     },
-            
-}
+};

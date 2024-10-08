@@ -101,19 +101,43 @@ export class LeadDblistComponent implements OnInit {
   }
 
   GetAllData(page: number = 1, limit: number = 5) {
+    this.spinner.show(); // Show spinner before making the API call
+  
     this.leadsApiService
       .getAllLead(page, limit)
       .then((response: Response) => {
-        return response.json();
+        // Check if there's no content returned (status code 204)
+        console.log(response.status);
+        if (response.status === 204) {
+          this.leads = []; // Handle no content by clearing leads
+          this.totalCount = 0;
+          this.updatePagination();
+          this.spinner.hide();
+          
+        }
+        return response.json(); // Continue to parse JSON if content exists
       })
       .then((res) => {
-        this.leads = res.data.leads;
-        // console.log("getallleads",this.leads)
-        this.totalCount = res.data.count;
-        this.updatePagination();
+        // Handle cases where res is undefined (for 204 response)
+        if (!res) {
+          return;
+        }
+        // Assuming your response format is { success: true, leads, count }
+        this.leads = res.leads || [];
+        console.log(res.status);
+        this.totalCount = res.count || 0;
+        this.updatePagination(); // Update pagination with new data
+  
+        // Hide spinner after data is fully processed
+        this.spinner.hide();
+      })
+      .catch((error) => {
+        // In case of any errors, log the error and hide the spinner
+        console.error('Error fetching leads:', error);
+        this.spinner.hide();
       });
-    this.spinner.hide();
   }
+  
 
   showLeadDBPage(item: any, id: any, name: any) {
     window.scroll(0,0)
