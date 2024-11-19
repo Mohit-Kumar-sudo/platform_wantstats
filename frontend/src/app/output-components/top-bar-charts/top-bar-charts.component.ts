@@ -175,35 +175,34 @@ export class TopBarChartsComponent implements OnInit {
       this.searchSubscription.unsubscribe();
     }
     this.searchSubscription = this.outputResultsService
-    .searchTablesChartsImagesByStr('chart', adjustedSearchStrings)
-    .subscribe((data) => {
-      this.page = 1;
-      // Check if data and meChartsData are defined and not empty
-      if (data.meChartsData) {
-        // Hide spinner
-        this.spinner.hide();
-        // Reset chartsList
-        this.chartsList = [];
-        this.meChartsData = data.meChartsData;
-        // Iterate through the received data
-        this.meChartsData.forEach((item) => {
-          item.titles.forEach((title) => {
-            if (
-              adjustedSearchStrings.some(searchString =>
-                title.title.toLowerCase().includes(searchString.toLowerCase())
-              )
-            ) {
-              title.reportId = item._id;
-              this.chartsList.push({ title: title.title, key: title.reportId });
-            }
+      .searchTablesChartsImagesByStr('chart', adjustedSearchStrings)
+      .subscribe((data) => {
+        this.page = 1;
+        // Check if data and meChartsData are defined and not empty
+        if (data.meChartsData) {
+          // Hide spinner
+          this.spinner.hide();
+          // Reset chartsList
+          this.chartsList = [];
+          this.meChartsData = data.meChartsData
+          // Iterate through the received data
+          this.meChartsData.forEach((item) => {
+            item.titles.forEach((title) => {
+              if (
+                adjustedSearchStrings.some(searchString =>
+                  title.title.toLowerCase().includes(searchString.toLowerCase())
+                )
+              ) {
+                title.reportId = item._id;
+                this.chartsList.push(title);
+              }
+            });
           });
-        });
-        console.log('Updated chartsList:', this.chartsList);
-      } else {
-        // Hide spinner when no data is received
-        this.spinner.hide();
-      }
-    });
+        } else {
+          // Hide spinner when no data is received
+          this.spinner.hide();
+        }
+      });
   }
 
   navigateToChartsAndStatistics(chart) {
@@ -231,8 +230,7 @@ export class TopBarChartsComponent implements OnInit {
       }
     })
   }
-  
-  
+
   addChartToActivity(chartId){
     this.focusList.charts.push(chartId)
     this.historyService.addCharts(this.focusList.charts).subscribe((res:any) => {
@@ -245,3 +243,5 @@ export class TopBarChartsComponent implements OnInit {
   }
 
 }
+
+

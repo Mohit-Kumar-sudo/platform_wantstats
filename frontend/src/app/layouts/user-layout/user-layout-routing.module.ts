@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { ExtraOptions, RouterModule, Routes } from '@angular/router';
 import { UserActivitiesComponent } from 'src/app/components/user/user-activities/user-activities.component';
+import { AboutUsComponent } from 'src/app/output-components/about-us/about-us.component';
 import { CategorywiseReportComponent } from 'src/app/output-components/categorywise-report/categorywise-report.component';
 import { ChatContainerComponent } from 'src/app/output-components/chat-container/chat-container.component';
+import { ContactUsComponent } from 'src/app/output-components/contact-us/contact-us.component';
 import { DashboardComponent } from 'src/app/output-components/dashboard/dashboard.component';
 import { HomeComponent } from 'src/app/output-components/home/home.component';
 import { IndustryReportsComponent } from 'src/app/output-components/industry-reports/industry-reports.component';
@@ -15,6 +17,7 @@ import { PptListModalComponent } from 'src/app/output-components/ppt/ppt-list-mo
 import { PremiumReportsComponent } from 'src/app/output-components/premium-reports/premium-reports.component';
 import { SecEdgarComponent } from 'src/app/output-components/sec-edgar/sec-edgar.component';
 import { StocksComponent } from 'src/app/output-components/stocks/stocks.component';
+import { TermsConditionsComponent } from 'src/app/output-components/terms-conditions/terms-conditions.component';
 import { TopBarChartsComponent } from 'src/app/output-components/top-bar-charts/top-bar-charts.component';
 import { TopBarCompanyProfileComponent } from 'src/app/output-components/top-bar-company-profile/top-bar-company-profile.component';
 import { YoutubeSearchComponent } from 'src/app/output-components/youtube-search/youtube-search.component';
@@ -94,6 +97,18 @@ const routes: Routes = [
   {
     path:'stocks',
     component:StocksComponent
+  },
+  {
+    path:'terms-conditions',
+    component:TermsConditionsComponent
+  },
+  {
+    path:'contact-us',
+    component:ContactUsComponent
+  },
+  {
+    path:'about-us',
+    component:AboutUsComponent,
   }
 ];
 

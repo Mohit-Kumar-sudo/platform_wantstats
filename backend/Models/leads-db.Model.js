@@ -14,4 +14,5 @@ const leadsSchema = new Schema({
   }]
 });
 
-module.exports = mongoose.model('Lead', leadsSchema);
+const leadsModel = mongoose.model('leads', leadsSchema);
+module.exports = leadsModel

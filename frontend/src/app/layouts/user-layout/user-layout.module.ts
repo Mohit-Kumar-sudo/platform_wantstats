@@ -44,6 +44,9 @@ import { StocksComponent } from 'src/app/output-components/stocks/stocks.compone
 import { MatTabsModule } from '@angular/material/tabs';
 import { HardcodesSuggestionComponent } from 'src/app/shared/hardcodes-suggestion/hardcodes-suggestion.component';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { TermsConditionsComponent } from 'src/app/output-components/terms-conditions/terms-conditions.component';
+import { ContactUsComponent } from 'src/app/output-components/contact-us/contact-us.component';
+import { AboutUsComponent } from 'src/app/output-components/about-us/about-us.component';
 
 @NgModule({
   declarations: [
@@ -72,7 +75,10 @@ import { MatExpansionModule } from '@angular/material/expansion';
     UserActivitiesComponent,
     PptListModalComponent,
     StocksComponent,
-    HardcodesSuggestionComponent
+    HardcodesSuggestionComponent,
+    TermsConditionsComponent,
+    ContactUsComponent,
+    AboutUsComponent,
   ],
   imports: [
     CommonModule,

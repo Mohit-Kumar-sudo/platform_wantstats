@@ -77,3 +77,12 @@
  .description img {
   display: none;
   }
+  .main-content{
+    padding-bottom: 50px !important;
+  }
+
+  @media screen and (min-width: 1200px) {
+    .main-content {
+      padding-bottom: 100px;
+    }
+  }

@@ -28,12 +28,12 @@ export class YoutubeApiService {
   lastFetchTime: number;
 
   private serviceAllVideos = APIEndPoints.BASE_URL + "videos-filter";
-  private serviceEndPoint = `https://www.googleapis.com/youtube/v3/search?key=${this.keys1}&part=snippet&maxResults=20&relevanceLanguage=EN&`;
+  private serviceEndPoint = `https://www.googleapis.com/youtube/v3/search?key=${this.keys1}&part=snippet&maxResults=20&relevanceLanguage=EN&order=date&publishedAfter=2022-01-01T00:00:00Z`;
 
   constructor(private httpClient: HttpClient) {}
 
   fetchWithKey(key: string, searchQuery: string): Observable<any> {
-    const url = `${this.apiUrl}?key=${key}&part=snippet&maxResults=${this.maxResults}&relevanceLanguage=EN&q=${searchQuery}&type=video`;
+    const url = `${this.apiUrl}?key=${key}&part=snippet&maxResults=${this.maxResults}&relevanceLanguage=EN&q=${searchQuery}&type=video&order=date&publishedAfter=2022-01-01T00:00:00Z`;
     return this.httpClient.get(url).pipe(
       catchError((error) => {
         console.error(`Failed to fetch data using key ${key}:`, error);

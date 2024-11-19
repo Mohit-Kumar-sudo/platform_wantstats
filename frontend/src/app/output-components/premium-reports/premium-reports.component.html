@@ -21,11 +21,17 @@
           <div class="d-flex align-items-center mb-3">
             <div>
               <div [innerHTML]="newData.description" class="description"></div>
+              <div *ngIf="errorMessage" class="error-message">
+                {{ errorMessage }}
+              </div>
             </div>
           </div>
         </div>
         <div class="tab-pane fade" id="tab2" role="tabpanel" aria-labelledby="tab-two">
           <div class="table" [innerHTML]="newData.table"></div>
+          <div *ngIf="errorMessage" class="error-message">
+            {{ errorMessage }}
+          </div>
         </div>
       </div>
     </div>

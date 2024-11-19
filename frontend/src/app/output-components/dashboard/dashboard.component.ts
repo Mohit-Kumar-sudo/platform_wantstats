@@ -1,15 +1,13 @@
 import {Component, OnInit, ViewChild, ElementRef, OnDestroy} from '@angular/core';
 import {ConstantKeys} from '../../constants/mfr.constants';
 import {FormArray, FormBuilder, FormGroup, FormControl} from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import {MatDialog} from '@angular/material/dialog';
 import {DashboardModalComponent} from './dashboard-modal/dashboard-modal.component';
-import {Observable} from 'rxjs';
-import {map, startWith} from 'rxjs/operators';
+import {Observable, of} from 'rxjs';
+import {map, startWith, switchMap} from 'rxjs/operators';
 import {ReportService} from '../../services/report.service';
 import {LocalStorageService} from '../../services/localstorage.service';
 import * as _ from 'lodash';
-// import * as chartConfig from './../../sharedCharts/sharedColumnBarChart/column-bar-chart-configs';
 import * as chartConfig from './../../../app/components/core/bar-chart-input/bar-chart-configs';
 import * as d3 from 'd3';
 import * as mermaid from 'mermaid';
@@ -27,6 +25,7 @@ import {DashboardSaveComponent} from './dashboard-save/dashboard-save.component'
 import {ActivatedRoute} from '@angular/router';
 import {UserService} from '../../services/user.service';
 import { AuthService } from 'src/app/services/auth.service';
+
 declare var JSONLoop: any;
 declare var $: any;
 
@@ -149,12 +148,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
               private chartService: RadarChartService,
               private companyProfileService: companyProfileService,
               private sharedAnalyticsService: SharedAnalyticsService,
-              private excelDownloadService: ExcelDownloadService,
-              private formBuilder: FormBuilder
-  ) { this.panelForm = this.formBuilder.group({
-    countries: [''] // Initialize the 'countries' form control
-  });
-}
+              private excelDownloadService: ExcelDownloadService
+  ) {}
 
   loadDashboard(id) {
     this.userService.getUserDashboards(id).subscribe(data => {
@@ -192,7 +187,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   onReportSelect(report, i) {
-    // console.log("selected report",report,i)
+    console.log("selected report",report,i)
     // this.spinner.show();
     this.getReportDetails(report._id, i);
   }
@@ -204,13 +199,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
 
   ngOnInit() {
-    this.panelForm = this.formBuilder.group({
-      panelItems: this.formBuilder.array([
-        this.formBuilder.group({
-          countries: [''] // Define your form control 'countries' here
-        })
-      ]) // Initialize panelItems as a FormArray
-    });
     this.permissions = this.authService.getUserPermissions();
     window.scroll(0,0)
     // this.spinner.show();
@@ -229,17 +217,17 @@ export class DashboardComponent implements OnInit, OnDestroy {
       panelItems: this.fb.array([]),
     });
     this.hidder[0] = true;
-     this.myControl.valueChanges.subscribe((term)=>{
-      if (term != "") {
-        this.reportService.getMainReportsByName(term).subscribe((data) => {
-          if (data) {
-            // console.log("filtered data",data)
-            this.filteredOptions = data
-          }
-        })
-      }
-    })
-      // console.log(" this.filteredOptions", this.filteredOptions)
+    this.filteredOptions = this.myControl.valueChanges.pipe(
+      startWith(''),
+      switchMap(term => {
+        if (term) {
+          return this.reportService.getMainReportsByName(term);
+        } else {
+          console.log("data not available")
+          return of([]);
+        }
+      })
+    );
 
     this.companyFilteredOptions = this.myControlCompany.valueChanges.pipe(
       startWith(''),
@@ -281,7 +269,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.reportService.getById(reportId).subscribe(
       data => {
         // console.log("getReportDetails data", data)
-       window.scroll(0,0)
+        window.scroll(0,0)
         data.title = data.title + ' Market';
         this.reportData[i] = data;
       }, error => {
@@ -387,6 +375,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   setValuesForExistingPanels(index) {
     const controlsData = this.dashboardData.panels[index].data
+    console.log("controlsData",controlsData)
     this.panelCountries[index] = controlsData.selectedCountries;
     this.panelRegions[index] = controlsData.selectedRegions;
     this.buttonSelected[index] = controlsData.selectedTab;

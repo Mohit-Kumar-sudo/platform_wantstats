@@ -159,6 +159,7 @@
             >
               <input name="utf8" class="" type="hidden" value="✓" />
               <input
+              (ngSubmit)="directSearch(0)" novalidate
                 [(ngModel)]="searchText"
                 (keyup.enter)="directSearch(0)"
                 class="typeahead back-shadow form-control"
@@ -169,6 +170,7 @@
                 autocomplete="off"
               />
               <button
+              (click)="directSearch(0)"
                 name="button"
                 type="submit"
                 class="search-button"

@@ -1,7 +1,14 @@
 const createError = require("http-errors");
+const _ = require('lodash');
 const Reports = require("../Models/Reports.Model");
 const mongoose = require("mongoose");
 const HTTPStatus = require("http-status-codes");
+const utilities = require('../utilities/utils')
+const to = require('../utilities/to')
+// const meModel = require('../Models/me.modal');
+// // import meService from "../market_estimation/me.service";
+const dataConstants = require('../config/dataConstants');
+
 
 module.exports = {
     createReport: async (req, res, next) => {
@@ -105,119 +112,83 @@ module.exports = {
       },
     
       fetchReport: async (req, res, next) => {
+        // console.log("req.body", req);
         try {
-          const { reportId, reportName = "", vertical, selectKeys, companyId, user } = req.body;
-          let query = [];
-          if (reportId && vertical == null && !selectKeys) {
-            query = Reports.find();
+            let { reportId, reportName = "", vertical, selectKeys, companyId, user } = req.body;
+            reportId = req.params.rid;
+            selectKeys = req.query.select;
+            
+            let query = Reports.find(); // Start with a basic find query
+    
+            // Apply user-based vertical filter (if applicable)
             if (user && user.strictlyAllowedReportTypes && user.strictlyAllowedReportTypes.length) {
-              query.where({ vertical: { $in: user.strictlyAllowedReportTypes } });
+                query.where({ vertical: { $in: user.strictlyAllowedReportTypes } });
             }
+    
+            // Filter by reportId if provided
             if (reportId) {
-              query.where({ _id: mongoose.Types.ObjectId(reportId) });
-              query.select("me.start_year me.end_year me.base_year overlaps youtubeContents");
-            } else if (reportName) {
-              query.where({
-                searching_title: {
-                  $regex: new RegExp(reportName, "i")
-                },
-                approved: true
-              });
+                query.where({ _id: new mongoose.Types.ObjectId(reportId) });  // Fixed ObjectId instantiation
+                query.select("me.start_year me.end_year me.base_year overlaps youtubeContents"); // Specific fields if reportId is provided
             }
     
+            // Filter by reportName if provided
+            if (reportName) {
+                query.where({
+                    searching_title: {
+                        $regex: new RegExp(reportName, "i")
+                    },
+                    approved: true
+                });
+            }
+    
+            // Apply reportIds filter if the user has a list of allowed report IDs
             if (user && user.reportIds && user.reportIds.length) {
-              query.where({ _id: { $in: user.reportIds } });
+                query.where({ _id: { $in: user.reportIds } });
             }
     
+            // Filter by vertical if provided
             if (vertical) {
-              query.where({ vertical: vertical });
+                query.where({ vertical: vertical });
             }
+    
+            // Always ensure reports are approved
             query.where({ approved: true });
     
-            if (!utilities.isEmpty(selectKeys)) {
-              let selKeysArr = [];
-              selKeysArr = selectKeys.split(",");
-              [
-                "title",
-                "vertical",
-                "category",
-                "owner",
-                "status",
-                "approver",
-                "tocList",
-                "title_prefix"
-              ].forEach(item => {
-                selKeysArr.push(item);
-              });
-              query.select(selKeysArr);
+            // Handle selectKeys if provided
+            if (selectKeys) {
+                let selKeysArr = selectKeys.split(",");
+                [
+                    "title",
+                    "vertical",
+                    "category",
+                    "owner",
+                    "status",
+                    "approver",
+                    "tocList",
+                    "title_prefix"
+                ].forEach(item => {
+                    selKeysArr.push(item); // Add default fields if not present in selectKeys
+                });
+                query.select(selKeysArr); // Apply the selected fields
             } else {
-              query.select("title vertical category owner status approver tocList title_prefix");
+                // If selectKeys are not provided, use default fields
+                query.select("title vertical category owner status approver tocList title_prefix");
             }
     
-            if (!utilities.isEmpty(companyId)) {
-              query.where({ "cp.company_id": companyId });
+            // Apply companyId filter if provided
+            if (companyId) {
+                query.where({ "cp.company_id": companyId });
             }
+    
+            // Execute the query
             const report = await query.lean().exec({ virtuals: true });
-            res.json({data:report});
-          } else {
-            if (user && user.strictlyAllowedReportTypes && user.strictlyAllowedReportTypes.length) {
-              query.push({
-                $match: { vertical: { $in: user.strictlyAllowedReportTypes } }
-              });
-            }
-            if (reportId) {
-              query.push({
-                $match: { _id: mongoose.Types.ObjectId(reportId) }
-              });
-            } else if (reportName) {
-              query.push({
-                $match: {
-                  searching_title: {
-                    $regex: new RegExp(reportName, "i")
-                  },
-                  approved: true
-                }
-              });
-            }
-            if (user && user.reportIds && user.reportIds.length) {
-              query.push({
-                $match: { _id: { $in: user.reportIds } }
-              });
-            }
-            if (vertical) {
-              query.push({
-                $match: { vertical: vertical }
-              });
-            }
     
-            if (!utilities.isEmpty(selectKeys)) {
-              let selKeysArr = [];
-              selKeysArr = selectKeys.split(",");
-              [
-                "title",
-                "vertical",
-                "category",
-                "owner",
-                "status",
-                "approver",
-                "tocList",
-                "title_prefix"
-              ].forEach(item => {
-                selKeysArr.push(item);
-              });
-            }
-            if (!utilities.isEmpty(companyId)) {
-              query.push({
-                $match: { "cp.company_id": companyId }
-              });
-            }
-            const report = await Reports.aggregate(query);
-            res.json({data:report});
-          }
+            res.json({ data: report });
+    
         } catch (error) {
-          next(error);
+            next(error); // Pass any errors to error-handling middleware
         }
-      },
+    },
     
       getReportByKeys: async (req, res, next) => {
         try {
@@ -504,10 +475,11 @@ module.exports = {
       getReportMenuItems: async (req, res, next) => {
         try {
           const { reportId } = req.params;
+          console.log("reportIdd",reportId)
           const reportData = await Reports.findOne({ _id: mongoose.Types.ObjectId(reportId) });
           res.json({data:reportData});
         } catch (error) {
-          next(error);
+          // next(error);
         }
       },
     

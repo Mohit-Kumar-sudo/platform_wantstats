@@ -43,11 +43,9 @@ export class ReportService {
     return this.http.get<any>(APIEndPoints.REPORT_LEFT_MENU_API + reportId);
   }
 
-  getAllGroupedReports(page: number = 1, limit: number = 10): Observable<any> {
-    const url = `${APIEndPoints.REPORT_API}/get_grouped_reports?page=${page}&limit=${limit}`;
-    return this.http.get<any>(url);
-}
-
+  getAllGroupedReports(): Observable<any> {
+    return this.http.get<any>(APIEndPoints.REPORT_API + '/get_grouped_reports');
+  }
 
   setReportPdf(id, link): Observable<any> {
     return this.http.get<any>(APIEndPoints.REPORT_API + '/set_pdf_report/' + id + '?link=' +  link);

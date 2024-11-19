@@ -90,12 +90,12 @@
         <div class="col-xl-4 col-lg-4 col-md-12 p-lg-0">
           <div class="sidebar-content fixed-bar fixbar-action" style="z-index: auto; position: relative; top: 0px;">
             <div class="box-widget ">
-              <form html="{:class=>&quot;form-horizontal&quot;, :id=>&quot;search_form&quot;}" action="reports"
+              <form (ngSubmit)="directSearch()" novalidate html="{:class=>&quot;form-horizontal&quot;, :id=>&quot;search_form&quot;}" action="reports"
                 accept-charset="UTF-8" method="get" style="margin-bottom: 10px;"><input name="utf8" class="" type="hidden"
                   value="✓">
                 <input  (keyup.enter)="directSearch()" [(ngModel)]="searchText" class="typeahead back-shadow form-control "
                   id="search" name="q" placeholder="Search..." type="search" autocomplete="off">
-                <button name="button" type="submit" class="search-button" aria-label="Search"><i
+                <button (click)="directSearch()" name="button" type="submit" class="search-button" aria-label="Search"><i
                     class="fa fa-search"></i></button>
               </form>
               <div class="widget-title">Categories</div>
@@ -113,4 +113,3 @@
       </div>
     </div>
   </section>
-  

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 @Component({
   selector: 'app-footer',
   templateUrl: './footer.component.html',
@@ -12,6 +12,11 @@ isLoggedIn: any;
   constructor(private authService:AuthService, private router:Router) { }
 
   ngOnInit(): void {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        window.scrollTo(0, 0);
+      }
+    });
     this.isLoggedIn = this.authService.isAuthenticated();
     this.authService.isLogin.subscribe((d)=>{
       this.isLoggedIn = d;

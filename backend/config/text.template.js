@@ -8,7 +8,7 @@ const textConstants = {
 }
 
 // export a clone copy
-export default {
+module.exports = {
     ...textConstants
 }
 

@@ -1,0 +1,21 @@
+.about-us-image {
+  margin-top: 110px;
+}
+.margin-aside {
+  margin: 2% 2% 0 2% !important;
+}
+body {
+  font-size: 14px;
+}
+
+@media (max-width: 480px) {
+  .about-us-image {
+    margin-top: 0px !important;
+  }
+}
+
+@media (min-width: 481px) and (max-width: 767px) {
+  .about-us-image {
+    margin-top: 200px;
+  }
+}

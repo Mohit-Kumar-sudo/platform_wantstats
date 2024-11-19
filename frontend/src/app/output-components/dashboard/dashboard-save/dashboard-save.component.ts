@@ -6,8 +6,8 @@ import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-dashboard-modal',
-  templateUrl: './dashboard-Save.component.html',
-  styleUrls: ['./dashboard-Save.component.scss']
+  templateUrl: './dashboard-save.component.html',
+  styleUrls: ['./dashboard-save.component.scss']
 })
 
 export class DashboardSaveComponent implements OnInit {

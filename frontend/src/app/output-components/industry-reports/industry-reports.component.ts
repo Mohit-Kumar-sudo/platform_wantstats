@@ -131,9 +131,6 @@ export class IndustryReportsComponent implements OnInit {
   showNoChartsMessage: boolean;
   activityList: any = { reportIds: [] };
   reportAccess: any;
-  totalReports: any;
-  totalPages: any;
-  currentPage: any;
   constructor(
     private reportService: ReportService,
     private spinner: NgxSpinnerService,
@@ -195,29 +192,22 @@ export class IndustryReportsComponent implements OnInit {
     return modifiedTitle;
   }
 
-  getAllReports(page: number = 1, limit: number = 10) {
-    this.spinner.show();
-    this.reportService.getAllGroupedReports(page, limit).subscribe(
-        (data) => {
-            this.spinner.hide();
-            if (data) {
-                this.allReports = data.data;
-                this.allReports.forEach((item) => {
-                    item.title = this.modifyTitle(item.title);
-                });
-
-                // Store pagination info if needed
-                this.totalReports = data.totalReports;
-                this.totalPages = data.totalPages;
-                this.currentPage = data.currentPage;
-            }
-        },
-        (error) => {
-            this.spinner.hide();
-            console.error("Error fetching reports:", error);
-        }
-    );
-}
+  async getAllReports() {
+    try {
+      this.spinner.show();
+      const data = await this.reportService.getAllGroupedReports().toPromise();
+      if (data) {
+        this.spinner.hide();
+        this.allReports = data.data;
+        this.allReports.forEach((item) => {
+          item.title = this.modifyTitle(item.title);
+        });
+      }
+    } catch (error) {
+      this.spinner.hide();
+      // Handle error if needed
+    }
+  }
 
   addReportToActivity(report: any): void {
     this.activityList.reportIds.push(report._id);
