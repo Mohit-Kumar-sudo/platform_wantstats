@@ -13,7 +13,7 @@
             <input
               class="back-shadow form-control"
               [(ngModel)]="contactSearch"
-              (keyup)="searchDBcontacts()"
+              (input)="searchDBcontacts()"
               id="search"
               name="q"
               placeholder="Search Company"

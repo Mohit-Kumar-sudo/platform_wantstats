@@ -24,4 +24,5 @@ const marqueeStockSchema = new Schema([{
     ]
 }]);
 
-module.exports = marqueeStockSchema;
+const marqueeStockModel = mongoose.model('AllStocks', marqueeStockSchema);
+module.exports = marqueeStockModel;

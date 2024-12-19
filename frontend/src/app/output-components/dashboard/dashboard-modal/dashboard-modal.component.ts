@@ -5,7 +5,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import * as chartConfig from '../../../components/core/bar-chart-input/bar-chart-configs';
 import * as d3 from 'd3';
 import { RadarChartService } from 'src/app/services/radar-chart.service';
-import * as mermaid from 'mermaid';
+import mermaid from 'mermaid';
 declare var JSONLoop: any;
 declare var $: any;
 

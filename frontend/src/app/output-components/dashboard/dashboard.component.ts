@@ -10,7 +10,7 @@ import {LocalStorageService} from '../../services/localstorage.service';
 import * as _ from 'lodash';
 import * as chartConfig from './../../../app/components/core/bar-chart-input/bar-chart-configs';
 import * as d3 from 'd3';
-import * as mermaid from 'mermaid';
+import mermaid from 'mermaid';
 import {RadarChartService} from 'src/app/services/radar-chart.service';
 import * as html2canvas from 'html2canvas';
 import {DashboardPanelComponent} from './dashboard-panel/dashboard-panel.component';

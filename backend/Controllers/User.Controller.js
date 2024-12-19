@@ -60,7 +60,7 @@ module.exports = {
         // Prepare user data to send
         const userDataSend = {
           id: user._id,
-          name: user.name,
+          name: user.name ? user.name : `${user.firstName  } ${  user.lastName}`,
           email: user.email,
         };
 

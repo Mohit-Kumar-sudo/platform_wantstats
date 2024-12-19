@@ -21,6 +21,7 @@ app.use('/api/v1/leads/',require('./Routes/leads-db.Routes'));
 app.use('/api/v1/chart/',require('./Routes/chart.Routes'));
 app.use('',require('./Routes/google_scrapping.Routes'));
 app.use('',require('./Routes/Videos.Route'))
+app.use('',require('./Routes/stock.Routes'))
 // app.use('/api/v1/me/',require('./Routes/me.Routes'))
 // app.use('/api/v1/left_menu/',require('./Routes/sidebar.Routes'))
 

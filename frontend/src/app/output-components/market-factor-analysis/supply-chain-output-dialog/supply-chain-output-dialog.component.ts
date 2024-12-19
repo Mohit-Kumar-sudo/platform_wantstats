@@ -10,7 +10,7 @@ import { LocalStorageService } from 'src/app/services/localstorage.service';
 import { ReportDataElement } from 'src/app/models/secondary-research-models';
 import { ConstantKeys } from 'src/app/constants/mfr.constants';
 import * as html2canvas from 'html2canvas';
-import * as mermaid from 'mermaid';
+import mermaid from 'mermaid';
 import { SharedAnalyticsService } from 'src/app/services/shared-analytics.service';
 import { AuthService } from 'src/app/services/auth.service';
 

@@ -1,5 +1,5 @@
 import {Component, OnInit, ElementRef, ViewChild, TemplateRef} from '@angular/core';
-import * as mermaid from 'mermaid';
+import mermaid from 'mermaid';
 import {MatDialog} from '@angular/material/dialog';
 import * as html2canvas from 'html2canvas';
 import {SupplyChainApiService} from 'src/app/services/supplyChain/supply-chain-api.service';

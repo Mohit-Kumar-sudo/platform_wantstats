@@ -6,6 +6,5 @@ const express = require('express');
 const routes = express.Router();
 
 routes.get('/marquee-stock/:id', stockController.getMarqueeStocks);
-routes.get('/filter-stock/:id', stockController.getMarqueeStocks);
 
 module.exports = routes;
