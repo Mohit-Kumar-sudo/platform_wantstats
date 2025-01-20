@@ -135,7 +135,7 @@ export class ReportService {
   }
 
   getReportDataBySelectMe(reportId, selectKey): Observable<any> {
-    return this.http.get<any>(APIEndPoints.REPORT_API + '/' + reportId + '?select=me.' + selectKey);
+    return this.http.get<any>(APIEndPoints.REPORT_API + '/' + reportId + '?select1=me.' + selectKey);
   }
 
   getReportCompanyProfiles(report): Observable<any> {
@@ -148,7 +148,7 @@ export class ReportService {
   }
 
   getReportDetails(reportId): Observable<any[]> {
-    return this.http.get<any>(APIEndPoints.REPORT_API + '/' + reportId + '?select=me.segment');
+    return this.http.get<any>(APIEndPoints.REPORT_API + '/' + reportId + '?select1=me.segment');
   }
 
   public createBasicReport(data: MasterReportData): Observable<MasterReportData> {

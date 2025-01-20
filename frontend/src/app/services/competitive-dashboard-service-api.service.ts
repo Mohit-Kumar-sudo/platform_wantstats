@@ -29,7 +29,7 @@ export class CompetitiveDashboardServiceApiService {
 	}
 
 	getCompetitorDashboardColumns(reportId, sid, msId): Observable<any[]> {
-		return this.httpClient.get<any>(APIEndPoints.REPORT_API + `/${reportId}` + "?select=me.segment");
+		return this.httpClient.get<any>(APIEndPoints.REPORT_API + `/${reportId}` + "?select1=me.segment");
 	}
 
 	getCompetitorDashboardData(reportId, sid, msId): Observable<any[]> {

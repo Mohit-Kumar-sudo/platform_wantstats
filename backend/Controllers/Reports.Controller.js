@@ -112,12 +112,12 @@ module.exports = {
       },
     
       fetchReport: async (req, res, next) => {
-        // console.log("req.body", req);
+        console.log("req.body", req.body); // Fixed to log req.body instead of res
         try {
             let { reportId, reportName = "", vertical, selectKeys, companyId, user } = req.body;
-            reportId = req.params.rid;
+            reportId = req.params.rid || reportId;
             selectKeys = req.query.select;
-            
+    
             let query = Reports.find(); // Start with a basic find query
     
             // Apply user-based vertical filter (if applicable)
@@ -127,8 +127,8 @@ module.exports = {
     
             // Filter by reportId if provided
             if (reportId) {
-                query.where({ _id: new mongoose.Types.ObjectId(reportId) });  // Fixed ObjectId instantiation
-                query.select("me.start_year me.end_year me.base_year overlaps youtubeContents"); // Specific fields if reportId is provided
+                query.where({ _id: new mongoose.Types.ObjectId(reportId) });  // Ensure ObjectId instantiation
+                query.select("me.start_year me.end_year me.base_year me.segment me.geo_segment me.data me.status");
             }
     
             // Filter by reportName if provided
@@ -167,7 +167,9 @@ module.exports = {
                     "tocList",
                     "title_prefix"
                 ].forEach(item => {
-                    selKeysArr.push(item); // Add default fields if not present in selectKeys
+                    if (!selKeysArr.includes(item)) {
+                        selKeysArr.push(item); // Add default fields if not present in selectKeys
+                    }
                 });
                 query.select(selKeysArr); // Apply the selected fields
             } else {
@@ -182,6 +184,7 @@ module.exports = {
     
             // Execute the query
             const report = await query.lean().exec({ virtuals: true });
+            console.log("reportdata", report);
     
             res.json({ data: report });
     

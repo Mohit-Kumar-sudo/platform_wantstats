@@ -8,7 +8,7 @@ module.exports = {
   getReportMenuItems : async (req, res) => {
     try {
       const reportId = req.params.rid;
-      console.log('Received request for reportId:', reportId);
+      // console.log('Received request for reportId:', reportId);
   
       // Fetch the report data directly from the model
       const reportData = await Reports.findOne({
@@ -22,7 +22,7 @@ module.exports = {
       // Filter the data (assuming you want to filter some part of the report data)
       const finalMenuData = filterMenuItems(reportData);
   
-      console.log('Filtered menu data:', finalMenuData);
+      // console.log('Filtered menu data:', finalMenuData);
       
       // Send the response with the final menu data
       utilities.sendResponse(HTTPStatus.OK, { finalMenuData }, res);
@@ -86,7 +86,7 @@ function filterMenuItems(reportData) {
     if (mIdata) {
       marketIntroductionSubMenus.push({label: 'Market Insights', link: '/market-insights'});
     }
-
+    
     if (marketIntroductionSubMenus && marketIntroductionSubMenus.length) {
       finalMenuData.push({
         label: 'Market Introduction',

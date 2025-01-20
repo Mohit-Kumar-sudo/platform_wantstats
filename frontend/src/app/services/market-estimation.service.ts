@@ -13,7 +13,7 @@ export class MarketEstimationService {
   }
 
   public getMeData(reportId): Observable<any> {
-    return this.httpClient.get<any>(APIEndPoints.REPORT_API + `/${reportId}?select=me`);
+    return this.httpClient.get<any>(APIEndPoints.REPORT_API + `/${reportId}?select1=me`);
   }
 
   public getMeDataBySegment(reportId, segementId): Observable<any> {

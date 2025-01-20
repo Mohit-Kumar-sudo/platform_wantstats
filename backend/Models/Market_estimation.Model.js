@@ -72,4 +72,4 @@ const MarketEstimationSchema = new Schema(
   }
 );
 
-module.exports = mongoose.model('MarketEstimation', MarketEstimationSchema);
+module.exports = mongoose.model('me', MarketEstimationSchema);

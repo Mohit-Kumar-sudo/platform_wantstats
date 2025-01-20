@@ -6,7 +6,7 @@ const MarketEstimationSchema = require("./Market_estimation.Model");
 const TableOfContentSchema = require("./Table_of_contents.Model");
 const SecondaryContentSchema = require("./Secondarycontent.Model");
 
-const ReportSchema = new Schema(
+const ReportSchema = new Schema(  
   {
     title: {
       type: String,
@@ -165,5 +165,6 @@ const ReportSchema = new Schema(
 );
 
 const Reports = mongoose.model("reports", ReportSchema);
+console.log("Exporting Reports model:", Reports);
 
 module.exports = Reports;
