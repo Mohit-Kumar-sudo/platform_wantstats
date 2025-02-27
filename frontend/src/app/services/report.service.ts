@@ -68,7 +68,8 @@ export class ReportService {
   }
 
   getReportByIdAndSet(reportId): Observable<any> {
-    return this.http.get<any>(APIEndPoints.REPORT_API + '/' + reportId);
+    return this.http.get<any>(`${APIEndPoints.REPORT_API}/${reportId}/cp`);
+    // ${APIEndPoints.REPORT_API}/${reportId}/cp`, { headers }
   }
 
 
@@ -77,13 +78,13 @@ export class ReportService {
       'Content-Type': 'application/json'
     });
     return this.http
-      .get<MasterReportDataElement>(`${APIEndPoints.REPORT_API}/${id}?select=cp`, { headers })
+      .get<MasterReportDataElement>(`${APIEndPoints.REPORT_API}/${id}/cp`, { headers })
       .pipe(
         map(ele => ele.data[0]),
         catchError(this.handleError)
       );
   }
-
+  
   public getAll(): Observable<MasterReportData[]> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json'
@@ -104,7 +105,7 @@ export class ReportService {
   getSearchReportsByName(reportText): Observable<any> {
     this.loadingIndicator.next(true); // Set loading indicator to true
 
-    return this.http.get<any>(APIEndPoints.REPORT_API + '?select=title,isAnalytics,isExcel,isPdf,isDoc,pdfLink,excelLink,docLink&title=' + reportText)
+    return this.http.get<any>(APIEndPoints.REPORT_API + '/searchReport?reportName=' + reportText)
       .pipe(
         finalize(() => this.loadingIndicator.next(false)) // Set loading indicator to false after response
       );
@@ -135,7 +136,7 @@ export class ReportService {
   }
 
   getReportDataBySelectMe(reportId, selectKey): Observable<any> {
-    return this.http.get<any>(APIEndPoints.REPORT_API + '/' + reportId + '?select1=me.' + selectKey);
+    return this.http.get<any>(APIEndPoints.REPORT_API +`/${reportId}/` + `me` + selectKey);
   }
 
   getReportCompanyProfiles(report): Observable<any> {

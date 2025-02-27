@@ -1,5 +1,5 @@
 // API Constants
- const apiBaseUrl = 'http://localhost:7070/';
+ const apiBaseUrl = 'http://localhost:6969/';
 // const apiBaseUrl = 'http://3.142.76.25/';
 // const apiBaseUrl = 'http://18.118.168.242/';
 // const apiBaseUrl = 'http://18.117.95.140/';

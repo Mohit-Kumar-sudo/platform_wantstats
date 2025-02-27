@@ -13,9 +13,9 @@ export class MarketEstimationService {
   }
 
   public getMeData(reportId): Observable<any> {
-    return this.httpClient.get<any>(APIEndPoints.REPORT_API + `/${reportId}?select1=me`);
+    return this.httpClient.get<any>(APIEndPoints.REPORT_API + `/${reportId}/` + `me`);
   }
-
+  
   public getMeDataBySegment(reportId, segementId): Observable<any> {
     return this.httpClient.get<any>(APIEndPoints.ME_API + `/${reportId}/views?key=MARKET_BY_SEGMENT&value=${segementId}`);
   }

@@ -43,7 +43,10 @@ routes.get('/suggested_reports/:rid', verifyAccessToken, reportController.getRel
 // routes.get('/search_report', verifyAccessToken, reportModel.searchReport);
 routes.get('/get_report_by_id/:rid', verifyAccessToken, reportController.getReportByKeys);
 routes.get('/search_report_by_name', verifyAccessToken, reportController.searchReportByName);
-routes.get('/:rid?', verifyAccessToken, authenticateReportType, reportController.fetchReport);
+// routes.get('/:rid?', verifyAccessToken, authenticateReportType, reportController.fetchReport);
+routes.get('/:rid/me',  reportController.fetchMe);
+routes.get('/:rid/cp',  reportController.fetchCp);
+routes.get('/searchReport',  reportController.searchReportTitle);
 
 routes.get('/get_industry/:rid', reportController.getIndustryReport)
   

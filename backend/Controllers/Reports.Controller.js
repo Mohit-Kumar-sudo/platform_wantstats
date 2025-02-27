@@ -111,88 +111,197 @@ module.exports = {
         }
       },
     
-      fetchReport: async (req, res, next) => {
-        console.log("req.body", req.body); // Fixed to log req.body instead of res
-        try {
-            let { reportId, reportName = "", vertical, selectKeys, companyId, user } = req.body;
-            reportId = req.params.rid || reportId;
-            selectKeys = req.query.select;
+    //   fetchReport: async (req, res, next) => {
+    //     console.log("req.body", req.body); // Fixed to log req.body instead of res
+    //     try {
+    //         let { reportId, reportName = "", vertical, selectKeys, companyId, user } = req.body;
+    //         reportId = req.params.rid || reportId;
+    //         selectKeys = req.query.select;
     
-            let query = Reports.find(); // Start with a basic find query
+    //         let query = Reports.find(); // Start with a basic find query
     
-            // Apply user-based vertical filter (if applicable)
-            if (user && user.strictlyAllowedReportTypes && user.strictlyAllowedReportTypes.length) {
-                query.where({ vertical: { $in: user.strictlyAllowedReportTypes } });
-            }
+    //         // Apply user-based vertical filter (if applicable)
+    //         if (user && user.strictlyAllowedReportTypes && user.strictlyAllowedReportTypes.length) {
+    //             query.where({ vertical: { $in: user.strictlyAllowedReportTypes } });
+    //         }
     
-            // Filter by reportId if provided
-            if (reportId) {
-                query.where({ _id: new mongoose.Types.ObjectId(reportId) });  // Ensure ObjectId instantiation
-                query.select("me.start_year me.end_year me.base_year me.segment me.geo_segment me.data me.status");
-            }
+    //         // Filter by reportId if provided
+    //         if (reportId) {
+    //             query.where({ _id: new mongoose.Types.ObjectId(reportId) });  // Ensure ObjectId instantiation
+    //             query.select("me.start_year me.end_year me.base_year me.segment me.geo_segment me.data me.status");
+    //         }
     
-            // Filter by reportName if provided
-            if (reportName) {
-                query.where({
-                    searching_title: {
-                        $regex: new RegExp(reportName, "i")
-                    },
-                    approved: true
-                });
-            }
+    //         // Filter by reportName if provided
+    //         if (reportName) {
+    //             query.where({
+    //                 searching_title: {
+    //                     $regex: new RegExp(reportName, "i")
+    //                 },
+    //                 approved: true
+    //             });
+    //         }
     
-            // Apply reportIds filter if the user has a list of allowed report IDs
-            if (user && user.reportIds && user.reportIds.length) {
-                query.where({ _id: { $in: user.reportIds } });
-            }
+    //         // Apply reportIds filter if the user has a list of allowed report IDs
+    //         if (user && user.reportIds && user.reportIds.length) {
+    //             query.where({ _id: { $in: user.reportIds } });
+    //         }
     
-            // Filter by vertical if provided
-            if (vertical) {
-                query.where({ vertical: vertical });
-            }
+    //         // Filter by vertical if provided
+    //         if (vertical) {
+    //             query.where({ vertical: vertical });
+    //         }
     
-            // Always ensure reports are approved
-            query.where({ approved: true });
+    //         // Always ensure reports are approved
+    //         query.where({ approved: true });
     
-            // Handle selectKeys if provided
-            if (selectKeys) {
-                let selKeysArr = selectKeys.split(",");
-                [
-                    "title",
-                    "vertical",
-                    "category",
-                    "owner",
-                    "status",
-                    "approver",
-                    "tocList",
-                    "title_prefix"
-                ].forEach(item => {
-                    if (!selKeysArr.includes(item)) {
-                        selKeysArr.push(item); // Add default fields if not present in selectKeys
-                    }
-                });
-                query.select(selKeysArr); // Apply the selected fields
-            } else {
-                // If selectKeys are not provided, use default fields
-                query.select("title vertical category owner status approver tocList title_prefix");
-            }
+    //         // Handle selectKeys if provided
+    //         if (selectKeys) {
+    //             let selKeysArr = selectKeys.split(",");
+    //             [
+    //                 "title",
+    //                 "vertical",
+    //                 "category",
+    //                 "owner",
+    //                 "status",
+    //                 "approver",
+    //                 "tocList",
+    //                 "title_prefix"
+    //             ].forEach(item => {
+    //                 if (!selKeysArr.includes(item)) {
+    //                     selKeysArr.push(item); // Add default fields if not present in selectKeys
+    //                 }
+    //             });
+    //             query.select(selKeysArr); // Apply the selected fields
+    //         } else {
+    //             // If selectKeys are not provided, use default fields
+    //             query.select("title vertical category owner status approver tocList title_prefix");
+    //         }
     
-            // Apply companyId filter if provided
-            if (companyId) {
-                query.where({ "cp.company_id": companyId });
-            }
+    //         // Apply companyId filter if provided
+    //         if (companyId) {
+    //             query.where({ "cp.company_id": companyId });
+    //         }
     
-            // Execute the query
-            const report = await query.lean().exec({ virtuals: true });
-            console.log("reportdata", report);
+    //         // Execute the query
+    //         const report = await query.lean().exec({ virtuals: true });
+    //         console.log("reportdata", report);
     
-            res.json({ data: report });
+    //         res.json({ data: report });
     
-        } catch (error) {
-            next(error); // Pass any errors to error-handling middleware
+    //     } catch (error) {
+    //         next(error); // Pass any errors to error-handling middleware
+    //     }
+    // },
+
+    fetchMe: async (req, res, next) => {
+      try {
+        let { reportName, vertical, selectKeys, companyId } = req.query;
+        let { rid } = req.params;
+        let user = req.user; 
+    
+        let query = { approved: true }; 
+    
+        if (rid) query._id = new mongoose.Types.ObjectId(rid);
+        if (reportName)  query.where({
+          searching_title: {
+            $regex: new RegExp(reportName, "i")
+          },
+          approved: true
+        });
+    
+        if (vertical) query.vertical = vertical;
+        if (companyId) query["cp.company_id"] = companyId;
+        
+        if (user && user.strictlyAllowedReportTypes && user.strictlyAllowedReportTypes.length) {
+          query.vertical = { $in: user.strictlyAllowedReportTypes };
         }
-    },
+        
+        if (user && user.reportIds && user.reportIds.length) {
+          query._id = { $in: user.reportIds };
+        }
     
+        const reports = await Reports.find(query).select("me").lean();
+    
+        if (!reports.length) {
+          return res.json({ message: "No Data found" });
+        }
+    
+        res.json({ data: reports });
+      } catch (error) {
+        next(error);
+      }
+    },
+
+    fetchCp : async (req, res, next)=>{
+      try {
+        let { reportName, vertical, selectKeys, companyId } = req.query;
+        let { rid } = req.params;
+        let user = req.user; 
+    
+        let query = { approved: true }; 
+    
+        if (rid) query._id = new mongoose.Types.ObjectId(rid);
+        if (reportName)  query.where({
+          searching_title: {
+            $regex: new RegExp(reportName, "i")
+          },
+          approved: true
+        });
+        if (vertical) query.vertical = vertical;
+        if (companyId) query["cp.company_id"] = companyId;
+        
+        if (user && user.strictlyAllowedReportTypes && user.strictlyAllowedReportTypes.length) {
+          query.vertical = { $in: user.strictlyAllowedReportTypes };
+        }
+        
+        if (user && user.reportIds && user.reportIds.length) {
+          query._id = { $in: user.reportIds };
+        }
+    
+        const reports = await Reports.find(query).select("title category vertical cp me.start_year me.end_year me.base_year overlaps owner tocList status title_prefix youtubeContents").lean();
+    
+        if (!reports.length) {
+          return res.status(404).json({ message: "No reports found" });
+        }
+    
+        res.json({ data: reports });
+      } catch (error) {
+        next(error);
+      }
+    },
+    searchReportTitle: async (req, res, next)=>{
+      try {
+        let { reportName, vertical, selectKeys, companyId } = req.query;
+        let { rid } = req.params;
+        let user = req.user; 
+    
+        let query = { approved: true }; 
+    
+        if (rid) query._id = new mongoose.Types.ObjectId(rid);
+        if (reportName) {query.searching_title = { $regex: new RegExp(reportName, "i") };}    
+        if (vertical) query.vertical = vertical;
+        if (companyId) query["cp.company_id"] = companyId;
+        
+        if (user && user.strictlyAllowedReportTypes && user.strictlyAllowedReportTypes.length) {
+          query.vertical = { $in: user.strictlyAllowedReportTypes };
+        }
+        
+        if (user && user.reportIds && user.reportIds.length) {
+          query._id = { $in: user.reportIds };
+        }
+    
+        const reports = await Reports.find(query).select("title isAnalytics approved isExcel isPdf isDoc pdfLink excelLink docLink me").lean();
+    
+        if (!reports.length) {
+          return res.status(404).json({ message: "No reports found" });
+        }
+    
+        res.json({ data: reports });
+      } catch (error) {
+        next(error);
+      }
+    },
+       
       getReportByKeys: async (req, res, next) => {
         try {
           const { reportId, keyString = "" } = req.body;
@@ -840,25 +949,25 @@ module.exports = {
         }
       },
     
-      searchReport: async (req, res, next) => {
-        try {
-          let q = req.query.q || null;
-          const reports = await Reports.find(
-            {
-              searching_title: {
-                $regex: `\\b${getReportNameString(q)}\\b`,
-                $options: "i"
-              },
-              approved: true
-            },
-            { title: 1, _id: 1 }
-          );
-          res.status(200).send({ data: reports });
-        } catch (error) {
-          console.log("Error in search API", error);
-          res.status(500).send(error);
-        }
-      },
+      // searchReport: async (req, res, next) => {
+      //   try {
+      //     let q = req.query.q || null;
+      //     const reports = await Reports.find(
+      //       {
+      //         searching_title: {
+      //           $regex: `\\b${getReportNameString(q)}\\b`,
+      //           $options: "i"
+      //         },
+      //         approved: true
+      //       },
+      //       { title: 1, _id: 1 }
+      //     );
+      //     res.status(200).send({ data: reports });
+      //   } catch (error) {
+      //     console.log("Error in search API", error);
+      //     res.status(500).send(error);
+      //   }
+      // },
     
       reportCharts: async (reportId) => {
         try {
