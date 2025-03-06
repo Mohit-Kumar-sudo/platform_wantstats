@@ -100,7 +100,7 @@ export class SegmentService {
     });
 
     return this.http
-      .get<any>(`${APIEndPoints.REPORT_API}/${reportId}?select=${key}`, { headers })
+      .get<any>(`${APIEndPoints.REPORT_API}/search/${reportId}?select=${key}`, { headers })
       .pipe(
         map(ele => ele.data[0]),
         catchError(this.handleError)

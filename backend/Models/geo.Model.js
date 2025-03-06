@@ -1,8 +1,9 @@
-import mongoose, { Schema } from 'mongoose';
-import validator from 'validator';
-import uniqueValidator from 'mongoose-unique-validator';
-//import utilities from '../../../utilities/utils';
-import mongooseLeanVirtuals from 'mongoose-lean-virtuals';
+const mongoose = require('mongoose');
+const { Schema, SchemaTypes } = mongoose;
+const validator = require('validator');
+const uniqueValidator = require('mongoose-unique-validator');
+//const utilities = require('../../../utilities/utils');
+const mongooseLeanVirtuals = require('mongoose-lean-virtuals');
 
 // Report schema
 const GeoSchema = new Schema(

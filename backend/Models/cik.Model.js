@@ -1,4 +1,5 @@
-import mongoose, { Schema } from 'mongoose';
+const mongoose = require('mongoose');
+const { Schema, SchemaTypes } = mongoose;
 
 const cikCompany = new Schema({
     title: { type: Schema.Types.String },

@@ -1,8 +1,8 @@
 const morgan = require('morgan');
-const bodyParser = require('body-parser');
 const compression = require('compression');
 const helmet = require('helmet');
 const passport = require('passport');
+const express = require('express'); // Import express for built-in body parsing
 
 const isDev = process.env.NODE_ENV === 'development';
 const isProd = process.env.NODE_ENV === 'production';
@@ -13,8 +13,10 @@ module.exports = (app) => {
     app.use(helmet());
   }
 
-  app.use(bodyParser.json({ limit: '50mb' }));
-  app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
+  // ✅ Use built-in Express body parser instead of body-parser
+  app.use(express.json({ limit: '50mb' }));  
+  app.use(express.urlencoded({ limit: '50mb', extended: true }));  
+
   app.use(passport.initialize());
 
   // CORS Middleware

@@ -119,12 +119,12 @@ export class OutputChartsAndStatisticsComponent implements OnInit {
     // console.log("this.currentList",this.currentList)
     if (results.reportId) {
       this.meService.getMeData(results.reportId).subscribe((data) => {
+        if (data?.message === "No Data found") {
+          this.error = true;
+          return;
+        }
         if (data && data.data && data.data.length) {
-          if (data.data[0].me.data == null) {
-            this.error = true;
-            return;
-          }
-          // console.log("data.data",data.data)
+          console.log("data.data",data.data)
           this.barChartOptions = barConfig.getChartOptions(
             'Year',
             'USD ' + data.data[0].me.data[0].metric

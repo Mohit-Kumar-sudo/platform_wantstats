@@ -176,31 +176,31 @@ export class OutputCompaniesComponent implements OnInit {
           data: this.topCompanies,
           section: 'topPlayers'
         };
-        this.checkAllTopPlayers(this.topCompanies);
+        // this.checkAllTopPlayers(this.topCompanies);
       }
     });
   }
 
 
-  checkAllTopPlayers(topPlayers: any) {
-    topPlayers.forEach(element => {
-      this.secEdgarService
-        .getSearchResult(undefined, 'All Forms', element.name, undefined, undefined, 1)
-        .subscribe(data => {
-          // console.log('data', data);
-          if (data && !data.error) {
-            const data1 = JSON.parse(data);
-            if (data1.data && data1.data.length) {
-              const dt = {
-                _id: element._id,
-                name: element.name,
-                section: element.section,
-                sec_data: data1
-              };
-              this.fillingConnectData.push(dt);
-            }
-          }
-        });
-    });
-  }
+  // checkAllTopPlayers(topPlayers: any) {
+  //   topPlayers.forEach(element => {
+  //     this.secEdgarService
+  //       .getSearchResult(undefined, 'All Forms', element.name, undefined, undefined, 1)
+  //       .subscribe(data => {
+  //         // console.log('data', data);
+  //         if (data && !data.error) {
+  //           const data1 = JSON.parse(data);
+  //           if (data1.data && data1.data.length) {
+  //             const dt = {
+  //               _id: element._id,
+  //               name: element.name,
+  //               section: element.section,
+  //               sec_data: data1
+  //             };
+  //             this.fillingConnectData.push(dt);
+  //           }
+  //         }
+  //       });
+  //   });
+  // }
 }

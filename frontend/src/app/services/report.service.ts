@@ -102,10 +102,19 @@ export class ReportService {
     return this.http.get<any>(APIEndPoints.REPORT_API + '/report_by_title/' + reportName);
   }
 
+  // getSearchReportsByName(reportText): Observable<any> {
+  //   this.loadingIndicator.next(true); // Set loading indicator to true
+
+  //   return this.http.get<any>(APIEndPoints.REPORT_API + '/searchReport?reportName=' + reportText)
+  //     .pipe(
+  //       finalize(() => this.loadingIndicator.next(false)) // Set loading indicator to false after response
+  //     );
+  // }
+
   getSearchReportsByName(reportText): Observable<any> {
     this.loadingIndicator.next(true); // Set loading indicator to true
 
-    return this.http.get<any>(APIEndPoints.REPORT_API + '/searchReport?reportName=' + reportText)
+    return this.http.get<any>(APIEndPoints.REPORT_API + '/search?select=title,isAnalytics,isExcel,isPdf,isDoc,pdfLink,excelLink,docLink&title=' + reportText)
       .pipe(
         finalize(() => this.loadingIndicator.next(false)) // Set loading indicator to false after response
       );

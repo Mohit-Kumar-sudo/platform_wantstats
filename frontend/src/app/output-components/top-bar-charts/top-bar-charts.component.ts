@@ -92,6 +92,7 @@ export class TopBarChartsComponent implements OnInit {
     this.currentReport = this.localStorageService.get(
       ConstantKeys.CURRENT_REPORT
     );
+    console.log("this.currentReport",this.currentReport)
     this.searchText = this.activatedRoute.snapshot.queryParams['searchText'];
     if (this.searchText) {
       this.searchCharts(this.searchText);

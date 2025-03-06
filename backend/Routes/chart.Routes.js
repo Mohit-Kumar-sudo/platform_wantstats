@@ -5,7 +5,7 @@ const { verifyAccessToken } = require('../Helpers/jwt_helpers');
 const router = express.Router();
 
 // Route to get charts count
-router.get('/getChartsCount', chartController.getChartsCount);
+// router.get('/getChartsCount', chartController.getChartsCount);
 
 // Route to get chart data, protected by auth middleware
 router.get('/:rid*?/', chartController.getChartData);

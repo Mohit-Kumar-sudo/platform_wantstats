@@ -1,4 +1,5 @@
-import mongoose, { Schema } from 'mongoose';
+const mongoose = require('mongoose');
+const { Schema } = mongoose;
 import slug from 'slug';
 import uniqueValidator from 'mongoose-unique-validator';
 

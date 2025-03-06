@@ -27,13 +27,13 @@ routes.post('/:rid/title_prefix', verifyAccessToken, reportController.titlePrefi
 routes.get('/:rid/report_company_details', verifyAccessToken, reportController.getCompanyReportDataByKey);
 routes.get('/get_grouped_reports', reportController.getReports);
 routes.get('/vertical/:vertical?', reportController.getFilteredReports);
-routes.get('/status/:rid', reportController.getReportCompleteData);
+// routes.get('/status/:rid', reportController.getReportCompleteData);
 routes.get('/reportmodule/status/:rid', reportController.getReportStatus);
 routes.post('/status/:rid', reportController.updateReportStatus);
 // routes.get('/premium_report', reportController.getPremiumReport);
 routes.get('/report_by_title/:title', reportController.getReportByTitle);
 // routes.get('/chartData' , reportController.getChartsReport)
-// routes.get('/cp/rid/:rid', reportController.getReportCpData);
+routes.get('/cp/rid/:rid', reportController.getReportCpData);
 // routes.get('/titles/:rid', reportController.generateTitles);
 routes.get('/get_reports', verifyAccessToken, reportController.getReportsByKeys);
 // routes.get('/get_report_chart/:rid', reportController.getReportChart);
@@ -43,8 +43,9 @@ routes.get('/suggested_reports/:rid', verifyAccessToken, reportController.getRel
 // routes.get('/search_report', verifyAccessToken, reportModel.searchReport);
 routes.get('/get_report_by_id/:rid', verifyAccessToken, reportController.getReportByKeys);
 routes.get('/search_report_by_name', verifyAccessToken, reportController.searchReportByName);
-// routes.get('/:rid?', verifyAccessToken, authenticateReportType, reportController.fetchReport);
+routes.get('/search/:rid?', verifyAccessToken, authenticateReportType, reportController.fetchReport);
 routes.get('/:rid/me',  reportController.fetchMe);
+routes.get('/:rid?', reportController.fetchReportCp);
 routes.get('/:rid/cp',  reportController.fetchCp);
 routes.get('/searchReport',  reportController.searchReportTitle);
 

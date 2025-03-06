@@ -767,31 +767,10 @@ export class HardcodedSuggestionsComponent implements OnInit, OnChanges{
 
   ngOnInit() {
     window.scroll(0,0)
-
     if (this.suggestion.orderType != 'covid' && this.suggestion.orderType != 'newsVideos') {
       if (this.activatedRoute.snapshot.queryParams['reportId']) {
-        this.reportService.getById(this.activatedRoute.snapshot.queryParams['reportId']).subscribe(data => {
-          if (data) {
-            const localData = {
-              _id:data._id,
-              title:data.title,
-              category: data.category,
-              vertical:data.vertical,
-              cp:data.cp,
-              me:{
-                start_year:data.me.start_year,
-                end_year:data.me.end_year,
-                base_year:data.me.base_year
-              },
-              overlaps:data.overlaps,
-              owner:data.owner,
-              tocList:data.tocList,
-              status:data.status,
-              title_prefix:data.title_prefix,
-              youtubeContents:data.youtubeContents
-            }
-            this.localStorageService.set(ConstantKeys.CURRENT_REPORT, localData);
             this.currentReport = this.localStorageService.get(ConstantKeys.CURRENT_REPORT);
+            console.log("this.currentReport",this.currentReport)
             this.process();
             const index = _.indexOf(HardCodedData.reportIds, this.activatedRoute.snapshot.queryParams['reportId']);
             if (index > -1) {
@@ -799,12 +778,11 @@ export class HardcodedSuggestionsComponent implements OnInit, OnChanges{
               this.hardcodedStocks = HardCodedData.hardCodedStocks[index];
               this.hardCodedFiling = HardCodedData.hardCodedFilings[index];
             } else {
-              this.getLeadsStocksFilings(_.flatMap(data.cp, 'company_id'));
-              this.localStorageService.set(ConstantKeys.CURRENT_CP_IDS, _.flatMap(data.cp, 'company_id'));
+              // this.getLeadsStocksFilings(_.flatMap(this.currentReport.cp, 'company_id'));
+              this.localStorageService.set(ConstantKeys.CURRENT_CP_IDS, _.flatMap(this.currentReport.cp, 'company_id'));
             }
-          }
-        });
-      } else {
+      } 
+      else {
         this.currentReport = this.localStorageService.get(ConstantKeys.CURRENT_REPORT);
         if (this.suggestion.orderType != 'covid' && this.suggestion.orderType != 'newsVideos') {
           this.process();
@@ -815,7 +793,7 @@ export class HardcodedSuggestionsComponent implements OnInit, OnChanges{
             this.hardCodedFiling = HardCodedData.hardCodedFilings[index];
           } else {
             this.cps = this.localStorageService.get(ConstantKeys.CURRENT_CP_IDS);
-            this.getLeadsStocksFilings(this.cps);
+            // this.getLeadsStocksFilings(this.cps);
           }
         }
       }
@@ -837,7 +815,7 @@ export class HardcodedSuggestionsComponent implements OnInit, OnChanges{
       });
       this.getNewsAndVideos('Corona Economy', []);
     } else {
-      this.getVideos(searchText + ' industry');
+      // this.getVideos(searchText + ' industry');
       this.getNewsAndVideos(searchText + ' industry', []);
     }
   }
@@ -1178,21 +1156,22 @@ export class HardcodedSuggestionsComponent implements OnInit, OnChanges{
     }
   }
 
-  getLeadsStocksFilings(cps) {
-    this.localInterConnects = this.localStorageService.get(ConstantKeys.CURRENT_INTERCONNECTS);
-    if (this.localInterConnects && this.localInterConnects.reportId == this.currentReport._id) {
-      this.processInterConnectData(this.localInterConnects.data);
-    } else {
-      this.cpService.getInterconnects({cps}).subscribe(d => {
-        if (d && d.length) {
-          this.processInterConnectData(d);
-          this.localStorageService.set(ConstantKeys.CURRENT_INTERCONNECTS, {reportId: this.currentReport._id, data: d});
-        }
-      }, err => {
-        console.log(err);
-      });
-    }
-  }
+  // getLeadsStocksFilings(cps) {
+  //   this.localInterConnects = this.localStorageService.get(ConstantKeys.CURRENT_INTERCONNECTS);
+  //   if (this.localInterConnects && this.localInterConnects.reportId == this.currentReport._id) {
+  //     this.processInterConnectData(this.localInterConnects.data);
+  //   }
+    //  else {
+    //   this.cpService.getInterconnects({cps}).subscribe(d => {
+    //     if (d && d.length) {
+    //       this.processInterConnectData(d);
+    //       this.localStorageService.set(ConstantKeys.CURRENT_INTERCONNECTS, {reportId: this.currentReport._id, data: d});
+    //     }
+      // }, err => {
+      //   console.log(err);
+      // });
+    // }
+  // }
 
   processInterConnectData(d) {
     this.hardcodedStocks = [];

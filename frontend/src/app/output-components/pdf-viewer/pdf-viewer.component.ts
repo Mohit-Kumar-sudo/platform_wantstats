@@ -42,7 +42,7 @@ export class PdfViewerComponent implements OnInit, AfterViewInit {
     // console.log("reportId",reportId);
 
     this.segmentService.getReportInfoByKey(reportId, 'pdfLink').subscribe(data => {
-      // console.log("data",data);
+      console.log("pdfData",data);
       if (data && data.pdfLink) {
         this.src = data.pdfLink;
       }

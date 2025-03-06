@@ -1,4 +1,5 @@
-import mongoose, { Schema, SchemaTypes } from 'mongoose';
+const mongoose = require('mongoose');
+const { Schema, SchemaTypes } = mongoose;
 import utilities from '../../../utilities/utils';
 import reportModel from '../../reports/report.model';
 

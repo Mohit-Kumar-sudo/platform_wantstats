@@ -1129,7 +1129,7 @@ export class HardcodeSuggestionComponent implements OnInit {
     if (this.localInterConnects && this.localInterConnects.reportId == this.currentReport._id) {
       this.processInterConnectData(this.localInterConnects.data);
     } else {
-      this.cpService.getInterconnects({cps}).subscribe(d => {
+      this.cpService.getInterconnects(cps).subscribe(d => {
         if (d && d.length) {
           this.processInterConnectData(d);
           this.localStorageService.set(ConstantKeys.CURRENT_INTERCONNECTS, {reportId: this.currentReport._id, data: d});

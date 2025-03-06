@@ -1,4 +1,5 @@
-import { mongoose, Schema } from 'mongoose';
+const mongoose = require('mongoose');
+const { Schema, SchemaTypes } = mongoose;
 
 const duplicate_cps = new Schema([{
     "_id": false,

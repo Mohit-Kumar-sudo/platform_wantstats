@@ -5,9 +5,13 @@ const mongoose = require("mongoose");
 const HTTPStatus = require("http-status-codes");
 const utilities = require('../utilities/utils')
 const to = require('../utilities/to')
+const { getFromRedis, setToRedis } = require("../config/redis");
+
 // const meModel = require('../Models/me.modal');
 // // import meService from "../market_estimation/me.service";
 const dataConstants = require('../config/dataConstants');
+const axios = require("axios");
+const reportService = require('../service/report.service')
 
 
 module.exports = {
@@ -110,88 +114,112 @@ module.exports = {
           next(error);
         }
       },
+
+      fetchReport: async (req, res) => {
+        try {
+          const reportId = req.params.rid || null;
+          const reportName = req.query.title || null;
+          const vertical = req.query.vertical || null;
+          const companyId = req.query.cid || null;
+          const selectKeys = req.query.select || "";
+      
+          const cacheKey = `fetchReport-${reportId}-${reportName}-${vertical}-${companyId}-${selectKeys}`;
+      
+          // Check if the data is already cached in Redis
+          const cachedData = await getFromRedis(cacheKey);
+      
+          if (cachedData) {
+            console.log("Data found in Redis cache");
+            // If data is found in the cache, use the cached data
+            return res.status(200).json({ success: true, data: cachedData });
+          } else {
+            // If data is not found in the cache, fetch it from the service
+            const reportData = await reportService.fetchReport(
+              reportId,
+              reportName,
+              vertical,
+              selectKeys,
+              companyId,
+              "",
+              req.user
+            );
+      
+            if (!utilities.isEmpty(reportData.errors)) {
+              const errObj = reportData.errors;
+              return res
+                .status(400)
+                .json({ success: false, error: "Bad Request", details: errObj });
+            } else {
+              // Store the fetched data in the Redis cache for future use
+              await setToRedis(cacheKey, reportData);
+              console.log("Data stored in Redis cache");
+              // Return the fetched report data as a response
+              return res.status(200).json({ success: true, data: reportData });
+            }
+          }
+        } catch (er) {
+          return res
+            .status(500)
+            .json({ success: false, error: "Internal Server Error", details: er });
+        }
+      },
     
-    //   fetchReport: async (req, res, next) => {
-    //     console.log("req.body", req.body); // Fixed to log req.body instead of res
-    //     try {
-    //         let { reportId, reportName = "", vertical, selectKeys, companyId, user } = req.body;
-    //         reportId = req.params.rid || reportId;
-    //         selectKeys = req.query.select;
-    
-    //         let query = Reports.find(); // Start with a basic find query
-    
-    //         // Apply user-based vertical filter (if applicable)
-    //         if (user && user.strictlyAllowedReportTypes && user.strictlyAllowedReportTypes.length) {
-    //             query.where({ vertical: { $in: user.strictlyAllowedReportTypes } });
-    //         }
-    
-    //         // Filter by reportId if provided
-    //         if (reportId) {
-    //             query.where({ _id: new mongoose.Types.ObjectId(reportId) });  // Ensure ObjectId instantiation
-    //             query.select("me.start_year me.end_year me.base_year me.segment me.geo_segment me.data me.status");
-    //         }
-    
-    //         // Filter by reportName if provided
-    //         if (reportName) {
-    //             query.where({
-    //                 searching_title: {
-    //                     $regex: new RegExp(reportName, "i")
-    //                 },
-    //                 approved: true
-    //             });
-    //         }
-    
-    //         // Apply reportIds filter if the user has a list of allowed report IDs
-    //         if (user && user.reportIds && user.reportIds.length) {
-    //             query.where({ _id: { $in: user.reportIds } });
-    //         }
-    
-    //         // Filter by vertical if provided
-    //         if (vertical) {
-    //             query.where({ vertical: vertical });
-    //         }
-    
-    //         // Always ensure reports are approved
-    //         query.where({ approved: true });
-    
-    //         // Handle selectKeys if provided
-    //         if (selectKeys) {
-    //             let selKeysArr = selectKeys.split(",");
-    //             [
-    //                 "title",
-    //                 "vertical",
-    //                 "category",
-    //                 "owner",
-    //                 "status",
-    //                 "approver",
-    //                 "tocList",
-    //                 "title_prefix"
-    //             ].forEach(item => {
-    //                 if (!selKeysArr.includes(item)) {
-    //                     selKeysArr.push(item); // Add default fields if not present in selectKeys
-    //                 }
-    //             });
-    //             query.select(selKeysArr); // Apply the selected fields
-    //         } else {
-    //             // If selectKeys are not provided, use default fields
-    //             query.select("title vertical category owner status approver tocList title_prefix");
-    //         }
-    
-    //         // Apply companyId filter if provided
-    //         if (companyId) {
-    //             query.where({ "cp.company_id": companyId });
-    //         }
-    
-    //         // Execute the query
-    //         const report = await query.lean().exec({ virtuals: true });
-    //         console.log("reportdata", report);
-    
-    //         res.json({ data: report });
-    
-    //     } catch (error) {
-    //         next(error); // Pass any errors to error-handling middleware
-    //     }
-    // },
+      fetchReportCp: async (req, res, next) => {
+        console.log("req.body", req.body); // Fixed to log req.body instead of res
+        try {
+          const reportId = req.params.rid || null;
+          const reportName = req.query.title || null;
+          const vertical = req.query.vertical || null;
+          const companyId = req.query.cid || null;
+          const selectKeys = req.query.select || "";
+      
+          try {
+            // Fetch report data from the database
+            const query = Reports.find();
+            const selectObj = {
+              _id: 1,
+              title: 1,
+              status: 1,
+              "cp.$": 1,
+            };
+      
+            if (!utilities.isEmpty(companyId)) {
+              query.where({ "cp.company_id": companyId });
+            }
+      
+            query.select(selectObj);
+            query.sort({ updatedAt: -1 });
+      
+            const reportData = await query.lean().exec({ virtuals: true });
+      
+            console.log("reportData", reportData);
+      
+            if (!utilities.isEmpty(reportData.errors)) {
+              return res.status(400).json({
+                success: false,
+                error: "Bad Request",
+                details: reportData.errors,
+              });
+            }
+      
+            return res.status(200).json({ success: true, data: reportData });
+          } catch (er) {
+            console.error("Error in fetching report:", er);
+            return res.status(500).json({
+              success: false,
+              error: "Internal Server Error",
+              details: er.message,
+            });
+          }
+        } catch (er) {
+          next(er)
+          return res.status(500).json({
+            success: false,
+            error: "Internal Server Error",
+            details: er.message,
+          });
+        }
+    },
 
     fetchMe: async (req, res, next) => {
       try {
@@ -269,7 +297,7 @@ module.exports = {
         next(error);
       }
     },
-    searchReportTitle: async (req, res, next)=>{
+    fetchCpp : async (req, res, next)=>{
       try {
         let { reportName, vertical, selectKeys, companyId } = req.query;
         let { rid } = req.params;
@@ -278,7 +306,12 @@ module.exports = {
         let query = { approved: true }; 
     
         if (rid) query._id = new mongoose.Types.ObjectId(rid);
-        if (reportName) {query.searching_title = { $regex: new RegExp(reportName, "i") };}    
+        if (reportName)  query.where({
+          searching_title: {
+            $regex: new RegExp(reportName, "i")
+          },
+          approved: true
+        });
         if (vertical) query.vertical = vertical;
         if (companyId) query["cp.company_id"] = companyId;
         
@@ -290,7 +323,7 @@ module.exports = {
           query._id = { $in: user.reportIds };
         }
     
-        const reports = await Reports.find(query).select("title isAnalytics approved isExcel isPdf isDoc pdfLink excelLink docLink me").lean();
+        const reports = await Reports.find(query).select("title category vertical cp me.start_year me.end_year me.base_year overlaps owner tocList status title_prefix youtubeContents").lean();
     
         if (!reports.length) {
           return res.status(404).json({ message: "No reports found" });
@@ -301,20 +334,114 @@ module.exports = {
         next(error);
       }
     },
-       
-      getReportByKeys: async (req, res, next) => {
-        try {
-          const { reportId, keyString = "" } = req.body;
-          const query = Reports.find();
-          query.where({ _id: mongoose.Types.ObjectId(reportId) });
-          if (keyString) {
-            query.select(keyString);
-          }
-          const report = await query.lean().exec({ virtuals: true });
-          res.json({data:report});
-        } catch (error) {
-          next(error);
+
+    getReportCpData : async (req, res, next) => {
+      try {
+        let { reportName, vertical, selectKeys, companyId } = req.query;
+        let { rid } = req.params;
+        let user = req.user; 
+    
+        let query = { approved: true }; 
+    
+        if (rid) query._id = new mongoose.Types.ObjectId(rid);
+        if (reportName)  
+          query.where({
+            searching_title: {
+              $regex: new RegExp(reportName, "i")
+            },
+            approved: true
+          });
+        if (vertical) query.vertical = vertical;
+        if (companyId) query["cp.company_id"] = companyId;
+        
+        // Fixing Optional Chaining Issue
+        if (user && user.strictlyAllowedReportTypes && user.strictlyAllowedReportTypes.length) {
+          query.vertical = { $in: user.strictlyAllowedReportTypes };
         }
+        
+        if (user && user.reportIds && user.reportIds.length) {
+          query._id = { $in: user.reportIds };
+        }
+    
+        const data = await Reports.find(query)
+          .select("cp")
+          .lean();
+    
+        if (!data.length) {
+          return res.status(404).json({ message: "No reports found" });
+        }
+        const formattedData = {
+          ...data[0], // Take the first object from the array
+          id: data[0]._id, // Rename `_id` to `id`
+        };
+        delete formattedData._id; // Remove `_id` after renaming
+    
+        res.json({ data: formattedData }); // Return as an object instead of an array
+      } catch (error) {
+        next(error);
+      }
+    },
+
+    searchReportTitle: async (req, res, next) => {
+      try {
+        let { reportName, vertical, selectKeys, companyId } = req.query;
+        let { rid } = req.params;
+        let user = req.user; 
+    
+        let query = { approved: true }; 
+    
+        if (rid) query._id = new mongoose.Types.ObjectId(rid);
+        if (reportName) query.searching_title = { $regex: new RegExp(reportName, "i") };
+        if (vertical) query.vertical = vertical;
+        if (companyId) query["cp.company_id"] = companyId;
+        
+        if (user?.strictlyAllowedReportTypes?.length) {
+          query.vertical = { $in: user.strictlyAllowedReportTypes };
+        }
+    
+        if (user?.reportIds?.length) {
+          query._id = { $in: user.reportIds };
+        }
+    
+        // Run DB query and API call in parallel
+        let dbPromise = Reports.find(query)
+          .select("title isAnalytics approved isExcel isPdf isDoc pdfLink excelLink docLink")
+          .lean();
+    
+        let apiPromise = reportName
+          ? axios.get(
+              `https://www.marketresearchfuture.com/platform-data?access_key=e4e98249d561da9&report_title=${reportName}`,
+              { timeout: 2000 } // Set 3-second timeout
+            ).then(response => response?.data[0]?.searchreports?.map(o => ({ id: o[0], title: o[1] })))
+            .catch(error => {
+              console.error("Error fetching premium reports:", error.message);
+              return [];
+            })
+          : Promise.resolve([]);
+    
+        // Execute both in parallel
+        let [reports, premiumReports] = await Promise.all([dbPromise, apiPromise]);
+    
+        let reportData = [...(reports || []), ...(premiumReports || [])];
+    
+        if (!reportData.length) {
+          return res.status(404).json({ message: "No reports found" });
+        }
+    
+        res.json({ data: reportData });
+    
+      } catch (error) {
+        next(error);
+      }
+    },
+       
+      getReportByKeys: async (reportId, keyString = "") => {
+        const query = Reports.find();
+        query.where({ _id: new mongoose.Types.ObjectId(reportId) });
+        if (keyString) {
+          query.select(keyString);
+        }
+        return query.lean().exec({ virtuals: true });
       },
     
       searchReportByName: async (req, res, next) => {
@@ -401,26 +528,27 @@ module.exports = {
         }
       },
 
-      getSectionDetailsFromSectionKey: async (req, res, next) => {
+      getSectionDetailsFromSectionKey: async (reportId, sectionKey) => {
         try {
-          const { reportId, sectionKey } = req.body;
-          let matchQuery = {};
-          matchQuery = { ...matchQuery, ...{ _id: mongoose.Types.ObjectId(reportId) } };
-          matchQuery = {
-            ...matchQuery,
-            ...{
-              "tocList.section_key": {
-                $regex: new RegExp(`.*${sectionKey.toLowerCase()}.*`, "i")
-              }
-            }
+          // Validate reportId
+          if (!mongoose.Types.ObjectId.isValid(reportId)) {
+            throw new Error("Invalid reportId format");
+          }
+    
+          const matchQuery = {
+            _id: new mongoose.Types.ObjectId(reportId),
+            "tocList.section_key": { $regex: new RegExp(sectionKey, "i") }
           };
     
           const selectObj = { "tocList.$": 1 };
-          const query = Reports.findOne(matchQuery, selectObj);
-          const sectionDetails = await query.lean().exec({ virtuals: true });
-          res.json({data:sectionDetails});
+    
+          // Fetch data using async/await
+          const result = await Reports.findOne(matchQuery, selectObj).lean().exec();
+    
+          return result;
         } catch (error) {
-          next(error);
+          console.error("Error fetching section details:", error);
+          throw error; // Ensure error is propagated
         }
       },
     
@@ -571,17 +699,59 @@ module.exports = {
       },
     
       getCompanyReportDataByKey: async (req, res, next) => {
-        try {
-          const { reportId, companyId, key } = req.body;
-          const query = Reports.find({ _id: mongoose.Types.ObjectId(reportId) }, "title");
-          if (!utilities.isEmpty(companyId) && !utilities.isEmpty(key)) {
-            query.findOne({ "cp.company_id": companyId }, `cp._id cp.company_name cp.company_id cp.${key}`);
-          }
-          const result = await query.lean().exec({ virtuals: true });
-          res.json({data:result});
-        } catch (error) {
-          next(error);
-        }
+       try {
+    const reportId = req.params["rid"];
+    const companyId = req.query["cid"];
+    const key = req.query["key"];
+    
+    try {
+      console.log("reportId", reportId);
+      
+      let query = Reports.find(
+        { _id: mongoose.Types.ObjectId(reportId) },
+        "title"
+      );
+
+      if (!utilities.isEmpty(companyId) && !utilities.isEmpty(key)) {
+        query = query.findOne(
+          { "cp.company_id": companyId },
+          `cp._id cp.company_name cp.company_id cp.${key}`
+        );
+      }
+
+      console.log("query", query);
+      
+      const cpData = await query.lean().exec({ virtuals: true }) || {};
+
+      if (!utilities.isEmpty(cpData.errors)) {
+        return utilities.sendErrorResponse(
+          HTTPStatus.BAD_REQUEST,
+          true,
+          cpData.errors,
+          res
+        );
+      } else {
+        return utilities.sendResponse(HTTPStatus.OK, cpData, res);
+      }
+    } catch (er) {
+      console.error(
+        `Exception in fetching company report data for company (${companyId}) and report (${reportId}) : ${er}`
+      );
+      return utilities.sendErrorResponse(
+        HTTPStatus.INTERNAL_SERVER_ERROR,
+        true,
+        er.message,
+        res
+      );
+    }
+  } catch (er) {
+    return utilities.sendErrorResponse(
+      HTTPStatus.INTERNAL_SERVER_ERROR,
+      true,
+      er,
+      res
+    );
+  }
       },
     
       getReportMenuItems: async (req, res, next) => {

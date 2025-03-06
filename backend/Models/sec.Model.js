@@ -1,4 +1,5 @@
-import mongoose, { Schema } from 'mongoose';
+const mongoose = require('mongoose');
+const { Schema, SchemaTypes } = mongoose;
 
 const secEdgarSchema = new Schema({
     cik: { type: Schema.Types.String },

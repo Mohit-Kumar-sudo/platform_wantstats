@@ -243,7 +243,7 @@ const getTextForViews = (viewRecords, viewKey, meData, reportTitle)=>{
         templateStr = textConstants[viewKey];
       }
       if (ele.value) {
-        console.log(ele.value);
+        // console.log(ele.value);
         let metric = ele.metric || 'Mn';
         const tableData = ele.value;
         let maxCAGRValue = -1;
@@ -304,7 +304,7 @@ const getTextForViews = (viewRecords, viewKey, meData, reportTitle)=>{
         } else {
           templateStr = templateStr.replace('<mark>', '');
         }
-        console.log('Template String', templateStr)
+        // console.log('Template String', templateStr)
         if (viewKey === dataConstants.ME_VIEWS.MARKET_BY_REGION) {
           maxValueRowHeader = _.find(compareArr, d => { if (d && d.toLowerCase() === maxValueRowHeader.toLowerCase()) { return d } }) ? maxValueRowHeader : `${maxValueRowHeader} segment`;
           maxCAGRRowHeader = _.find(compareArr, d => { if (d && d.toLowerCase() == maxCAGRRowHeader.toLowerCase()) { return d } }) ? maxCAGRRowHeader : `${maxCAGRRowHeader} segment`;
@@ -327,7 +327,7 @@ const getTextForViews = (viewRecords, viewKey, meData, reportTitle)=>{
         replacedStr = replacedStr.replace(/<degree_of_comparision>/ig, degree_of_comparision);
         replacedStr = replacedStr.replace(/<currency_unit>/ig, currency);
         ele.text = replacedStr;
-        console.log(viewRecords.key, replacedStr);
+        // console.log(viewRecords.key, replacedStr);
       } else {
         ele.text = "";
       }
@@ -363,7 +363,7 @@ const getMESegmentViewData = async(reportId, value = "1", viewKey)=>{
   return (segRes);
 };
 
-const getAndUpdateSegmentNames = async (data) =>{
+const getAndUpdateSegmentNames = (data) =>{
   data.me.segment.forEach(item => {
     item.name = item.name.split(' ').join('_').toLowerCase();
     item.name = item.name.split('-').join('_').toLowerCase();
@@ -434,7 +434,7 @@ module.exports = {
       segs.forEach(item => {
         const name = item.name.split('.').join('_');
         const apiRegionKey = `geography_${_.toLower(name).split(' ').join('_').split('-').join('_').split('(').join('').split(')').join('')}_parent_value`;
-        console.log('apiRegionKey', apiRegionKey)
+        // console.log('apiRegionKey', apiRegionKey)
         result = _.find(data.me.data, ['key', apiRegionKey]);
         if (result) {
           result.title = `${item.name.toUpperCase()} BY REGIONS`;
@@ -464,8 +464,8 @@ module.exports = {
       });
       utilities.sendResponse(HTTPStatus.OK, dataList, res);
     } catch (er) {
-      console.log(er)
-      utilities.sendErrorResponse(HTTPStatus.INTERNAL_SERVER_ERROR, true, er, res);
+      console.error('Error in getBySegment:', er);
+      return utilities.sendErrorResponse(HTTPStatus.INTERNAL_SERVER_ERROR, true, er, res);
     }
   },
 
@@ -508,9 +508,9 @@ module.exports = {
       const value = req.query.value && req.query.value;
       const mainSectionId = req.query.mainSectionId;
       const sectionPid = req.query.sectionPid;
-      console.log("reportId", reportId);
-      console.log("viewKey", viewKey);
-      console.log("value", value)
+      // console.log("reportId", reportId);
+      // console.log("viewKey", viewKey);
+      // console.log("value", value)
       const meData = await getMEViewsDataService(reportId, viewKey, value, mainSectionId, sectionPid) || {};
       if (!utilities.isEmpty(meData.errors)) {
         const errObj = meData.errors;

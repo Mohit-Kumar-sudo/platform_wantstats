@@ -1,7 +1,8 @@
-import mongoose, { Schema, SchemaTypes } from 'mongoose';
-import SecondaryContentSchema from '../secondary_content/sc.schema';
-import DATA_CONSTANTS from '../../config/dataConstants';
-import uniqueValidator from 'mongoose-unique-validator';
+const mongoose = require('mongoose');
+const { Schema, SchemaTypes } = mongoose;
+const SecondaryContentSchema = require('./Secondarycontent.Model');
+const DATA_CONSTANTS = require('../config/dataConstants');
+const uniqueValidator = require('mongoose-unique-validator');
 
 // Market Estimation schema
 const CompanyProfileSchema = new Schema(
