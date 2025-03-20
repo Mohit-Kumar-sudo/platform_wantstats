@@ -14,6 +14,19 @@ const axios = require("axios");
 const reportService = require('../service/report.service')
 
 
+const getReportNameString = (req, res, next) => {
+  try {
+    const str = req.params.str;
+    let temp = str.replace(/[^a-zA-Z0-9 ]/g, " ").trim();
+    temp = temp.replace(/ {2,}/g, " ");
+    temp = temp.split(" ").join(" ");
+    res.json({data:{ sanitizedString: temp }});
+  } catch (error) {
+    next(error);
+  }
+};
+
+
 module.exports = {
     createReport: async (req, res, next) => {
         try {
@@ -102,19 +115,6 @@ module.exports = {
         }
     },
     
-    
-      getReportNameString: (req, res, next) => {
-        try {
-          const str = req.params.str;
-          let temp = str.replace(/[^a-zA-Z0-9 ]/g, " ").trim();
-          temp = temp.replace(/ {2,}/g, " ");
-          temp = temp.split(" ").join(" ");
-          res.json({data:{ sanitizedString: temp }});
-        } catch (error) {
-          next(error);
-        }
-      },
-
       fetchReport: async (req, res) => {
         try {
           const reportId = req.params.rid || null;
@@ -708,7 +708,7 @@ module.exports = {
       console.log("reportId", reportId);
       
       let query = Reports.find(
-        { _id: mongoose.Types.ObjectId(reportId) },
+        { _id: new mongoose.Types.ObjectId(reportId) },
         "title"
       );
 

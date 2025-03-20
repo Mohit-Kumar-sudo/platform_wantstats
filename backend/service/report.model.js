@@ -22,9 +22,7 @@ module.exports = {
         );
       } else if (reportName) {
         query.where({
-          searching_title: {
-            $regex: new RegExp(reportName, "i")
-          },
+          searching_title: { $regex: `\\b${reportName}\\b`, $options: "i" },
           approved: true
         });
       }
@@ -82,9 +80,7 @@ module.exports = {
       } else if (reportName) {
         query.push({
           $match: {
-            searching_title: {
-              $regex: new RegExp(reportName, "i")
-            },
+            searching_title: { $regex: `\\b${reportName}\\b`, $options: "i" },
             approved: true
           }
         });

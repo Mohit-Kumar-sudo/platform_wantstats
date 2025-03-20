@@ -46,14 +46,14 @@
                     <strong>{{ report?.title }}</strong>&nbsp;&nbsp;&nbsp;
                   </p>
                   <div class="iconset">
-                    <a *ngIf="report?.isPdf" style="margin-left: 15px" title="PDF"
+                    <a *ngIf="report?.isPdf && permissions.pdfOpen" style="margin-left: 15px" title="PDF"
                       class="report-icon" (click)="visitPdf(report._id, report.pdfLink)"><i
                         class="fa fa-file-pdf-o"></i></a>
                     <a *ngIf="report?.isExcel && isSubscribed" href="{{ report?.excelLink }}" title="ME Data"
                       class="report-icon"><i class="fa fa-file-excel-o"></i></a>
                     <a *ngIf="report?.isDoc && isSubscribed" href="{{ report?.docLink }}" title="Doc File"
                       class="report-icon"><i class="fa fa-file-word-o"></i></a>
-                    <a *ngIf="report?.isPdf"
+                    <a *ngIf="report?.isPdf && !permissions.pdfOpen"
                       title="This feature is not available with your current subscription" disabled
                       class="report-icon disabled-cursor"><i class="fa fa-file-pdf-o"></i></a>
                     <a *ngIf="report?.isExcel && !isSubscribed"
@@ -113,14 +113,14 @@
                   <strong>{{ report?.title }}</strong>&nbsp;&nbsp;&nbsp;
                 </p>
                 <div class="iconset">
-                  <a *ngIf="report?.isPdf" style="margin-left: 15px" title="PDF"
+                  <a *ngIf="report?.isPdf && permissions.pdfOpen" style="margin-left: 15px" title="PDF"
                     class="report-icon" (click)="visitPdf(report._id, report.pdfLink)"><i
                       class="fa fa-file-pdf-o"></i></a>
                   <a *ngIf="report?.isExcel && isSubscribed" href="{{ report?.excelLink }}" title="ME Data"
                     class="report-icon"><i class="fa fa-file-excel-o"></i></a>
                   <a *ngIf="report?.isDoc && isSubscribed" href="{{ report?.docLink }}" title="Doc File"
                     class="report-icon"><i class="fa fa-file-word-o"></i></a>
-                  <a *ngIf="report?.isPdf"
+                  <a *ngIf="report?.isPdf && !permissions.pdfOpen"
                     title="This feature is not available with your current subscription" disabled
                     class="report-icon disabled-cursor"><i class="fa fa-file-pdf-o"></i></a>
                   <a *ngIf="report?.isExcel && !isSubscribed"

@@ -158,6 +158,7 @@ export class IndustryReportsComponent implements OnInit {
 
     const permissions = this.authService.getUserPermissions();
     this.permissions = permissions;
+    // console.log("permissions",this.permissions)
     const queryParams = this.activatedRoute.snapshot.queryParams;
     this.industryReports = queryParams['industryReports'] === 'true';
     this.companies = queryParams['companies'] === 'true';
@@ -199,6 +200,7 @@ export class IndustryReportsComponent implements OnInit {
       if (data) {
         this.spinner.hide();
         this.allReports = data.data;
+        // console.log("this.allReports",this.allReports)
         this.allReports.forEach((item) => {
           item.title = this.modifyTitle(item.title);
         });
