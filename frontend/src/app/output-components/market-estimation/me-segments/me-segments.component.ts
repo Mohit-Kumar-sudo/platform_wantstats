@@ -287,7 +287,7 @@ export class MeSegmentsComponent implements OnInit {
         }
 
         this.pieData = {
-          'title': `${this.reportName} Market [${this.base_year}] by ${this.MarketEstimationService.getTitle(e.title, this.segments)} - (${pieMetric})`,
+          'title': `${this.reportName} Market [${this.base_year}]  ${this.MarketEstimationService.getTitle(e.title, this.segments)} - (${pieMetric})`,
           'source': 'Wantstats',
           'calType': 'BY_VALUE',
           'columns': []
@@ -481,14 +481,14 @@ export class MeSegmentsComponent implements OnInit {
           });
         }
         if (e.title && e.title.includes('BY SUB-SEGMENTS')) {
-          this.chart_title.push(this.reportName + ' Market [' + this.startYear + '-' + this.endYear + '] by ' + this.MarketEstimationService.getTitle(e.title, this.segments));
+          this.chart_title.push(this.reportName + ' Market [' + this.startYear + '-' + this.endYear + '] ' + this.MarketEstimationService.getTitle(e.title, this.segments));
         } else if (e.title) {
           this.chart_title.push(this.reportName + ' Market [' + this.startYear + '-' + this.endYear + ']' + ', ' + this.MarketEstimationService.getTitle(e.title, this.segments));
         }
 
         let barTitle = '';
         if (e.title.includes('BY SUB-SEGMENTS')) {
-          barTitle = this.reportName + ' Market [' + this.startYear + '-' + this.endYear + '] by ' + this.MarketEstimationService.getTitle(e.title, this.segments);
+          barTitle = this.reportName + ' Market [' + this.startYear + '-' + this.endYear + '] ' + this.MarketEstimationService.getTitle(e.title, this.segments);
           this.tabSelected = this.selectedSegment;
           this.subSegmentSelected = '';
         } else {
@@ -556,7 +556,7 @@ export class MeSegmentsComponent implements OnInit {
 
           let tableTitle = '';
           if (e.title && e.title.includes('BY SUB-SEGMENTS')) {
-            tableTitle = `${this.reportName} Market [${this.startYear} - ${this.endYear}] by ${this.MarketEstimationService.getTitle(e.title, this.segments)} - (${tableMetric})`;
+            tableTitle = `${this.reportName} Market [${this.startYear} - ${this.endYear}] ${this.MarketEstimationService.getTitle(e.title, this.segments)} - (${tableMetric})`;
           } else if (e.title) {
             tableTitle = `${this.reportName} Market [${this.startYear} - ${this.endYear}], ${this.MarketEstimationService.getTitle(e.title, this.segments)} - (${tableMetric})`;
           }

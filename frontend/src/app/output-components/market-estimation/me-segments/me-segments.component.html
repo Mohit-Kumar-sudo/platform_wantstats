@@ -4,7 +4,7 @@
       <div class="col-9 m8">
         <div class="">
           <div class="down-header container-fluid">Market Estimation, {{reportName}} Market [{{startYear}} -
-            {{endYear}}] By {{selectedSegment | replaceUnderscoreWithSpace}}</div>
+            {{endYear}}] {{selectedSegment | replaceUnderscoreWithSpace}}</div>
           <div class="">
             <div *ngFor="let report of reportDataArray; let i = index">
               <div *ngIf="i > 0" class="down-header container-fluid">{{chart_title[i]}}</div>
