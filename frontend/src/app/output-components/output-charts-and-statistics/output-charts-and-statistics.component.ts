@@ -216,6 +216,21 @@ export class OutputChartsAndStatisticsComponent implements OnInit {
     this.excelDownloadService.downloadExcel(this.chartsData);
   }
 
+  private normalizeTitle(title: string): string {
+  if (!title) return '';
+  
+  // Remove duplicate 'by'
+  title = title.replace(/\bby\s+by\b/i, 'by');
+
+  // Ensure there is at least one 'by' if the format expects it
+  // (This is basic logic; you can adjust regex according to your patterns)
+  if (!/ by /i.test(title) && /market|region|segment/i.test(title)) {
+    title = title.replace(/(\[?\d{4}-\d{4}\]?)$/, '$1 by'); // Add 'by' after year range
+  }
+
+  return title;
+}
+
   generatePieData(data, matchValue, results, suggested, years) {
     this.dataStore = [];
     if (data.data && data.data.length) {
@@ -230,7 +245,7 @@ export class OutputChartsAndStatisticsComponent implements OnInit {
         ) {
           this.textData = e.text;
           this.pieData = {
-            title: `${results.title} - (USD ${e.metric ? e.metric : 'Mn'})`,
+            title: `${this.normalizeTitle(results.title)} - (USD ${e.metric ? e.metric : 'Mn'})`,
             source: 'Wantstats',
             calType: 'BY_VALUE',
             columns: [],
@@ -335,7 +350,7 @@ export class OutputChartsAndStatisticsComponent implements OnInit {
       });
 
       this.barData = {
-        title: `${results.title} - (USD ${this.metric ? this.metric : 'Mn'})`,
+       title: `${this.normalizeTitle(results.title)} - (USD ${this.metric ? this.metric : 'Mn'})`,
         source: 'Wantstats',
         columnMetaData: colMetaData,
         dataStore: this.dataForBarChart,
