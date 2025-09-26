@@ -299,7 +299,7 @@ export class OutputChartsAndStatisticsComponent implements OnInit {
     }
   }
 
-  generateBarData(results, suggested) {
+ generateBarData(results, suggested) {
     // console.log("results",results)
     let colMetaData = [];
     let allHeaders = [];
@@ -342,22 +342,24 @@ export class OutputChartsAndStatisticsComponent implements OnInit {
         labelY: 'USD ' + this.metric + '',
       };
     }
+    let cleanText = this.textData.replace(/<\/?mark>/g, '');
     let dataContents = {
       data: JSON.stringify(this.barData),
       order_id: 2,
       type: 'BAR',
-      text: this.textData,
+      text: cleanText,
     };
+    // console.log("text",this.textData)
     if (suggested === null) {
       this.chartsData =
         this.reportSectionService.convertToBarChartFormat(dataContents);
+        // console.log("this.chartsData8",this.chartsData)
     } else if (suggested) {
       this.suggestionsCharts.push(
         this.reportSectionService.convertToBarChartFormat(dataContents)
       );
     }
   }
-
   getResult(results, suggested, years) {
     // console.log("results",results)
     // console.log("suggested",suggested)
